@@ -1,0 +1,45 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { withBase } from "../../lib/paths";
+---
+
+<BaseLayout title="Blog" description="用原始公告、可复算数据和明确边界记录牧原经营变化。" active="blog">
+  <section class="blog-index-page page-width">
+    <div class="blog-index-hero">
+      <p class="section-label">EVIDENCE-LED NOTES</p>
+      <h1>Research Blog</h1>
+      <p>不是复述公告，也不是复制别人的结论。每篇文章都从官方 PDF 出发，把事实、推导、情景与判断分开。</p>
+    </div>
+
+    <div class="blog-featured-grid">
+      <a class="blog-index-card featured" href={withBase("blog/muyuan-2026-h1-review/")}>
+        <span class="blog-card-index">01 · HALF-YEAR REVIEW</span>
+        <h2>牧原股份 2026 年半年报分析</h2>
+        <p>猪价、成本、屠宰与现金流：亏损之外，核心经营机器发生了什么？</p>
+        <div><span>2026-08-21</span><span>12 min read</span></div>
+        <b>Read analysis →</b>
+      </a>
+      <a class="blog-index-card" href={withBase("blog/muyuan-2026-07-sales/")}>
+        <span class="blog-card-index">02 · MONTHLY MONITOR</span>
+        <h2>牧原股份 2026 年 7 月销售简报分析</h2>
+        <p>从 666.1 万头和 88.97 亿元，推导重量、价格变化与成本敏感性。</p>
+        <div><span>2026-08-21</span><span>9 min read</span></div>
+        <b>Read analysis →</b>
+      </a>
+    </div>
+
+    <section class="blog-method-card">
+      <div><span>01</span><strong>Original PDF</strong><small>先回到公司公告</small></div>
+      <i>→</i>
+      <div><span>02</span><strong>FACT</strong><small>记录页码与口径</small></div>
+      <i>→</i>
+      <div><span>03</span><strong>DERIVED</strong><small>公式可以复算</small></div>
+      <i>→</i>
+      <div><span>04</span><strong>JUDGMENT</strong><small>说明什么没有改变</small></div>
+    </section>
+
+    <a class="report-library-cta" href={withBase("companies/muyuan/reports/")}>
+      <div><span>REPORT LIBRARY</span><strong>牧原官方报告索引</strong><p>半年报、2026 年 1–7 月销售简报、2021–2025 年报 PDF 直链。</p></div><b>打开报告中心 ↗</b>
+    </a>
+  </section>
+</BaseLayout>

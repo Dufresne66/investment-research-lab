@@ -1,0 +1,104 @@
+---
+import BlogLayout from "../../layouts/BlogLayout.astro";
+import LineChart from "../../components/LineChart.astro";
+import publication from "../../data/publications/muyuan-2026.json";
+import reports from "../../data/reports/muyuan.json";
+import { withBase } from "../../lib/paths";
+
+const rows = publication.monthly;
+const july = rows.at(-1)!;
+const june = rows.at(-2)!;
+const source = reports.monthly.find((report) => report.source_id === publication.july.source_id)!;
+const priceSeries = rows.map((row) => ({ label: row.month, value: row.price }));
+const weightSeries = rows.map((row) => ({ label: row.month, value: row.implied_weight }));
+---
+
+<BlogLayout
+  title="牧原股份 2026 年 7 月销售简报分析"
+  subtitle="不采用未经验证的精确利润：先把官方数据、可复算推导和成本情景分开。"
+  eyebrow="MONTHLY OPERATING MONITOR · 2026/07"
+  date="2026-08-21"
+  readTime="9 min read"
+  tags={["月度跟踪", "单位经济", "FACT / DERIVED", "牧原股份"]}
+  description="基于牧原 2026 年 7 月销售简报，拆解销量、收入、均价、隐含重量与成本敏感性。"
+>
+  <section class="blog-lede">
+    <span>三句话结论</span>
+    <ol>
+      <li>7 月销量、收入和价格均环比回升，但价格同比仍下降 25.59%，周期压力没有消失。</li>
+      <li>由官方数据可反推隐含销售重量 125.53 kg/头；它不是公司披露的育肥猪平均出栏重。</li>
+      <li>月报没有披露 7 月成本，因此 -7.19 亿元只能是“成本取 11.5”的情景，不是公告事实。</li>
+    </ol>
+  </section>
+
+  <section class="blog-section">
+    <div class="blog-section-heading"><span>01</span><div><p>WHAT HAPPENED</p><h2>价格回升，让收入增长快于销量</h2></div></div>
+    <div class="metric-grid four">
+      <article><span>FACT · PDF p.1</span><strong>{july.volume}<small>万头</small></strong><p>商品猪销量</p><i>环比 +{publication.july.volume_mom}%</i></article>
+      <article><span>FACT · PDF p.1</span><strong>{july.revenue}<small>亿元</small></strong><p>销售收入</p><i>环比 +{publication.july.revenue_mom}%</i></article>
+      <article><span>FACT · PDF p.1</span><strong>{july.price}<small>元/kg</small></strong><p>销售均价</p><i>环比 +{publication.july.price_mom}%</i></article>
+      <article class="derived"><span>DERIVED</span><strong>{july.implied_weight}<small>kg/头</small></strong><p>隐含销售重量</p><i>公式反推</i></article>
+    </div>
+    <p class="analysis-copy">6 月到 7 月，销量由 {june.volume} 万头升至 {july.volume} 万头，均价由 {june.price} 元/kg 升至 {july.price} 元/kg。两项共同推动收入环比增长 {publication.july.revenue_mom}%。但同比维度仍是另一幅图景：7 月均价同比下降 {Math.abs(publication.july.price_yoy)}%，收入同比下降 {Math.abs(publication.july.revenue_yoy)}%。</p>
+  </section>
+
+  <section class="blog-section">
+    <div class="blog-section-heading"><span>02</span><div><p>THE OPERATING DASHBOARD</p><h2>把七个月放进同一张表</h2></div></div>
+    <div class="table-scroll">
+      <table class="research-data-table">
+        <thead><tr><th>月份</th><th>销量<br />万头</th><th>累计销量<br />万头</th><th>收入<br />亿元</th><th>均价<br />元/kg</th><th>隐含重量<br />kg/头</th><th>类型</th></tr></thead>
+        <tbody>{rows.map((row) => <tr class:list={[row.month === "7月" && "current-row"]}><td>{row.month}</td><td>{row.volume}</td><td>{row.cumulative_volume}</td><td>{row.revenue.toFixed(2)}</td><td>{row.price.toFixed(2)}</td><td>{row.implied_weight.toFixed(2)}</td><td><span class="data-type">FACT + DERIVED</span></td></tr>)}</tbody>
+      </table>
+    </div>
+    <p class="table-note">销量、收入、均价来自 `MY-SRC-MS-2026-07` PDF p.1；隐含重量按统一公式计算。公司提示这些月度数据未经审计。</p>
+
+    <div class="chart-grid">
+      <LineChart title="商品猪销售均价" subtitle="2026 年 1–7 月" data={priceSeries} unit="元/kg" color="cyan" />
+      <LineChart title="隐含销售重量" subtitle="收入 ÷ 销量 ÷ 均价" data={weightSeries} unit="kg/头 · DERIVED" color="gold" />
+    </div>
+  </section>
+
+  <section class="blog-section">
+    <div class="blog-section-heading"><span>03</span><div><p>REPRODUCIBLE DERIVATION</p><h2>125.53 kg/头是怎样算出来的</h2></div></div>
+    <div class="equation-card">
+      <span>Revenue = Q × W × P</span>
+      <strong>W = 88.97 亿元 ÷ 666.1 万头 ÷ 10.64 元/kg</strong>
+      <b>= 125.53 kg/头</b>
+    </div>
+    <p class="analysis-copy">这个推导帮助我们区分收入变化来自数量、重量还是价格，但它有明确边界：商品猪可能包含不同结构，平均售价也可能受结构影响。因此它只能叫“隐含销售重量”，不能直接命名为育肥猪出栏均重。</p>
+  </section>
+
+  <section class="blog-section">
+    <div class="blog-section-heading"><span>04</span><div><p>COST SENSITIVITY</p><h2>不猜一个成本，展示三个情景</h2></div></div>
+    <div class="evidence-alert warning"><span>SCENARIO</span><p>7 月销售简报没有披露完全养殖成本。以下只说明利润对成本假设有多敏感，不代表公司 7 月真实养殖利润。</p></div>
+    <div class="table-scroll">
+      <table class="research-data-table sensitivity-table">
+        <thead><tr><th>假设完全成本</th><th>售价 `P`</th><th>`P-C`</th><th>养殖盈亏粗估</th><th>证据状态</th></tr></thead>
+        <tbody>{publication.july.sensitivity.map((scenario) => <tr><td>{scenario.cost.toFixed(1)} 元/kg</td><td>{july.price.toFixed(2)} 元/kg</td><td class="negative">{scenario.spread.toFixed(2)} 元/kg</td><td class="negative">{scenario.estimated_profit.toFixed(2)} 亿元</td><td><span class="scenario-badge">{scenario.label}</span></td></tr>)}</tbody>
+      </table>
+    </div>
+    <p class="table-note">粗估仅使用 `销售公斤数 × (P-C)`，没有拆分猪只结构、内部销售、仔猪/种猪、屠宰、期间费用与其他业务。</p>
+  </section>
+
+  <section class="blog-section">
+    <div class="blog-section-heading"><span>05</span><div><p>WHAT WE DO NOT KNOW</p><h2>公告没有说的，不替它补齐</h2></div></div>
+    <div class="unknown-grid">
+      <article><span>NOT DISCLOSED</span><h3>7 月完全成本</h3><p>11.5 元/kg 需要另一份原始来源，不能归给本月销售简报。</p></article>
+      <article><span>NOT DISCLOSED</span><h3>淘汰母猪结构</h3><p>公众号采用 30 万头拆分，但本简报没有这一数字。</p></article>
+      <article><span>NOT DISCLOSED</span><h3>屠宰头均利润</h3><p>简报只披露屠宰 276.3 万头，没有利润或毛利。</p></article>
+      <article><span>NO CLAIM UPDATE</span><h3>长期成本优势</h3><p>单月价格和销量不能验证 `MY-COST-001`，人工置信度仍为 40%。</p></article>
+    </div>
+  </section>
+
+  <section class="blog-conclusion">
+    <span>INVESTOR VIEW</span><h2>这次月报改变了什么？</h2>
+    <p>它更新了“最近一个月发生什么”：价格从低位回升，销量和收入同步改善。它没有回答“牧原是否拥有长期成本护城河”。下一步有价值的工作是找到 7 月成本的一手出处，并把牧原成本与同行做同口径时间序列，而不是把一个情景利润写得更精确。</p>
+  </section>
+
+  <footer class="blog-source-panel">
+    <div><span>PRIMARY SOURCE</span><strong>{source.source_id}</strong><p>{source.title} · PDF p.1–2 · 数据未经审计</p></div>
+    <a href={source.url} target="_blank" rel="noreferrer">打开巨潮 PDF ↗</a>
+    <a href={withBase("companies/muyuan/reports/")}>全部报告</a>
+    <a href={withBase("blog/muyuan-2026-h1-review/")}>继续读半年报分析 →</a>
+  </footer>
+</BlogLayout>

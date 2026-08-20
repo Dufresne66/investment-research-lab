@@ -1,0 +1,30 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import { withBase } from "../lib/paths";
+
+interface Props {
+  title: string;
+  subtitle: string;
+  eyebrow: string;
+  date: string;
+  readTime: string;
+  tags: string[];
+  description: string;
+}
+
+const { title, subtitle, eyebrow, date, readTime, tags, description } = Astro.props;
+---
+
+<BaseLayout title={title} description={description} active="blog">
+  <article class="blog-page">
+    <header class="blog-hero page-width">
+      <a class="back-row" href={withBase("blog/")}>← Blog</a>
+      <p class="section-label">{eyebrow}</p>
+      <h1>{title}</h1>
+      <p class="blog-subtitle">{subtitle}</p>
+      <div class="blog-meta"><span>{date}</span><span>{readTime}</span><span>牧原股份 · 002714.SZ</span></div>
+      <div class="blog-tags">{tags.map((tag) => <span>{tag}</span>)}</div>
+    </header>
+    <div class="blog-body page-width"><slot /></div>
+  </article>
+</BaseLayout>

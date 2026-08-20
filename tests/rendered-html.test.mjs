@@ -73,6 +73,39 @@ test("builds the full 00–15 Muyuan research path", async () => {
   assert.match(evidence, /MY-EV-2025-COST-001/);
 });
 
+test("publishes the two evidence-led Muyuan analyses", async () => {
+  const monthly = await page("blog/muyuan-2026-07-sales/index.html");
+  assert.match(monthly, /牧原股份 2026 年 7 月销售简报分析/);
+  assert.match(monthly, /666\.1/);
+  assert.match(monthly, /125\.53/);
+  assert.match(monthly, /情景，不是月报事实/);
+  assert.match(monthly, /NOT DISCLOSED/);
+  assert.match(monthly, /MY-SRC-MS-2026-07/);
+  assert.match(monthly, /1225460373\.PDF/);
+
+  const halfYear = await page("blog/muyuan-2026-h1-review/index.html");
+  assert.match(halfYear, /牧原股份 2026 年半年报分析/);
+  assert.match(halfYear, /594\.1/);
+  assert.match(halfYear, /60\.78/);
+  assert.match(halfYear, /11\.7/);
+  assert.match(halfYear, /DERIVED/);
+  assert.match(halfYear, /MY-SRC-H1-2026/);
+  assert.match(halfYear, /1225485220\.PDF/);
+  assert.match(halfYear, /40% 人工置信度/);
+});
+
+test("provides direct official PDFs in the Muyuan report library", async () => {
+  const html = await page("companies/muyuan/reports/index.html");
+  assert.match(html, /牧原官方报告索引/);
+  assert.match(html, /2026 年半年度报告/);
+  assert.match(html, /2026 年 1 月份销售简报/);
+  assert.match(html, /2026 年 7 月份销售简报/);
+  assert.match(html, /2021 年年度报告/);
+  assert.match(html, /2025 年年度报告/);
+  assert.match(html, /static\.cninfo\.com\.cn\/finalpage/);
+  assert.doesNotMatch(html, /href="\/investment-research-lab\/[^"]+\.pdf"/i);
+});
+
 test("keeps the Claim centralized and removes framework dependencies", async () => {
   const packageJson = JSON.parse(await readFile(new URL("package.json", root), "utf8"));
   const dependencies = { ...packageJson.dependencies, ...packageJson.devDependencies };

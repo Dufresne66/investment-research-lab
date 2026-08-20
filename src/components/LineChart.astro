@@ -1,0 +1,78 @@
+---
+interface Point {
+  label: string;
+  value: number;
+}
+
+interface Props {
+  title: string;
+  subtitle: string;
+  data: Point[];
+  unit: string;
+  color?: "cyan" | "gold" | "coral" | "green";
+}
+
+const { title, subtitle, data, unit, color = "cyan" } = Astro.props;
+const width = 760;
+const height = 300;
+const plot = { left: 58, top: 26, width: 666, height: 205 };
+const values = data.map((point) => point.value);
+const rawMin = Math.min(...values);
+const rawMax = Math.max(...values);
+const padding = Math.max((rawMax - rawMin) * 0.18, Math.abs(rawMax) * 0.025, 0.5);
+const min = rawMin - padding;
+const max = rawMax + padding;
+const xFor = (index: number) => plot.left + (data.length === 1 ? plot.width / 2 : (index * plot.width) / (data.length - 1));
+const yFor = (value: number) => plot.top + ((max - value) / (max - min)) * plot.height;
+const polyline = data.map((point, index) => `${xFor(index)},${yFor(point.value)}`).join(" ");
+const grid = Array.from({ length: 5 }, (_, index) => {
+  const ratio = index / 4;
+  return { y: plot.top + plot.height * ratio, value: max - (max - min) * ratio };
+});
+---
+
+<figure class:list={["line-chart", `chart-${color}`]}>
+  <figcaption><strong>{title}</strong><span>{subtitle}</span></figcaption>
+  <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label={`${title}，单位 ${unit}`}>
+    {grid.map((line) => (
+      <g>
+        <line x1={plot.left} x2={plot.left + plot.width} y1={line.y} y2={line.y} />
+        <text x={plot.left - 11} y={line.y + 4} text-anchor="end">{line.value.toFixed(1)}</text>
+      </g>
+    ))}
+    <polyline class="series" points={polyline} />
+    {data.map((point, index) => (
+      <g class="point">
+        <circle cx={xFor(index)} cy={yFor(point.value)} r="4.5" />
+        <text class="value" x={xFor(index)} y={yFor(point.value) - 13} text-anchor="middle">{point.value.toFixed(2)}</text>
+        <text class="label" x={xFor(index)} y={plot.top + plot.height + 31} text-anchor="middle">{point.label}</text>
+      </g>
+    ))}
+    <text class="unit" x={plot.left} y={height - 11}>{unit}</text>
+  </svg>
+</figure>
+
+<style>
+  .line-chart { margin: 24px 0; padding: 20px; border: 1px solid var(--line); background: #111115; overflow: hidden; }
+  figcaption { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 8px; }
+  figcaption strong { font-family: var(--serif); font-size: 17px; }
+  figcaption span { color: var(--dim); font-family: var(--mono); font-size: 8px; }
+  svg { display: block; width: 100%; height: auto; overflow: visible; }
+  line { stroke: var(--line); stroke-width: 1; }
+  text { fill: var(--dim); font-family: var(--mono); font-size: 10px; }
+  .series { fill: none; stroke: var(--chart-color); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+  circle { fill: #111115; stroke: var(--chart-color); stroke-width: 3; }
+  .value { fill: var(--text-soft); font-size: 9px; }
+  .label { fill: var(--muted); }
+  .unit { fill: var(--chart-color); font-size: 9px; }
+  .chart-cyan { --chart-color: var(--cyan); }
+  .chart-gold { --chart-color: var(--gold); }
+  .chart-coral { --chart-color: var(--coral); }
+  .chart-green { --chart-color: var(--green); }
+  @media (max-width: 560px) {
+    .line-chart { padding: 14px 8px 8px; }
+    figcaption { align-items: flex-start; flex-direction: column; padding-inline: 8px; }
+    .value { display: none; }
+    text { font-size: 9px; }
+  }
+</style>

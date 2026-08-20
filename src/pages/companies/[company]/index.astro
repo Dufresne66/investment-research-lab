@@ -33,6 +33,14 @@ const hasResearch = researchEntries.length > 0;
       <span>Updated {company.last_updated}</span>
     </div>
 
+    {company.slug === "muyuan" && (
+      <nav class="company-publication-links" aria-label="牧原公开分析与报告">
+        <a href={withBase("companies/muyuan/reports/")}><span>REPORT LIBRARY</span><strong>官方报告索引</strong><i>↗</i></a>
+        <a href={withBase("blog/muyuan-2026-h1-review/")}><span>2026 H1</span><strong>半年报分析</strong><i>→</i></a>
+        <a href={withBase("blog/muyuan-2026-07-sales/")}><span>2026/07</span><strong>月度简报分析</strong><i>→</i></a>
+      </nav>
+    )}
+
     {hasResearch ? (
       <div class="chapter-list">
         {researchEntries.map((researchEntry) => {

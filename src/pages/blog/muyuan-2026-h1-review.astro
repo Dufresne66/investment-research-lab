@@ -1,0 +1,132 @@
+---
+import BlogLayout from "../../layouts/BlogLayout.astro";
+import publication from "../../data/publications/muyuan-2026.json";
+import reports from "../../data/reports/muyuan.json";
+import { withBase } from "../../lib/paths";
+
+const h1 = publication.h1;
+const source = reports.interim.find((report) => report.source_id === h1.source_id)!;
+const slaughter = h1.segments.find((segment) => segment.name.startsWith("屠宰"))!;
+const slaughterGrossProfit = slaughter.revenue - slaughter.cost;
+---
+
+<BlogLayout
+  title="牧原股份 2026 年半年报分析"
+  subtitle="亏损不是结论。真正需要判断的是成本机器、屠宰进展和资产负债表能否经受低猪价。"
+  eyebrow="HALF-YEAR OPERATING REVIEW · 2026 H1"
+  date="2026-08-21"
+  readTime="12 min read"
+  tags={["半年报", "现金流", "屠宰肉食", "成本优势"]}
+  description="基于牧原 2026 年半年报，分析养殖成本、屠宰业务、现金流、短债、AI 与海外业务。"
+>
+  <section class="blog-lede">
+    <span>核心判断</span>
+    <p>上半年巨亏主要发生在猪价同比大幅下跌的环境中；6 月成本仍在下降，但长期成本优势尚未完成同行验证。屠宰已进入正毛利阶段，现金流则提醒我们：165 亿元货币资金不能脱离经营现金流、短债和融资来源单独解读。</p>
+  </section>
+
+  <section class="blog-section">
+    <div class="blog-section-heading"><span>01</span><div><p>THE FOUR NUMBERS</p><h2>先把结果层压缩成四个数字</h2></div></div>
+    <div class="metric-grid four h1-metrics">
+      {h1.metrics.map((metric) => (
+        <article class:list={[metric.current < 0 && "negative-card"]}>
+          <span>FACT · PDF p.{metric.page}</span>
+          <strong>{metric.current}<small>{metric.unit}</small></strong>
+          <p>{metric.label}</p>
+          <i>{metric.change === null ? "报告期披露" : `同比 ${metric.change}%`}</i>
+        </article>
+      ))}
+    </div>
+    <p class="analysis-copy">收入同比下降 22.30%，归母净利润由上年同期盈利 105.30 亿元转为亏损 60.78 亿元。与此同时，商品猪销量达到 3,861.5 万头。规模没有自动带来利润：当 `P` 低于 `C`，更大的 `Q` 会放大绝对亏损。</p>
+  </section>
+
+  <section class="blog-section">
+    <div class="blog-section-heading"><span>02</span><div><p>THE ECONOMIC ENGINE</p><h2>核心不是亏了多少，而是 `P-C` 怎样变化</h2></div></div>
+    <div class="equation-card wide">
+      <span>FARMING PROFIT</span>
+      <strong>Profit ≈ Q × W × (P − C)</strong>
+      <b>市场决定 P；公司能力主要体现在 C</b>
+    </div>
+    <div class="split-evidence">
+      <article><span>FACT · PDF p.11</span><strong>{h1.complete_cost_june}<small>元/kg</small></strong><h3>6 月完全养殖成本</h3><p>公司表述为“11.7 元/kg 左右”，不是精确审计指标。</p></article>
+      <article><span>MANAGEMENT TARGET · PDF p.11</span><strong>{h1.complete_cost_target}<small>元/kg</small></strong><h3>全年平均成本目标</h3><p>目标不是已经实现的 H1 平均成本，需要以后验证。</p></article>
+    </div>
+    <div class="evidence-pipeline">
+      <div><span>01</span><strong>健康 / 育种</strong><small>管理层解释</small></div><i>→</i>
+      <div><span>02</span><strong>PSY / FCR / 成活率</strong><small>需要量化</small></div><i>→</i>
+      <div><span>03</span><strong>完全成本 C</strong><small>结果变量</small></div><i>→</i>
+      <div><span>04</span><strong>同行成本差</strong><small>护城河验证</small></div>
+    </div>
+    <p class="analysis-copy">报告证明公司成本仍在下降，却没有证明这一优势长期、稳定且显著优于同行。健康、育种、人员和 AI 都只能先作为降本路径，必须最终落到 PSY、FCR、成活率、内部离散度和同行成本差。</p>
+  </section>
+
+  <section class="blog-section">
+    <div class="blog-section-heading"><span>03</span><div><p>SEGMENT ECONOMICS</p><h2>屠宰已经有正毛利，但“第二增长曲线”仍待证明</h2></div></div>
+    <div class="table-scroll">
+      <table class="research-data-table">
+        <thead><tr><th>分部</th><th>收入</th><th>成本</th><th>毛利率</th><th>收入同比</th><th>毛利率变化</th><th>来源</th></tr></thead>
+        <tbody>{h1.segments.map((segment) => <tr><td><strong>{segment.name}</strong></td><td>{segment.revenue.toFixed(2)} 亿元</td><td>{segment.cost.toFixed(2)} 亿元</td><td class:list={[segment.gross_margin < 0 && "negative", segment.gross_margin >= 0 && "positive"]}>{segment.gross_margin.toFixed(2)}%</td><td class:list={[segment.revenue_yoy < 0 && "negative", segment.revenue_yoy >= 0 && "positive"]}>{segment.revenue_yoy.toFixed(2)}%</td><td>{segment.margin_change.toFixed(2)} pct</td><td>PDF p.{segment.page}</td></tr>)}</tbody>
+      </table>
+    </div>
+    <div class="insight-row">
+      <article><span>FACT</span><strong>{h1.slaughter_volume}<small>万头</small></strong><p>H1 屠宰量，同比 +{h1.slaughter_volume_yoy}%</p></article>
+      <article><span>DERIVED</span><strong>{slaughterGrossProfit.toFixed(2)}<small>亿元</small></strong><p>屠宰肉食分部毛利，不是净利润</p></article>
+      <article><span>OPEN QUESTION</span><strong>ROIC</strong><p>资本投入、利用率和长期回报尚未证明</p></article>
+    </div>
+    <p class="analysis-copy">4.24% 毛利率说明屠宰不再只是故事，但仍然很薄。真正需要继续观察的是产能利用率、分割品占比、头均利润、资本开支和 ROIC。分部收入存在内部交易抵销，因此不能把养殖与屠宰收入简单相加。</p>
+  </section>
+
+  <section class="blog-section">
+    <div class="blog-section-heading"><span>04</span><div><p>LIQUIDITY CHECK</p><h2>165 亿现金，不等于一句“现金流安全”</h2></div></div>
+    <div class="cash-bridge">
+      <article><span>货币资金</span><strong>165.47</strong><small>亿元 · PDF p.116</small></article>
+      <i>−</i>
+      <article class="restricted"><span>不能自由使用</span><strong>29.17</strong><small>亿元 · PDF p.153</small></article>
+      <i>=</i>
+      <article class="cash"><span>现金及等价物</span><strong>136.29</strong><small>亿元 · PDF p.153</small></article>
+    </div>
+    <div class="table-scroll">
+      <table class="research-data-table liquidity-table">
+        <thead><tr><th>现金流与债务</th><th>金额</th><th>意味着什么</th><th>来源</th></tr></thead>
+        <tbody>
+          <tr><td>经营现金流</td><td class="negative">-22.24 亿元</td><td>主业当期没有贡献正现金</td><td>PDF p.67</td></tr>
+          <tr><td>长期资产购建支出</td><td class="negative">-65.21 亿元</td><td>资本投入仍然较高</td><td>PDF p.67</td></tr>
+          <tr><td>筹资活动净流入</td><td class="positive">+111.60 亿元</td><td>期末现金得到外部融资支持</td><td>PDF p.67</td></tr>
+          <tr><td>短期借款</td><td>472.52 亿元</td><td>需要持续滚续与偿付</td><td>PDF p.59</td></tr>
+          <tr><td>一年内到期非流动负债</td><td>95.80 亿元</td><td>进入一年偿付窗口</td><td>PDF p.60</td></tr>
+          <tr><td>流动比率 / 速动比率</td><td>{h1.current_ratio} / {h1.quick_ratio}</td><td>短期流动性应持续监控</td><td>PDF p.57</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="evidence-alert"><span>INFERENCE</span><p>报告没有显示流动性危机，但“安全”需要同时看经营现金流、可用现金、短债、授信和融资能力。只引用货币资金会遗漏关键风险。</p></div>
+  </section>
+
+  <section class="blog-section">
+    <div class="blog-section-heading"><span>05</span><div><p>STORY DISCOUNT</p><h2>AI 与海外：保留观察，不提前估值</h2></div></div>
+    <div class="unknown-grid story-grid">
+      <article><span>MANAGEMENT STATEMENT · PDF p.11</span><h3>养猪大模型</h3><p>公司称其用于提升人员效率、缩小内部离散度，并明确仍处初期。验证指标应是场线成本离散度和生产指标，而不是 AI 叙事本身。</p></article>
+      <article><span>EARLY OPTION · PDF p.12 / p.20</span><h3>海外业务</h3><p>越南项目推进并探索菲律宾，但 H1 境外收入仅约 {h1.foreign_revenue} 亿元，占比 {h1.foreign_revenue_share}%。当前估值权重应接近零。</p></article>
+      <article><span>REASONABLE INFERENCE</span><h3>内部最佳实践复制</h3><p>缩小内部离散度可能比追求单个“最好场”更重要，但报告没有披露标准差或场线分布，暂时不能量化。</p></article>
+      <article><span>HYPOTHESIS</span><h3>屠宰协同</h3><p>需要证明养殖 + 屠宰整体价值高于只卖活猪，并覆盖新增资本成本，不能只看收入规模。</p></article>
+    </div>
+  </section>
+
+  <section class="blog-conclusion numbered">
+    <span>SIX-SENTENCE SYNTHESIS</span><h2>这份半年报最终留下六句话</h2>
+    <ol>
+      <li>猪价，而非已证实的生产能力恶化，是 H1 巨亏的主要外部背景。</li>
+      <li>6 月成本约 11.7 元/kg，说明核心机器仍在改善，但长期同行优势尚未验证。</li>
+      <li>健康、育种、人员和 AI 必须通过生产指标与成本离散度被证伪或证实。</li>
+      <li>屠宰已进入正毛利阶段，但尚未证明为高回报第二增长曲线。</li>
+      <li>海外收入只有 0.07%，当前是期权，不是核心价值来源。</li>
+      <li>财务韧性不能只看货币资金；经营现金流、短债和融资依赖必须一起看。</li>
+    </ol>
+    <p>这些判断不构成买卖结论，也不改变 `MY-COST-001` 的 40% 人工置信度。</p>
+  </section>
+
+  <footer class="blog-source-panel">
+    <div><span>PRIMARY SOURCE</span><strong>{source.source_id}</strong><p>{source.title} · 关键页 p.7 / 11 / 20 / 57–60 / 67 / 116 / 153</p></div>
+    <a href={source.url} target="_blank" rel="noreferrer">打开巨潮 PDF ↗</a>
+    <a href={withBase("companies/muyuan/reports/")}>全部报告</a>
+    <a href={withBase("blog/muyuan-2026-07-sales/")}>继续读 7 月简报 →</a>
+  </footer>
+</BlogLayout>

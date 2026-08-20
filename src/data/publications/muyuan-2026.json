@@ -1,0 +1,57 @@
+{
+  "monthly": [
+    { "month": "1月", "source_id": "MY-SRC-MS-2026-01", "volume": 700.9, "cumulative_volume": 700.9, "revenue": 105.66, "cumulative_revenue": 105.66, "price": 12.57, "implied_weight": 119.93, "slaughter": null },
+    { "month": "2月", "source_id": "MY-SRC-MS-2026-02", "volume": 460.3, "cumulative_volume": 1161.2, "revenue": 64.05, "cumulative_revenue": 169.71, "price": 11.59, "implied_weight": 120.06, "slaughter": null },
+    { "month": "3月", "source_id": "MY-SRC-MS-2026-03", "volume": 675.1, "cumulative_volume": 1836.2, "revenue": 86.06, "cumulative_revenue": 255.77, "price": 9.91, "implied_weight": 128.64, "slaughter": null },
+    { "month": "4月", "source_id": "MY-SRC-MS-2026-04", "volume": 714.3, "cumulative_volume": 2550.5, "revenue": 85.03, "cumulative_revenue": 340.80, "price": 9.45, "implied_weight": 125.97, "slaughter": 298.9 },
+    { "month": "5月", "source_id": "MY-SRC-MS-2026-05", "volume": 688.3, "cumulative_volume": 3238.8, "revenue": 85.65, "cumulative_revenue": 426.45, "price": 9.80, "implied_weight": 126.98, "slaughter": 301.0 },
+    { "month": "6月", "source_id": "MY-SRC-MS-2026-06", "volume": 622.7, "cumulative_volume": 3861.5, "revenue": 75.00, "cumulative_revenue": 501.45, "price": 9.69, "implied_weight": 124.30, "slaughter": 295.6 },
+    { "month": "7月", "source_id": "MY-SRC-MS-2026-07", "volume": 666.1, "cumulative_volume": 4527.6, "revenue": 88.97, "cumulative_revenue": 590.42, "price": 10.64, "implied_weight": 125.53, "slaughter": 276.3 }
+  ],
+  "july": {
+    "source_id": "MY-SRC-MS-2026-07",
+    "source_page": 1,
+    "volume_yoy": 4.82,
+    "revenue_yoy": -23.56,
+    "price_yoy": -25.59,
+    "volume_mom": 6.97,
+    "revenue_mom": 18.63,
+    "price_mom": 9.80,
+    "sensitivity": [
+      { "cost": 11.5, "spread": -0.86, "estimated_profit": -7.19, "label": "情景，不是月报事实" },
+      { "cost": 11.7, "spread": -1.06, "estimated_profit": -8.86, "label": "沿用 6 月成本的情景" },
+      { "cost": 12.0, "spread": -1.36, "estimated_profit": -11.37, "label": "压力情景" }
+    ]
+  },
+  "h1": {
+    "source_id": "MY-SRC-H1-2026",
+    "metrics": [
+      { "label": "营业收入", "current": 594.10, "previous": 764.63, "change": -22.30, "unit": "亿元", "page": 7 },
+      { "label": "归母净利润", "current": -60.78, "previous": 105.30, "change": -157.72, "unit": "亿元", "page": 7 },
+      { "label": "经营现金流", "current": -22.24, "previous": 173.51, "change": -112.82, "unit": "亿元", "page": 7 },
+      { "label": "商品猪销量", "current": 3861.5, "previous": null, "change": null, "unit": "万头", "page": 11 }
+    ],
+    "complete_cost_june": 11.7,
+    "complete_cost_target": 11.5,
+    "slaughter_volume": 1723.4,
+    "slaughter_volume_yoy": 50.98,
+    "segments": [
+      { "name": "养殖业务", "revenue": 524.30, "cost": 547.95, "gross_margin": -4.51, "revenue_yoy": -30.51, "margin_change": -24.75, "page": 20 },
+      { "name": "屠宰、肉食业务", "revenue": 220.61, "cost": 211.25, "gross_margin": 4.24, "revenue_yoy": 14.04, "margin_change": 2.14, "page": 20 }
+    ],
+    "liquidity": [
+      { "label": "货币资金", "value": 165.47, "unit": "亿元", "page": "20 / 58 / 116" },
+      { "label": "现金及现金等价物", "value": 136.29, "unit": "亿元", "page": "153" },
+      { "label": "经营现金流", "value": -22.24, "unit": "亿元", "page": "67" },
+      { "label": "长期资产购建支出", "value": -65.21, "unit": "亿元", "page": "67" },
+      { "label": "筹资活动净流入", "value": 111.60, "unit": "亿元", "page": "67" },
+      { "label": "短期借款", "value": 472.52, "unit": "亿元", "page": "20 / 59" },
+      { "label": "一年内到期非流动负债", "value": 95.80, "unit": "亿元", "page": "60" },
+      { "label": "流动负债", "value": 756.69, "unit": "亿元", "page": "60" }
+    ],
+    "current_ratio": 0.79,
+    "quick_ratio": 0.28,
+    "foreign_revenue": 0.41,
+    "foreign_revenue_share": 0.07
+  }
+}

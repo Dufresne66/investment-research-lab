@@ -5,7 +5,7 @@ import { withBase } from "../lib/paths";
 interface Props {
   title?: string;
   description?: string;
-  active?: "home" | "companies" | "learning" | "journal";
+  active?: "home" | "companies" | "learning" | "journal" | "blog";
 }
 
 const {
@@ -41,6 +41,7 @@ const ogImage = Astro.site ? new URL(withBase("og.png"), Astro.site) : undefined
         <div class="nav-links">
           <a class:list={[active === "home" && "active"]} href={withBase()}>Home</a>
           <a class:list={[active === "companies" && "active"]} href={withBase("#companies")}>Companies</a>
+          <a class:list={[active === "blog" && "active"]} href={withBase("blog/")}>Blog</a>
           <a class:list={[active === "learning" && "active"]} href={withBase("learning/")}>Learning</a>
           <a class:list={[active === "journal" && "active"]} href={withBase("journal/")}>Research Journal</a>
         </div>
