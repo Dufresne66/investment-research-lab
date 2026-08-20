@@ -1,0 +1,65 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { companySections } from "../../../lib/research";
+import { withBase } from "../../../lib/paths";
+
+export async function getStaticPaths() {
+  return (await getCollection("companies")).map((entry) => ({
+    params: { company: entry.data.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props as { entry: CollectionEntry<"companies"> };
+const company = entry.data;
+const researchEntries = (
+  await getCollection("companyResearch", (item) => item.id.startsWith(`${company.slug}/`))
+).sort((a, b) => a.data.order - b.data.order);
+const hasResearch = researchEntries.length > 0;
+---
+
+<BaseLayout title={`${company.name}研究`} description={`${company.name}公司研究入口与研究进度。`} active="companies">
+  <section class:list={["company-index-page", "page-width", !hasResearch && "planned-company-page"]}>
+    <a class="back-row" href={withBase("#companies")}>← Companies</a>
+    <p class="section-label">COMPANY RESEARCH · {company.ticker}.{company.exchange}</p>
+    <h1>{company.name}</h1>
+    <p class="index-question">
+      {hasResearch ? company.core_question_en : "研究页面已建立，内容尚未开始。"}
+    </p>
+    <div class="index-meta">
+      <span>{company.industry}</span>
+      <span>{hasResearch ? "RESEARCHING" : "PLANNED"}</span>
+      <span>Updated {company.last_updated}</span>
+    </div>
+
+    {hasResearch ? (
+      <div class="chapter-list">
+        {researchEntries.map((researchEntry) => {
+          const slug = researchEntry.id.split("/").at(-1);
+          return (
+            <a href={withBase(`companies/${company.slug}/${slug}/`)}>
+              <span>{String(researchEntry.data.order).padStart(2, "0")}</span>
+              <div><h2>{researchEntry.data.label}</h2><p>{researchEntry.data.description}</p></div>
+              <b class:list={[researchEntry.data.status === "planned" && "planned"]}>{researchEntry.data.status}</b>
+              <i>→</i>
+            </a>
+          );
+        })}
+      </div>
+    ) : (
+      <section class="planned-research-shell">
+        <div class="empty-research-note">
+          <span>RESEARCH NOT STARTED</span>
+          <h2>等待第一轮学习与资料整理</h2>
+          <p>这里暂不放入商业模式、投资判断或估值内容。开始研究后，再逐章建立事实、假设、证据与反证。</p>
+        </div>
+        <div class="planned-chapters" aria-label={`${company.name}待研究章节`}>
+          {companySections.map(([index, , label]) => (
+            <div><span>{index}</span><strong>{label}</strong><small>待研究</small></div>
+          ))}
+        </div>
+      </section>
+    )}
+  </section>
+</BaseLayout>

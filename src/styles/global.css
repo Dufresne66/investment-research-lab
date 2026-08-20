@@ -99,13 +99,18 @@ code { font-family: var(--mono); }
 .research-loop-line div:nth-child(3), .research-loop-line div:nth-child(5) { background: var(--cyan-soft); }
 .research-loop-line div:nth-child(3) strong, .research-loop-line div:nth-child(5) strong { color: var(--cyan); }
 
+.company-list { display: grid; gap: 10px; }
 .company-list-card { display: grid; grid-template-columns: 45px minmax(0, 1fr) 150px 32px; gap: 22px; align-items: center; padding: 25px; border: 1px solid var(--line); background: var(--surface); }
 .company-list-card:hover { border-color: #474752; background: #18181d; }
+.company-list-card.is-planned { min-height: 126px; background: rgba(22, 22, 26, .66); }
+.company-list-card.is-planned .company-index, .company-list-card.is-planned .card-arrow { color: var(--dim); }
+.company-list-card.is-planned .company-list-status i { background: var(--dim); box-shadow: none; }
 .company-index { align-self: start; color: var(--cyan); font-family: var(--mono); font-size: 10px; }
 .company-list-main header { display: flex; align-items: center; gap: 10px; }
 .company-list-main h3 { margin: 0; font-family: var(--serif); font-size: 23px; font-weight: 600; }
 .company-list-main header span { padding: 3px 6px; background: var(--surface-3); color: var(--muted); font-family: var(--mono); font-size: 8px; }
 .company-question { margin: 10px 0 12px; color: var(--text-soft); font-family: var(--serif); font-size: 14px; }
+.company-question.planned-copy { margin-bottom: 0; color: var(--dim); font-family: var(--sans); font-size: 11px; }
 .company-model { margin: 0; color: var(--text-soft); font-family: var(--mono); font-size: 11px; }
 .company-model span { margin-right: 9px; color: var(--dim); font-size: 8px; }
 .company-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
@@ -246,6 +251,16 @@ code { font-family: var(--mono); }
 .chapter-list b { color: var(--green); font-family: var(--mono); font-size: 7px; text-transform: uppercase; }
 .chapter-list b.planned { color: var(--dim); }
 .chapter-list i, .archive-list i { color: var(--cyan); font-style: normal; }
+.planned-research-shell { margin-top: 46px; }
+.empty-research-note { max-width: 680px; padding: 24px; border: 1px dashed #3a3a44; background: rgba(22, 22, 26, .7); }
+.empty-research-note > span { color: var(--gold); font-family: var(--mono); font-size: 8px; letter-spacing: .1em; }
+.empty-research-note h2 { margin: 12px 0 8px; font-family: var(--serif); font-size: 21px; }
+.empty-research-note p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.8; }
+.planned-chapters { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 22px; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.planned-chapters div { min-height: 92px; padding: 13px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: rgba(22, 22, 26, .45); display: flex; flex-direction: column; }
+.planned-chapters span { color: var(--dim); font-family: var(--mono); font-size: 8px; }
+.planned-chapters strong { margin-top: auto; color: var(--text-soft); font-size: 10px; font-weight: 500; }
+.planned-chapters small { margin-top: 4px; color: #555560; font-size: 8px; }
 .archive-page > p:not(.section-label) { max-width: 620px; color: var(--muted); font-size: 13px; line-height: 1.8; }
 .archive-list { margin-top: 42px; }
 .archive-list > a { display: grid; grid-template-columns: 110px minmax(0, 1fr) 20px; gap: 20px; align-items: center; padding: 22px 12px; border-bottom: 1px solid var(--line); }
@@ -278,6 +293,7 @@ code { font-family: var(--mono); }
   .research-page { grid-template-columns: 1fr; }
   .research-aside { grid-template-columns: 1fr 1fr; position: static; }
   .human-card { grid-column: 1 / -1; }
+  .planned-chapters { grid-template-columns: repeat(3, 1fr); }
 }
 
 @media (max-width: 560px) {
@@ -314,4 +330,5 @@ code { font-family: var(--mono); }
   .archive-list > a > span { grid-column: 1; }
   .archive-list > a > div { grid-column: 1; }
   .archive-list > a > i { grid-column: 2; grid-row: 1 / span 2; }
+  .planned-chapters { grid-template-columns: repeat(2, 1fr); }
 }

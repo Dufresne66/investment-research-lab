@@ -8,6 +8,7 @@ interface Props {
   title: string;
   description: string;
   company: {
+    slug: string;
     name: string;
     ticker: string;
     exchange: string;
@@ -41,7 +42,7 @@ const { current, title, description, company, claim } = Astro.props;
   <nav class="section-tabs" aria-label="牧原研究章节">
     <div class="page-width tabs-inner">
       {companySections.map(([index, slug, label]) => (
-        <a class:list={[slug === current && "active"]} href={withBase(`companies/muyuan/${slug}/`)}>
+        <a class:list={[slug === current && "active"]} href={withBase(`companies/${company.slug}/${slug}/`)}>
           <span>{index}</span>{label}
         </a>
       ))}

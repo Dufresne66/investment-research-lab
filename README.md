@@ -2,7 +2,7 @@
 
 这是一个本地优先、证据驱动的个人投资研究网站。它不提供实时行情，也不替你做买卖决定；它把公司研究、投资理论、判断变化和复盘长期保存为普通 Markdown 文件。
 
-第一家公司：**牧原股份（002714.SZ）**。
+当前研究池：**牧原股份、贵州茅台、小鹏集团、阿里巴巴、泡泡玛特**。牧原正在研究，其余四家公司只建立入口，尚未加入研究内容。
 
 ## 你平时只需要知道什么
 
@@ -57,16 +57,18 @@ GitHub Actions 会自动安装依赖、构建静态网页并发布 `dist/`。项
 
 注意：当前工作区只完成了发布配置，**尚未上传到 GitHub，也没有公开网站**。只有你明确决定仓库和可见范围后再执行发布。
 
+完整的非技术发布步骤见 [docs/publishing-github-pages.md](docs/publishing-github-pages.md)。
+
 ## 添加一家公司
 
-以“公司英文短名”为目录名，例如 `maotai`：
+以“公司英文短名”为目录名，例如 `new-company`：
 
-1. 复制 `src/content/companies/muyuan/` 为 `src/content/companies/maotai/`；
-2. 保留 00–15 对应文件名，修改每篇 frontmatter 的标题、描述、状态和日期；
-3. 在 `src/data/companies/` 新建 `maotai.json`，填写身份、经济模型、Evidence、风险和来源；
-4. 在 `src/data/claims/` 新建 `maotai.yaml`，至少写一个可证伪的 OPEN Claim；
-5. 为新公司创建 `src/pages/companies/maotai/` 页面入口；
-6. 把公司卡加入 `src/pages/index.astro`；
+1. 在 `src/data/companies/` 新建 `new-company.json`，只填写公司身份并把状态设为 `PLANNED`；
+2. 网站会自动把公司卡加入首页，并生成空白公司研究页；
+3. 真正开始研究时，复制 `src/content/companies/muyuan/` 为 `src/content/companies/new-company/`；
+4. 保留 00–15 对应文件名，修改每篇 frontmatter 的标题、描述、状态和日期；
+5. 在 `src/data/claims/` 新建 `new-company.yaml`，至少写一个可证伪的 OPEN Claim；
+6. 在公司 JSON 中填入 `primary_claim_id`、经济模型、Evidence、风险和来源；
 7. 运行 `npm run check`、`npm test`，确认后再推送。
 
 接入门槛：一句话经济模型、一个可证伪 Claim、Evidence Ledger、风险观察信号、原始来源索引，以及 Overview / First Principles / Thesis / Evidence / Risks 五个最小页面。

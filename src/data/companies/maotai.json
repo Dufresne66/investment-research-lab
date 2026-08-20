@@ -1,0 +1,16 @@
+{
+  "slug": "maotai",
+  "name": "贵州茅台",
+  "ticker": "600519",
+  "exchange": "SH",
+  "industry": "白酒",
+  "research_status": "PLANNED",
+  "last_updated": "2026-08-20",
+  "sort_order": 2,
+  "primary_claim_id": null,
+  "core_question_en": null,
+  "economic_model": null,
+  "evidence": [],
+  "risks": [],
+  "sources": []
+}

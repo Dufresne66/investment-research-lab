@@ -43,4 +43,24 @@ const claims = defineCollection({
   ),
 });
 
-export const collections = { companyResearch, learning, journal, claims };
+const companies = defineCollection({
+  loader: glob({ pattern: "*.json", base: "./src/data/companies" }),
+  schema: z.object({
+    slug: z.string(),
+    name: z.string(),
+    ticker: z.string(),
+    exchange: z.string(),
+    industry: z.string(),
+    research_status: z.enum(["RESEARCHING", "PLANNED", "ARCHIVED"]),
+    last_updated: z.string(),
+    sort_order: z.number(),
+    primary_claim_id: z.string().nullable(),
+    core_question_en: z.string().nullable(),
+    economic_model: z.any().nullable(),
+    evidence: z.array(z.any()),
+    risks: z.array(z.any()),
+    sources: z.array(z.any()),
+  }),
+});
+
+export const collections = { companyResearch, learning, journal, claims, companies };

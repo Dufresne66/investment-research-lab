@@ -1,0 +1,16 @@
+{
+  "slug": "alibaba",
+  "name": "阿里巴巴",
+  "ticker": "9988",
+  "exchange": "HK",
+  "industry": "互联网与云计算",
+  "research_status": "PLANNED",
+  "last_updated": "2026-08-20",
+  "sort_order": 4,
+  "primary_claim_id": null,
+  "core_question_en": null,
+  "economic_model": null,
+  "evidence": [],
+  "risks": [],
+  "sources": []
+}

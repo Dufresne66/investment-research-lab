@@ -6,6 +6,8 @@
   "industry": "生猪养殖",
   "research_status": "RESEARCHING",
   "last_updated": "2026-08-20",
+  "sort_order": 1,
+  "primary_claim_id": "MY-COST-001",
   "core_question_en": "Can Muyuan maintain a durable structural cost advantage across full hog cycles?",
   "economic_model": {
     "formula": "Profit ≈ Q × W × (P − C)",
