@@ -90,7 +90,8 @@ test("keeps the Claim centralized and removes framework dependencies", async () 
 
 test("uses the current official GitHub Pages actions", async () => {
   const workflow = await readFile(new URL(".github/workflows/deploy.yml", root), "utf8");
-  assert.match(workflow, /withastro\/action@v6/);
+  assert.match(workflow, /actions\/setup-node@v6/);
+  assert.match(workflow, /actions\/upload-pages-artifact@v5/);
   assert.match(workflow, /actions\/deploy-pages@v5/);
   assert.match(workflow, /branches: \[main\]/);
 });
