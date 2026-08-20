@@ -1,0 +1,16 @@
+- id: MY-COST-001
+  statement: 牧原能够长期保持显著低于行业平均水平的完全养殖成本。
+  status: OPEN
+  confidence: 40
+  owner: HUMAN
+  evidence_for:
+    - MY-EV-2025-COST-001
+  evidence_against: []
+  evidence_needed:
+    - 牧原过去十年单位成本
+    - 温氏股份单位成本
+    - 新希望单位成本
+    - 神农集团单位成本
+    - 行业平均成本
+    - 完整猪周期下成本优势是否稳定
+  last_updated: "2026-08-20"

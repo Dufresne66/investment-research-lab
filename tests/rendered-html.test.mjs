@@ -1,54 +1,92 @@
 import assert from "node:assert/strict";
-import { access, readFile } from "node:fs/promises";
+import { access, readFile, readdir } from "node:fs/promises";
+import path from "node:path";
 import test from "node:test";
+import { fileURLToPath } from "node:url";
 
-async function render(pathname = "/") {
-  const workerUrl = new URL("../dist/server/index.js", import.meta.url);
-  workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}-${pathname}`);
-  const { default: worker } = await import(workerUrl.href);
+const root = new URL("../", import.meta.url);
+const dist = new URL("../dist/", import.meta.url);
 
-  return worker.fetch(
-    new Request(`http://localhost${pathname}`, { headers: { accept: "text/html" } }),
-    { ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) } },
-    { waitUntil() {}, passThroughOnException() {} },
-  );
+async function page(relativePath) {
+  return readFile(new URL(relativePath, dist), "utf8");
 }
 
-test("renders the Investment Research OS dashboard", async () => {
-  const response = await render();
-  assert.equal(response.status, 200);
-  const html = await response.text();
+async function walk(directory) {
+  const entries = await readdir(directory, { withFileTypes: true });
+  const files = [];
+  for (const entry of entries) {
+    const resolved = path.join(directory, entry.name);
+    files.push(...(entry.isDirectory() ? await walk(resolved) : [resolved]));
+  }
+  return files;
+}
 
-  assert.match(html, /<title>Investment Research OS<\/title>/i);
-  assert.match(html, /把投资判断/);
+test("renders the academic-style Investment Research Lab homepage", async () => {
+  const html = await page("index.html");
+  assert.match(html, /<title>Investment Research Lab<\/title>/i);
+  assert.match(html, /Learning businesses from first principles/);
   assert.match(html, /MY-COST-001/);
   assert.match(html, /牧原股份/);
-  assert.doesNotMatch(html, /codex-preview|SkeletonPreview|react-loading-skeleton/i);
+  assert.match(html, /Human-written only/);
+  assert.doesNotMatch(html, /__next|react-server|vinext/i);
 });
 
-test("uses record-specific metadata on shareable research routes", async () => {
-  const cases = [
-    ["/companies/muyuan/first-principles", "牧原股份第一性原理", "从生猪养殖的收入与成本变量理解牧原如何赚钱"],
-    ["/companies/muyuan/evidence", "牧原股份 Evidence Ledger", "牧原核心命题的证据、反证与待定位来源"],
+test("builds the full 00–15 Muyuan research path", async () => {
+  const slugs = [
+    "overview", "first-principles", "business-model", "unit-economics", "cycle", "moat",
+    "competitors", "financials", "capital-allocation", "management", "risks",
+    "normalized-earnings", "valuation", "thesis", "evidence-log", "thesis-changes",
   ];
-
-  for (const [pathname, title, description] of cases) {
-    const response = await render(pathname);
-    assert.equal(response.status, 200);
-    const html = await response.text();
-    assert.match(html, new RegExp(`<title>${title}<\\/title>`, "i"));
-    assert.match(html, new RegExp(description));
-    assert.doesNotMatch(html, /og\.png/i);
+  for (const slug of slugs) {
+    await access(new URL(`companies/muyuan/${slug}/index.html`, dist));
   }
+
+  const firstPrinciples = await page("companies/muyuan/first-principles/index.html");
+  assert.match(firstPrinciples, /<title>牧原股份 · 第一性原理 · Investment Research Lab<\/title>/i);
+  assert.match(firstPrinciples, /Profit ≈ Q × W × \(P − C\)/);
+  assert.match(firstPrinciples, /HYPOTHESIS/);
+
+  const evidence = await page("companies/muyuan/evidence-log/index.html");
+  assert.match(evidence, /PAGE_ANCHOR_NEEDED/);
+  assert.match(evidence, /MY-EV-2025-COST-001/);
 });
 
-test("keeps facts traceable and removes starter-only files", async () => {
-  const data = JSON.parse(await readFile(new URL("../data/companies/muyuan.json", import.meta.url), "utf8"));
-  const fact = data.evidence.find((item) => item.type === "FACT");
+test("keeps the Claim centralized and removes framework dependencies", async () => {
+  const packageJson = JSON.parse(await readFile(new URL("package.json", root), "utf8"));
+  const dependencies = { ...packageJson.dependencies, ...packageJson.devDependencies };
+  for (const name of ["next", "vinext", "react", "react-dom", "react-server-dom-webpack", "tailwindcss", "wrangler"]) {
+    assert.equal(dependencies[name], undefined, `${name} should not remain`);
+  }
 
-  assert.ok(fact);
-  assert.ok(fact.claim_id);
-  assert.ok(fact.source_title);
-  assert.equal(fact.source_locator_status, "PAGE_ANCHOR_NEEDED");
-  await assert.rejects(access(new URL("../app/_sites-preview/SkeletonPreview.tsx", import.meta.url)));
+  const claim = await readFile(new URL("src/data/claims/muyuan.yaml", root), "utf8");
+  assert.match(claim, /id: MY-COST-001/);
+  assert.match(claim, /status: OPEN/);
+  assert.match(claim, /confidence: 40/);
+  await assert.rejects(access(new URL("app/page.tsx", root)));
+  await assert.rejects(access(new URL(".openai/hosting.json", root)));
+});
+
+test("has no broken internal links in generated HTML", async () => {
+  const distPath = fileURLToPath(dist);
+  const files = await walk(distPath);
+  const htmlFiles = files.filter((file) => file.endsWith(".html"));
+  const missing = [];
+
+  for (const htmlFile of htmlFiles) {
+    const html = await readFile(htmlFile, "utf8");
+    for (const match of html.matchAll(/href="([^"]+)"/g)) {
+      const href = match[1];
+      if (!href.startsWith("/") || href.startsWith("//")) continue;
+      const clean = href.split(/[?#]/)[0];
+      if (!clean) continue;
+      const target = clean.endsWith("/") ? `${clean}index.html` : clean;
+      try {
+        await access(path.join(distPath, target));
+      } catch {
+        missing.push(`${path.relative(distPath, htmlFile)} → ${href}`);
+      }
+    }
+  }
+
+  assert.deepEqual(missing, []);
 });

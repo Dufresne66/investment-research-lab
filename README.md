@@ -1,48 +1,96 @@
-# Investment Research OS
+# Investment Research Lab
 
-这是一个本地优先、证据驱动的个人投资研究网站。它不提供实时行情，也不替人做买卖决定；它用于记录“事实 → 推论 → 假设 → 证据 → 反证 → 估值 → 决策 → 复盘”的完整过程。
+这是一个本地优先、证据驱动的个人投资研究网站。它不提供实时行情，也不替你做买卖决定；它把公司研究、投资理论、判断变化和复盘长期保存为普通 Markdown 文件。
 
-当前第一家公司：**牧原股份（002714.SZ）**。
+第一家公司：**牧原股份（002714.SZ）**。
 
-## 当前版本包含什么
+## 你平时只需要知道什么
 
-- 研究总览 Dashboard；
-- 牧原 Overview、第一性原理、Investment Thesis、Evidence Ledger、风险与反证页面；
-- `FACT / INFERENCE / HYPOTHESIS` 内容边界；
-- Claim ID、置信度、支持证据、反对证据和待补证据；
-- 牧原 2021–2025 年报的来源索引；
-- 适合电脑和手机阅读的界面。
+日常研究主要修改这里：
 
-## 内容放在哪里
+```text
+src/content/
+├── companies/   公司研究
+├── learning/    投资理论与通用概念
+└── journal/     研究日志与复盘
+```
 
-| 内容 | 位置 |
-|---|---|
-| 长文章与研究正文 | `content/companies/<公司>/` |
-| Claim、Evidence、风险和结构化数字 | `data/companies/<公司>.json` |
-| 网站页面 | `app/` |
-| 可复用界面 | `components/` |
-| 数据与内容读取规则 | `lib/` |
-| 架构和研究规范 | `docs/` |
+每篇文章都是 `.md` 普通文本。网站程序由 Astro 在背后把 Markdown 变成网页，不需要你学习 React，也不需要维护服务器。
 
-原始年报不复制进网站，继续保存在：
+结构化 Claim 在 `src/data/claims/`，公司资料索引、Evidence 与风险在 `src/data/companies/`。同一条 Claim 只保存一份，网页会自动读取。
 
-`/Users/dufresne/knowledgebase/KnowledgeBase/10_Inputs/investment/annual_reports/`
+## 本地查看
 
-## 如何添加第二家公司
+第一次使用，在项目文件夹中运行：
 
-1. 在 `content/companies/` 下建立公司的文件夹，复制牧原的五个 MDX 文件作为初始模板。
-2. 在 `data/companies/` 下建立一个同名 JSON 文件，填写公司身份、经济模型、Claim、Evidence、风险与来源。
-3. 建立公司的页面入口，并把它加入首页公司列表。
-4. 至少为一条核心 Claim 写出反证条件和 `evidence_needed`。
-5. 任何 `FACT` 都必须有原始来源；暂时没有页码时标记 `PAGE_ANCHOR_NEEDED`，不能伪造定位。
-6. 最终投资判断必须由本人书写，AI 只做阅读、计算、整理和反方挑战。
+```bash
+npm install
+npm run dev
+```
 
-## 本地使用
+然后打开：
 
-需要 Node.js 22.13 或更高版本。安装依赖后启动本地预览；完成修改后运行构建和测试。具体技术命令保留在项目脚本中，日常研究只需维护 MDX 和 JSON 文件。
+```text
+http://localhost:3000
+```
 
-## 下一轮研究
+修改 Markdown 后，网页会自动刷新。结束时可在终端按 `Control + C`。
 
-先完成牧原的单位经济模型：把 Q、W、P、C 继续拆成可观测指标，并从 2021–2025 年报逐条建立页码级证据锚点。完成这一阶段前，不进入精确估值，也不形成买卖结论。
+## 发布到 GitHub Pages
 
-详细设计决定见 [docs/architecture.md](docs/architecture.md)。
+项目已经包含 `.github/workflows/deploy.yml`。第一次发布需要：
+
+1. 在 GitHub 新建一个仓库，例如 `investment-research-lab`；
+2. 把这个文件夹连接到该仓库并推送到 `main`；
+3. 在 GitHub 仓库进入 **Settings → Pages**；
+4. 在 **Build and deployment → Source** 选择 **GitHub Actions**。
+
+以后每次研究更新只需要：
+
+```bash
+git add .
+git commit -m "update muyuan research"
+git push
+```
+
+GitHub Actions 会自动安装依赖、构建静态网页并发布 `dist/`。项目会自动适配 `username.github.io/repository/` 子路径。
+
+注意：当前工作区只完成了发布配置，**尚未上传到 GitHub，也没有公开网站**。只有你明确决定仓库和可见范围后再执行发布。
+
+## 添加一家公司
+
+以“公司英文短名”为目录名，例如 `maotai`：
+
+1. 复制 `src/content/companies/muyuan/` 为 `src/content/companies/maotai/`；
+2. 保留 00–15 对应文件名，修改每篇 frontmatter 的标题、描述、状态和日期；
+3. 在 `src/data/companies/` 新建 `maotai.json`，填写身份、经济模型、Evidence、风险和来源；
+4. 在 `src/data/claims/` 新建 `maotai.yaml`，至少写一个可证伪的 OPEN Claim；
+5. 为新公司创建 `src/pages/companies/maotai/` 页面入口；
+6. 把公司卡加入 `src/pages/index.astro`；
+7. 运行 `npm run check`、`npm test`，确认后再推送。
+
+接入门槛：一句话经济模型、一个可证伪 Claim、Evidence Ledger、风险观察信号、原始来源索引，以及 Overview / First Principles / Thesis / Evidence / Risks 五个最小页面。
+
+## 研究纪律
+
+- `FACT` 必须能回到原始来源；
+- `INFERENCE` 必须写清从事实到解释的推理；
+- `HYPOTHESIS` 必须绑定 Claim 并允许被反证；
+- 置信度由本人更新，不由 AI 自动提高；
+- 最终投资判断统一为 `Human-written only`。
+
+原始年报继续保存在 KnowledgeBase，不复制进网站：
+
+```text
+/Users/dufresne/knowledgebase/KnowledgeBase/10_Inputs/investment/annual_reports/
+```
+
+## 常用检查
+
+```bash
+npm run check   # 检查内容与页面类型
+npm run build   # 生成纯静态网页到 dist/
+npm test        # 构建并检查路由、链接和研究边界
+```
+
+架构规则见 [docs/architecture.md](docs/architecture.md)，本次迁移记录见 [docs/migration-plan.md](docs/migration-plan.md)。

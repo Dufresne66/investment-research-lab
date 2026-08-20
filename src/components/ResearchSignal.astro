@@ -1,0 +1,20 @@
+---
+interface Props {
+  kind: "FACT" | "INFERENCE" | "HYPOTHESIS";
+  title: string;
+  id?: string;
+  note?: string;
+}
+
+const { kind, title, id, note } = Astro.props;
+---
+
+<article class:list={["research-signal", `signal-${kind.toLowerCase()}`]}>
+  <header>
+    <span>{kind}</span>
+    {id && <code>{id}</code>}
+  </header>
+  <h3>{title}</h3>
+  <div class="signal-body"><slot /></div>
+  {note && <p class="signal-note">{note}</p>}
+</article>

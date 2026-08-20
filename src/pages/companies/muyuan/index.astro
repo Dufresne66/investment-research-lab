@@ -1,0 +1,30 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { withBase } from "../../../lib/paths";
+import company from "../../../data/companies/muyuan.json";
+
+const entries = (await getCollection("companyResearch", (entry) => entry.id.startsWith("muyuan/"))).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout title="牧原股份研究" description="牧原股份 00–15 研究路径与当前进度。" active="companies">
+  <section class="company-index-page page-width">
+    <p class="section-label">COMPANY RESEARCH · {company.ticker}.{company.exchange}</p>
+    <h1>{company.name}</h1>
+    <p class="index-question">{company.core_question_en}</p>
+    <div class="index-meta"><span>生猪养殖</span><span>RESEARCHING</span><span>Updated {company.last_updated}</span></div>
+    <div class="chapter-list">
+      {entries.map((entry) => {
+        const slug = entry.id.split("/").at(-1);
+        return (
+          <a href={withBase(`companies/muyuan/${slug}/`)}>
+            <span>{String(entry.data.order).padStart(2, "0")}</span>
+            <div><h2>{entry.data.label}</h2><p>{entry.data.description}</p></div>
+            <b class:list={[entry.data.status === "planned" && "planned"]}>{entry.data.status}</b>
+            <i>→</i>
+          </a>
+        );
+      })}
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,53 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import CompanyShell from "../../../layouts/CompanyShell.astro";
+import FactCard from "../../../components/FactCard.astro";
+import InferenceCard from "../../../components/InferenceCard.astro";
+import HypothesisCard from "../../../components/HypothesisCard.astro";
+import ThesisCard from "../../../components/ThesisCard.astro";
+import EvidenceCard from "../../../components/EvidenceCard.astro";
+import RiskCard from "../../../components/RiskCard.astro";
+import company from "../../../data/companies/muyuan.json";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("companyResearch", (entry) => entry.id.startsWith("muyuan/"));
+  return entries.map((entry) => ({
+    params: { section: entry.id.split("/").at(-1) },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props as { entry: CollectionEntry<"companyResearch"> };
+const section = entry.id.split("/").at(-1) ?? "overview";
+const { Content } = await render(entry);
+const claimFiles = await getCollection("claims");
+const claim = claimFiles.flatMap((item) => item.data).find((item) => item.id === "MY-COST-001");
+if (!claim) throw new Error("MY-COST-001 is missing");
+---
+
+<CompanyShell current={section} title={entry.data.title} description={entry.data.description} company={company} claim={claim}>
+  <Content />
+
+  <div slot="signals">
+    {section === "overview" && (
+      <InferenceCard title="当前研究焦点" note="该解释仍需同行同口径成本数据验证。">
+        单年成本改善值得继续拆解，但不能直接推出长期结构性成本优势。
+      </InferenceCard>
+    )}
+
+    {section === "first-principles" && (
+      <div class="signal-grid">
+        <FactCard title="牧原不能决定市场猪价 P">猪价主要由行业供需与周期共同决定，公司只能管理自身暴露。</FactCard>
+        <HypothesisCard title="长期竞争优势主要取决于 C" id={claim.id}>单位完全养殖成本是否能持续低于竞争者，仍是 OPEN CLAIM。</HypothesisCard>
+      </div>
+    )}
+
+    {section === "thesis" && <ThesisCard claim={claim} />}
+
+    {section === "evidence-log" && company.evidence.map((evidence) => <EvidenceCard evidence={evidence} />)}
+
+    {section === "risks" && (
+      <div class="risk-grid">{company.risks.map((risk) => <RiskCard risk={risk} />)}</div>
+    )}
+  </div>
+</CompanyShell>

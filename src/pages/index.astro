@@ -1,0 +1,88 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ThesisCard from "../components/ThesisCard.astro";
+import { researchLoop } from "../lib/research";
+import { withBase } from "../lib/paths";
+import company from "../data/companies/muyuan.json";
+
+const claimFiles = await getCollection("claims");
+const coreClaim = claimFiles.flatMap((entry) => entry.data).find((claim) => claim.id === "MY-COST-001");
+if (!coreClaim) throw new Error("MY-COST-001 is missing");
+---
+
+<BaseLayout active="home">
+  <section class="hero page-width">
+    <div class="hero-copy">
+      <p class="section-label">PERSONAL INVESTMENT RESEARCH ARCHIVE</p>
+      <h1>Investment<br /><span>Research Lab</span></h1>
+      <p class="hero-tagline">Learning businesses from first principles.</p>
+      <p class="hero-intro">记录公司如何赚钱、判断如何形成、证据如何改变结论。没有行情噪声，只有可以追溯、可以反证、可以长期复盘的研究。</p>
+      <div class="hero-actions">
+        <a class="button-primary" href={withBase("companies/muyuan/overview/")}>进入牧原研究 <span>→</span></a>
+        <a class="text-link" href={withBase("learning/research-method/")}>研究方法</a>
+      </div>
+    </div>
+
+    <aside class="profile-panel" aria-label="研究状态">
+      <div class="profile-top">
+        <div class="profile-mark">IR</div>
+        <div><span>CURRENT FOCUS</span><strong>牧原股份</strong><small>002714 · SZ</small></div>
+      </div>
+      <p>{company.core_question_en}</p>
+      <div class="profile-stats">
+        <div><strong>01</strong><span>Company</span></div>
+        <div><strong>01</strong><span>Open Claim</span></div>
+        <div><strong>05</strong><span>Annual Reports</span></div>
+      </div>
+      <div class="profile-rule"><i></i> Researching · No investment conclusion</div>
+    </aside>
+  </section>
+
+  <section class="content-section page-width" id="framework">
+    <div class="section-title"><span>01</span><h2>Research Framework</h2><i></i></div>
+    <div class="research-loop-line">
+      {researchLoop.map((step, index) => (
+        <div><span>{String(index + 1).padStart(2, "0")}</span><strong>{step}</strong></div>
+      ))}
+    </div>
+  </section>
+
+  <section class="content-section page-width" id="companies">
+    <div class="section-title"><span>02</span><h2>Companies</h2><i></i></div>
+    <article class="company-list-card">
+      <div class="company-index">01</div>
+      <div class="company-list-main">
+        <header><h3>{company.name}</h3><span>{company.ticker} · {company.exchange}</span></header>
+        <p class="company-question">{company.core_question_en}</p>
+        <p class="company-model"><span>MODEL</span>{company.economic_model.formula}</p>
+        <div class="company-tags"><span>生猪养殖</span><span>成本优势</span><span>猪周期</span><span>资本回报</span></div>
+      </div>
+      <div class="company-list-status"><span>Status</span><strong><i></i> Researching</strong><small>Updated {company.last_updated}</small></div>
+      <a class="card-arrow" href={withBase("companies/muyuan/overview/")} aria-label="进入牧原股份研究">↗</a>
+    </article>
+  </section>
+
+  <section class="content-section page-width">
+    <div class="section-title"><span>03</span><h2>Current Investment Claim</h2><i></i></div>
+    <ThesisCard claim={coreClaim} />
+  </section>
+
+  <section class="content-section page-width" id="learning">
+    <div class="section-title"><span>04</span><h2>Learning & Journal</h2><i></i></div>
+    <div class="note-grid">
+      <a class="note-card" href={withBase("learning/research-method/")}>
+        <span>LEARNING · 2026-08-20</span>
+        <h3>证据驱动的公司研究</h3>
+        <p>如何区分 FACT、INFERENCE 与 HYPOTHESIS，并让研究结论能够被现实纠正。</p>
+        <b>Read note →</b>
+      </a>
+      <a class="note-card" href={withBase("journal/2026-08-20-muyuan-start/")}>
+        <span>RESEARCH JOURNAL · 2026-08-20</span>
+        <h3>从牧原开始建立研究系统</h3>
+        <p>第一家公司、第一条开放 Claim，以及进入估值之前必须守住的研究边界。</p>
+        <b>Read entry →</b>
+      </a>
+    </div>
+  </section>
+</BaseLayout>

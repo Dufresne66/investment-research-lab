@@ -1,0 +1,14 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { withBase } from "../../lib/paths";
+export async function getStaticPaths() {
+  return (await getCollection("learning")).map((entry) => ({ params: { id: entry.id }, props: { entry } }));
+}
+const { entry } = Astro.props as { entry: CollectionEntry<"learning"> };
+const { Content } = await render(entry);
+---
+
+<BaseLayout title={entry.data.title} description={entry.data.description} active="learning">
+  <article class="standalone-note page-width"><a href={withBase("learning/")}>← Learning</a><div class="document-meta"><span>LEARNING NOTE</span><span>{entry.data.updated}</span></div><div class="prose"><Content /></div></article>
+</BaseLayout>

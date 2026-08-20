@@ -1,0 +1,13 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { withBase } from "../../lib/paths";
+const entries = (await getCollection("journal")).sort((a, b) => b.data.updated.localeCompare(a.data.updated));
+---
+
+<BaseLayout title="Research Journal" description="研究计划、判断更新与复盘日志。" active="journal">
+  <section class="archive-page page-width">
+    <p class="section-label">RESEARCH JOURNAL</p><h1>Research Journal</h1><p>记录研究从哪里开始、判断为什么改变，以及哪些错误值得长期保留。</p>
+    <div class="archive-list">{entries.map((entry) => <a href={withBase(`journal/${entry.id}/`)}><span>{entry.data.updated}</span><div><h2>{entry.data.title}</h2><p>{entry.data.description}</p></div><i>→</i></a>)}</div>
+  </section>
+</BaseLayout>

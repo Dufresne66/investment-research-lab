@@ -1,0 +1,56 @@
+---
+import "../styles/global.css";
+import { withBase } from "../lib/paths";
+
+interface Props {
+  title?: string;
+  description?: string;
+  active?: "home" | "companies" | "learning" | "journal";
+}
+
+const {
+  title = "Investment Research Lab",
+  description = "Learning businesses from first principles.",
+  active = "home",
+} = Astro.props;
+const pageTitle = title === "Investment Research Lab" ? title : `${title} · Investment Research Lab`;
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefined;
+const ogImage = Astro.site ? new URL(withBase("og.png"), Astro.site) : undefined;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0c0c0f" />
+    <title>{pageTitle}</title>
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="site-nav page-width" aria-label="主导航">
+        <a class="wordmark" href={withBase()}><span>IR</span><b>LAB</b></a>
+        <div class="nav-links">
+          <a class:list={[active === "home" && "active"]} href={withBase()}>Home</a>
+          <a class:list={[active === "companies" && "active"]} href={withBase("#companies")}>Companies</a>
+          <a class:list={[active === "learning" && "active"]} href={withBase("learning/")}>Learning</a>
+          <a class:list={[active === "journal" && "active"]} href={withBase("journal/")}>Research Journal</a>
+        </div>
+        <span class="nav-state"><i></i> local-first</span>
+      </nav>
+    </header>
+    <main><slot /></main>
+    <footer class="site-footer page-width">
+      <p>Investment Research Lab · Facts before conclusions.</p>
+      <p>Research assistance by AI · Final decisions: Human-written only.</p>
+    </footer>
+  </body>
+</html>

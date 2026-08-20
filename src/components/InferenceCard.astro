@@ -1,0 +1,6 @@
+---
+import ResearchSignal from "./ResearchSignal.astro";
+const { title, id, note } = Astro.props;
+---
+
+<ResearchSignal kind="INFERENCE" title={title} id={id} note={note}><slot /></ResearchSignal>

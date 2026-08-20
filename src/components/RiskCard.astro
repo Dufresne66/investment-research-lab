@@ -1,0 +1,18 @@
+---
+interface Risk {
+  risk_id: string;
+  title: string;
+  severity: string;
+  falsification_condition: string;
+  signals: string[];
+}
+
+const { risk } = Astro.props as { risk: Risk };
+---
+
+<article class="risk-card">
+  <header><code>{risk.risk_id}</code><span>{risk.severity}</span></header>
+  <h3>{risk.title}</h3>
+  <p>{risk.falsification_condition}</p>
+  <div><span>WATCH</span>{risk.signals.join(" · ")}</div>
+</article>

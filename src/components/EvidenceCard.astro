@@ -1,0 +1,31 @@
+---
+interface Evidence {
+  evidence_id: string;
+  claim_id: string;
+  type: string;
+  statement: string;
+  direction: string;
+  source_title: string;
+  source_page: number | null;
+  source_locator_status: string;
+  verification_status: string;
+  note: string;
+}
+
+const { evidence } = Astro.props as { evidence: Evidence };
+---
+
+<article class="evidence-card">
+  <header>
+    <div><span class="card-type">{evidence.type}</span><code>{evidence.evidence_id}</code></div>
+    <span class="direction-badge">{evidence.direction}</span>
+  </header>
+  <h3>{evidence.statement}</h3>
+  <dl>
+    <div><dt>Claim</dt><dd>{evidence.claim_id}</dd></div>
+    <div><dt>Source</dt><dd>{evidence.source_title}</dd></div>
+    <div><dt>Locator</dt><dd>{evidence.source_page ?? evidence.source_locator_status}</dd></div>
+    <div><dt>Verification</dt><dd>{evidence.verification_status}</dd></div>
+  </dl>
+  <p>{evidence.note}</p>
+</article>

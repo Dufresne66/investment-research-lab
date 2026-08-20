@@ -1,0 +1,81 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import { companySections } from "../lib/research";
+import { withBase } from "../lib/paths";
+
+interface Props {
+  current: string;
+  title: string;
+  description: string;
+  company: {
+    name: string;
+    ticker: string;
+    exchange: string;
+    industry: string;
+    last_updated: string;
+    economic_model: { formula: string };
+    sources: unknown[];
+  };
+  claim: { id: string; status: string; confidence: number; statement: string };
+}
+
+const { current, title, description, company, claim } = Astro.props;
+---
+
+<BaseLayout title={`${company.name} · ${title}`} description={description} active="companies">
+  <section class="company-masthead page-width">
+    <a class="back-row" href={withBase()}>← Companies</a>
+    <div class="company-heading">
+      <div>
+        <p class="section-label">COMPANY RESEARCH · {company.ticker}.{company.exchange}</p>
+        <h1>{company.name}</h1>
+        <p>{company.industry} · Research in progress · Updated {company.last_updated}</p>
+      </div>
+      <div class="company-equation">
+        <span>ECONOMIC MODEL</span>
+        <strong>{company.economic_model.formula}</strong>
+      </div>
+    </div>
+  </section>
+
+  <nav class="section-tabs" aria-label="牧原研究章节">
+    <div class="page-width tabs-inner">
+      {companySections.map(([index, slug, label]) => (
+        <a class:list={[slug === current && "active"]} href={withBase(`companies/muyuan/${slug}/`)}>
+          <span>{index}</span>{label}
+        </a>
+      ))}
+    </div>
+  </nav>
+
+  <div class="research-page page-width">
+    <article class="research-document">
+      <div class="document-meta">
+        <span>RESEARCH NOTE</span>
+        <span>{current.replaceAll("-", " ")}</span>
+      </div>
+      <div class="prose"><slot /></div>
+      <div class="page-signals"><slot name="signals" /></div>
+    </article>
+
+    <aside class="research-aside">
+      <section class="aside-card">
+        <header><span>CORE CLAIM</span><b>{claim.status}</b></header>
+        <code>{claim.id}</code>
+        <p>{claim.statement}</p>
+        <div class="aside-confidence"><i style={`width: ${claim.confidence}%`}></i></div>
+        <small>Human confidence · {claim.confidence}%</small>
+      </section>
+      <section class="aside-card">
+        <header><span>SOURCE LIBRARY</span><b class="good">AVAILABLE</b></header>
+        <strong>{company.sources.length} 份年度报告</strong>
+        <p>2021–2025 年原始 PDF 保存在 KnowledgeBase；这里记录引用、页码和判断变化。</p>
+      </section>
+      <section class="aside-card rule-card">
+        <span>CONTENT RULE</span>
+        <p><b>FACT</b> 指向来源；<b>INFERENCE</b> 写清推理；<b>HYPOTHESIS</b> 必须可反证。</p>
+      </section>
+      <section class="human-card"><span>H</span><div><small>INVESTMENT DECISION</small><strong>Human-written only</strong></div></section>
+    </aside>
+  </div>
+</BaseLayout>

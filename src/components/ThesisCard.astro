@@ -1,0 +1,34 @@
+---
+interface Claim {
+  id: string;
+  statement: string;
+  status: string;
+  confidence: number;
+  evidence_needed: string[];
+  last_updated: string;
+}
+
+const { claim, compact = false } = Astro.props as { claim: Claim; compact?: boolean };
+---
+
+<article class:list={["thesis-card", compact && "is-compact"]}>
+  <header>
+    <div>
+      <span class="card-type">INVESTMENT CLAIM</span>
+      <code>{claim.id}</code>
+    </div>
+    <span class="status-badge">{claim.status}</span>
+  </header>
+  <h3>{claim.statement}</h3>
+  <div class="confidence" aria-label={`当前人工置信度 ${claim.confidence}%`}>
+    <div><span>HUMAN CONFIDENCE</span><strong>{claim.confidence}%</strong></div>
+    <div class="confidence-track"><i style={`width: ${claim.confidence}%`}></i></div>
+  </div>
+  {!compact && (
+    <div class="needed-evidence">
+      <span>EVIDENCE NEEDED</span>
+      <ul>{claim.evidence_needed.map((item) => <li>{item}</li>)}</ul>
+    </div>
+  )}
+  <footer>Last updated · {claim.last_updated} · Human-owned</footer>
+</article>
