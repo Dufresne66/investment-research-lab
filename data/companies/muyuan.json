@@ -1,0 +1,92 @@
+{
+  "slug": "muyuan",
+  "name": "牧原股份",
+  "ticker": "002714",
+  "exchange": "SZ",
+  "industry": "生猪养殖",
+  "research_status": "BUILDING_EVIDENCE_CHAIN",
+  "last_updated": "2026-08-20",
+  "economic_model": {
+    "formula": "Profit ≈ Q × W × (P − C)",
+    "summary": "在公司无法决定生猪市场价格 P 的情况下，研究重点是单位完全养殖成本 C 能否持续低于同行。",
+    "variables": {
+      "Q": "出栏数量",
+      "W": "平均出栏重量",
+      "P": "生猪市场价格",
+      "C": "单位完全养殖成本"
+    }
+  },
+  "claims": [
+    {
+      "claim_id": "MY-COST-001",
+      "statement": "牧原能够长期保持显著低于行业平均的完全养殖成本。",
+      "status": "OPEN",
+      "confidence": 0.4,
+      "owner": "HUMAN",
+      "last_updated": "2026-08-20",
+      "evidence_for": ["MY-EV-2025-COST-001"],
+      "evidence_against": [],
+      "evidence_needed": [
+        "牧原过去 10 年单位完全养殖成本的同口径序列",
+        "温氏股份、新希望、神农集团的可比单位成本",
+        "行业平均成本或具有代表性的行业样本",
+        "至少一个完整猪周期中的成本差异稳定性",
+        "规模扩大是否带来管理复杂度和额外成本"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "MY-EV-2025-COST-001",
+      "claim_id": "MY-COST-001",
+      "type": "FACT",
+      "statement": "2025 年牧原完全养殖成本约为 12 元/kg，同比下降约 2 元/kg。",
+      "direction": "SUPPORTS",
+      "source_title": "牧原股份 2025 年年度报告",
+      "source_year": 2025,
+      "source_library": "KnowledgeBase/10_Inputs/investment/annual_reports/中国股市/牧原股份2025年年度报告.pdf",
+      "source_page": null,
+      "source_locator_status": "PAGE_ANCHOR_NEEDED",
+      "verification_status": "SOURCE_FILE_PRESENT",
+      "recorded_at": "2026-08-20",
+      "note": "该事实只说明公司成本下降，不能单独证明相对同行的长期成本领先。"
+    }
+  ],
+  "risks": [
+    {
+      "risk_id": "MY-RISK-001",
+      "title": "成本优势消失",
+      "severity": "CRITICAL",
+      "falsification_condition": "牧原单位完全养殖成本连续两年以上不低于主要同行。",
+      "signals": ["同行同口径单位成本", "牧原单位完全养殖成本", "成本差持续时间"]
+    },
+    {
+      "risk_id": "MY-RISK-002",
+      "title": "疫病破坏生产体系",
+      "severity": "CRITICAL",
+      "falsification_condition": "死亡率、异常淘汰或防疫损失持续推高单位成本并削弱生产稳定性。",
+      "signals": ["成活率", "PSY / MSY", "异常淘汰", "疫病相关损失", "单位成本"]
+    },
+    {
+      "risk_id": "MY-RISK-003",
+      "title": "规模不经济",
+      "severity": "HIGH",
+      "falsification_condition": "规模扩大持续提高管理复杂度和单位成本，而非形成效率优势。",
+      "signals": ["出栏量", "单位管理费用", "产能利用率", "单位成本"]
+    },
+    {
+      "risk_id": "MY-RISK-004",
+      "title": "资本回报下降",
+      "severity": "HIGH",
+      "falsification_condition": "资本开支持续增长，但正常化 ROIC 与自由现金流没有同步改善。",
+      "signals": ["资本开支", "在建工程", "正常化 ROIC", "自由现金流"]
+    }
+  ],
+  "sources": [
+    { "year": 2025, "title": "牧原股份 2025 年年度报告", "status": "AVAILABLE" },
+    { "year": 2024, "title": "牧原股份 2024 年年度报告", "status": "AVAILABLE" },
+    { "year": 2023, "title": "牧原股份 2023 年年度报告", "status": "AVAILABLE" },
+    { "year": 2022, "title": "牧原股份 2022 年年度报告", "status": "AVAILABLE" },
+    { "year": 2021, "title": "牧原股份 2021 年年度报告", "status": "AVAILABLE" }
+  ]
+}
