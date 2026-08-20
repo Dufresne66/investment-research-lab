@@ -1,14 +1,21 @@
 # 把 Investment Research Lab 发布到 GitHub Pages
 
-当前网站已经准备好自动发布流程，但本地项目还没有连接任何 GitHub 仓库。第一次发布只需完成以下步骤。
+当前网站已经连接 GitHub，并通过 GitHub Actions 自动发布。本文件同时保留首次配置步骤，供以后排查使用。
 
 ## 发布前先理解一件事
 
 GitHub Pages 是公开网页。即使某些付费方案允许从私有仓库构建，普通 Pages 网站仍可能公开访问。不要把个人隐私、账户信息、未授权 PDF 或其他敏感资料放进网站仓库。
 
-本项目只保存研究文章、结构化判断和原始资料路径，不上传 KnowledgeBase 中的年报 PDF。
+本项目只保存已批准的研究文章、结构化判断和公开来源定位，不上传私人研究仓库中的年报 PDF、阅读笔记或计算草稿。
 
-## 第一步：建立 GitHub 仓库
+当前地址：
+
+```text
+https://github.com/Dufresne66/investment-research-lab
+https://dufresne66.github.io/investment-research-lab/
+```
+
+## 首次配置第一步：建立 GitHub 仓库
 
 1. 登录 GitHub；
 2. 点击右上角 `+`，选择 **New repository**；
@@ -23,7 +30,7 @@ GitHub Pages 是公开网页。即使某些付费方案允许从私有仓库构�
 https://github.com/<你的用户名>/investment-research-lab
 ```
 
-## 第二步：连接并上传当前网站
+## 首次配置第二步：连接并上传当前网站
 
 最简单的方法是把上面的仓库地址发给 Codex，并说：
 
@@ -39,7 +46,7 @@ git remote add origin https://github.com/<你的用户名>/investment-research-l
 git push -u origin main
 ```
 
-## 第三步：打开 GitHub Pages
+## 首次配置第三步：打开 GitHub Pages
 
 1. 进入刚才的 GitHub 仓库；
 2. 点击 **Settings**；
@@ -48,7 +55,7 @@ git push -u origin main
 
 项目里的 `.github/workflows/deploy.yml` 会在每次推送 `main` 后自动构建和发布。
 
-## 第四步：找到公开网址
+## 首次配置第四步：找到公开网址
 
 回到仓库的 **Actions** 页面，等待 `Deploy to GitHub Pages` 变成绿色。第一次通常需要几分钟。
 
@@ -62,7 +69,7 @@ https://<你的用户名>.github.io/investment-research-lab/
 
 ## 以后如何更新
 
-平时只需继续写 Markdown。完成一次学习后：
+只有 Publication Candidate 获得用户批准后，才把整理后的 Markdown 加入本站并发布：
 
 ```bash
 git add .

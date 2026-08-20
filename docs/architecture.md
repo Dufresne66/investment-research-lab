@@ -2,12 +2,12 @@
 
 ## 1. 系统边界
 
-Investment Research Lab 是 KnowledgeBase 投资学习的独立软件载体，不是第二套投资知识库。
+Investment Research Lab 是 Investment 工作区的公开出版层，不是原始资料库，也不是日常研究环境。
 
-- KnowledgeBase 拥有原始 PDF、股东信、投资概念、日常学习、研究计划和阶段性公司卡；
-- 本工作区拥有 Astro 网站、Markdown 研究正文、Claim / Evidence Ledger、结构化数据、页面和测试；
-- 网站只保存原始资料的引用和页码，不复制 PDF；
-- 阶段性公司结论形成后，再人工沉淀为 KnowledgeBase 公司卡。
+- 相邻的 `investment-research/` 私人仓库拥有原始资料、阅读笔记、研究问题、计算、比较、Claim 草稿、反证和判断历史；
+- 本仓库拥有 Astro 网站、经过人工批准的研究正文、公开 Claim / Evidence、页面和测试；
+- 网站只保存稳定的来源 ID、页码或章节定位，不复制 PDF；
+- 私人研究先进入 Publication Candidate，用户明确批准后才人工整理进本站。
 
 ## 2. 技术原则
 
@@ -19,15 +19,17 @@ Investment Research Lab 是 KnowledgeBase 投资学习的独立软件载体，�
 
 | 内容 | 唯一位置 |
 |---|---|
-| 公司研究正文 | `src/content/companies/<slug>/` |
-| 投资理论 | `src/content/learning/` |
-| 研究日志与复盘 | `src/content/journal/` |
-| Claim | `src/data/claims/<slug>.yaml` |
-| 公司身份、Evidence、风险、来源 | `src/data/companies/<slug>.json` |
+| 已批准的公司研究正文 | `src/content/companies/<slug>/` |
+| 已批准的投资理论 | `src/content/learning/` |
+| 适合公开的研究日志与复盘 | `src/content/journal/` |
+| 已批准的 Claim | `src/data/claims/<slug>.yaml` |
+| 公开公司身份、Evidence、风险、来源索引 | `src/data/companies/<slug>.json` |
 | 页面 | `src/pages/` |
 | 视觉组件 | `src/components/` |
 
 页面只消费 Markdown、YAML 与 JSON，不在组件中悄悄保存第二份研究结论。
+
+私人研究层的文件结构与发布候选由 `/Users/dufresne/Investment/investment-research/` 管理；本仓库不直接引用私人绝对路径，避免把本地结构或资料意外暴露到网页。
 
 ## 4. 核心研究循环
 

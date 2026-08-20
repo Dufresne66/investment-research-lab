@@ -83,4 +83,4 @@ Claim 的 statement、status、confidence、证据引用和更新时间只保存
 - 内容遗漏：迁移后逐篇比对原 5 篇正文；
 - 回退：任何问题都可回到 `9c021b8`，不重写 Git 历史。
 
-完成门槛：`npm run build` 与静态 HTML 测试通过、无 React / Next.js 残留依赖、核心路由存在、中文与研究卡片在桌面和手机宽度下可读。
+完成门槛：`pnpm build` 与静态 HTML 测试通过、无 React / Next.js 残留依赖、核心路由存在、中文与研究卡片在桌面和手机宽度下可读。
