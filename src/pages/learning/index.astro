@@ -3,11 +3,33 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { withBase } from "../../lib/paths";
 const entries = (await getCollection("learning")).sort((a, b) => a.data.order - b.data.order);
+const typeLabel = {
+  method: "METHOD",
+  concept: "CONCEPT",
+  "interview-study": "INTERVIEW STUDY",
+};
 ---
 
 <BaseLayout title="Learning" description="投资理论、研究方法与长期学习笔记。" active="learning">
-  <section class="archive-page page-width">
-    <p class="section-label">LEARNING ARCHIVE</p><h1>Learning</h1><p>投资理论、研究方法和通用概念。每篇笔记都可以独立打开、长期修订。</p>
-    <div class="archive-list">{entries.map((entry) => <a href={withBase(`learning/${entry.id}/`)}><span>{entry.data.updated}</span><div><h2>{entry.data.title}</h2><p>{entry.data.description}</p></div><i>→</i></a>)}</div>
+  <section class="archive-page learning-archive page-width">
+    <p class="section-label">LEARNING ARCHIVE</p>
+    <h1>Learning</h1>
+    <p>投资理论、研究方法和通用概念。访谈学习保留来源边界，并把他人的观点转化为可以长期检验的个人研究流程。</p>
+    <div class="archive-list">
+      {entries.map((entry) => (
+        <a href={withBase(`learning/${entry.id}/`)}>
+          <span class="learning-list-meta">
+            <time>{entry.data.updated}</time>
+            <small>{typeLabel[entry.data.content_type]}</small>
+          </span>
+          <div>
+            <h2>{entry.data.title}</h2>
+            <p>{entry.data.description}</p>
+            {entry.data.reading_time && <b>{entry.data.reading_time} min read</b>}
+          </div>
+          <i>→</i>
+        </a>
+      ))}
+    </div>
   </section>
 </BaseLayout>

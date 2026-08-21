@@ -1,14 +1,47 @@
 ---
 import { getCollection, render, type CollectionEntry } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import LearningSourcePanel from "../../components/LearningSourcePanel.astro";
 import { withBase } from "../../lib/paths";
 export async function getStaticPaths() {
   return (await getCollection("learning")).map((entry) => ({ params: { id: entry.id }, props: { entry } }));
 }
 const { entry } = Astro.props as { entry: CollectionEntry<"learning"> };
 const { Content } = await render(entry);
+const entries = await getCollection("learning");
+const byId = new Map(entries.map((item) => [item.id, item]));
+const related = entry.data.related_learning.map((id) => {
+  const item = byId.get(id);
+  if (!item) throw new Error(`Unknown related Learning entry: ${id}`);
+  return { id: item.id, title: item.data.title, description: item.data.description };
+});
+const isInterviewStudy = entry.data.content_type === "interview-study";
+const typeLabel = {
+  method: "LEARNING METHOD",
+  concept: "LEARNING CONCEPT",
+  "interview-study": "INTERVIEW STUDY",
+}[entry.data.content_type];
 ---
 
 <BaseLayout title={entry.data.title} description={entry.data.description} active="learning">
-  <article class="standalone-note page-width"><a href={withBase("learning/")}>← Learning</a><div class="document-meta"><span>LEARNING NOTE</span><span>{entry.data.updated}</span></div><div class="prose"><Content /></div></article>
+  <article class:list={["standalone-note", "learning-document", "page-width", isInterviewStudy && "interview-learning-document"]}>
+    <a href={withBase("learning/")}>← Learning</a>
+    <div class="document-meta">
+      <span>{typeLabel}</span>
+      {entry.data.reading_time && <span>{entry.data.reading_time} min read</span>}
+      <span>Updated {entry.data.updated}</span>
+    </div>
+
+    {isInterviewStudy && (
+      <aside class="learning-provenance" aria-label="文章信息来源层级">
+        <div><span>SOURCE-DERIVED</span><p>来自访谈的观点与案例，采用简短转述并回到主要来源。</p></div>
+        <div><span>MY INTERPRETATION</span><p>作者对观点适用条件、限制与投资含义的理解。</p></div>
+        <div><span>MY PROCESS</span><p>由此形成、仍需在未来研究中检验的个人流程。</p></div>
+      </aside>
+    )}
+
+    <div class="prose"><Content /></div>
+
+    {entry.data.primary_source && <LearningSourcePanel source={entry.data.primary_source} related={related} />}
+  </article>
 </BaseLayout>

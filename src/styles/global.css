@@ -270,6 +270,58 @@ code { font-family: var(--mono); }
 .standalone-note { max-width: 760px; padding-top: 64px; padding-bottom: 64px; }
 .standalone-note > a { display: inline-block; margin-bottom: 36px; color: var(--dim); font-family: var(--mono); font-size: 9px; }
 .standalone-note > a:hover { color: var(--cyan); }
+
+/* Long-form Learning and interview studies */
+.learning-archive > p:not(.section-label) { max-width: 720px; font-size: 15px; }
+.learning-archive .archive-list > a { min-height: 112px; padding-block: 25px; }
+.learning-archive .archive-list h2 { font-size: 21px; line-height: 1.35; }
+.learning-archive .archive-list p { max-width: 700px; margin-top: 8px; font-size: 13px; line-height: 1.65; }
+.learning-list-meta { display: grid; gap: 8px; }
+.learning-list-meta time { color: var(--dim); font-family: var(--mono); font-size: 9px; }
+.learning-list-meta small { color: var(--cyan); font-family: var(--mono); font-size: 8px; letter-spacing: .08em; }
+.learning-archive .archive-list b { display: block; margin-top: 11px; color: var(--dim); font-family: var(--mono); font-size: 8px; font-weight: 500; }
+
+.learning-document { max-width: 860px; }
+.learning-document .document-meta, .learning-document .prose, .learning-provenance { width: min(100%, 720px); margin-inline: auto; }
+.learning-document .document-meta { align-items: center; gap: 16px; }
+.learning-document .prose { overflow-wrap: anywhere; }
+.learning-document .prose h1 { margin-bottom: 34px; font-size: clamp(36px, 5.5vw, 44px); line-height: 1.2; letter-spacing: -.025em; }
+.learning-document .prose h2 { margin-top: 58px; padding-top: 28px; font-size: 27px; line-height: 1.35; }
+.learning-document .prose h3 { margin-top: 38px; font-size: 20px; line-height: 1.45; }
+.learning-document .prose p, .learning-document .prose li { font-size: 17px; line-height: 1.92; letter-spacing: .006em; }
+.learning-document .prose p { margin: 18px 0; }
+.learning-document .prose li { margin: 9px 0; padding-left: 3px; }
+.learning-document .prose ul, .learning-document .prose ol { padding-left: 28px; }
+.learning-document .prose blockquote { margin: 30px 0; padding: 22px 24px; border-left-width: 3px; border-radius: 0 16px 16px 0; font-size: 17px; line-height: 1.85; }
+.learning-document .prose blockquote p { margin: 0; font-family: var(--serif); }
+.learning-document .prose a { color: var(--cyan); text-decoration: underline; text-decoration-color: rgba(0, 113, 227, .35); text-underline-offset: 3px; }
+.learning-document .prose a:hover { text-decoration-color: var(--cyan); }
+.learning-document .prose pre { font-size: 14px; line-height: 1.75; }
+.learning-document .prose table { display: block; overflow-x: auto; font-size: 13px; line-height: 1.6; white-space: nowrap; }
+.learning-document .prose th, .learning-document .prose td { padding: 12px 13px; }
+
+.learning-provenance { display: grid; grid-template-columns: repeat(3, 1fr); margin-bottom: 48px; border-top: 1px solid var(--line); border-left: 1px solid var(--line); background: rgba(255, 255, 255, .62); }
+.learning-provenance div { min-height: 130px; padding: 18px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.learning-provenance span, .source-panel-label { color: var(--cyan); font-family: var(--mono); font-size: 8px; letter-spacing: .08em; }
+.learning-provenance p { margin: 14px 0 0; color: var(--muted); font-size: 11px; line-height: 1.75; }
+
+.learning-source-panel { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(250px, .85fr); gap: 0; margin-top: 72px; border: 1px solid var(--line); border-radius: 24px; background: var(--surface); overflow: hidden; }
+.learning-source-main, .related-learning { padding: 28px; }
+.learning-source-panel h2 { margin: 10px 0 0; font-family: var(--serif); font-size: 24px; font-weight: 600; }
+.source-panel-title { margin: 17px 0; color: var(--text-soft); font-family: var(--serif); font-size: 17px; line-height: 1.65; }
+.learning-source-panel dl { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin: 22px 0; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.learning-source-panel dl div { padding: 11px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.learning-source-panel dt { color: var(--dim); font-family: var(--mono); font-size: 7px; text-transform: uppercase; }
+.learning-source-panel dd { margin: 5px 0 0; color: var(--text-soft); font-size: 10px; overflow-wrap: anywhere; }
+.learning-source-main > a { display: inline-flex; padding: 10px 14px; border-radius: 999px; background: var(--cyan); color: white; font-family: var(--mono); font-size: 9px; }
+.learning-source-main > a:hover { background: #0077ed; }
+.learning-source-main > small { display: block; margin-top: 14px; color: var(--dim); font-size: 9px; line-height: 1.65; }
+.related-learning { border-left: 1px solid var(--line); background: var(--surface-2); }
+.related-learning > a { display: grid; grid-template-columns: 1fr auto; gap: 8px; margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--line); }
+.related-learning strong, .related-learning span { display: block; }
+.related-learning strong { font-family: var(--serif); font-size: 15px; }
+.related-learning span { grid-column: 1; margin-top: 2px; color: var(--muted); font-size: 10px; line-height: 1.6; }
+.related-learning i { grid-column: 2; grid-row: 1 / span 2; color: var(--cyan); font-style: normal; }
 .not-found { min-height: 65vh; display: grid; place-content: center; justify-items: start; }
 .not-found > span { color: var(--cyan); font-family: var(--mono); font-size: 12px; }
 .not-found h1 { margin: 13px 0 8px; font-family: var(--serif); font-size: 34px; }
@@ -548,6 +600,10 @@ code { font-family: var(--mono); }
   .reports-company-grid { grid-template-columns: 1fr; }
   .report-row { grid-template-columns: 78px minmax(0, 1fr) 120px; }
   .report-row-actions { grid-column: 2 / -1; display: flex; flex-wrap: wrap; gap: 14px; }
+  .learning-provenance { grid-template-columns: 1fr; }
+  .learning-provenance div { min-height: 0; }
+  .learning-source-panel { grid-template-columns: 1fr; }
+  .related-learning { border-top: 1px solid var(--line); border-left: 0; }
 }
 
 @media (max-width: 560px) {
@@ -578,6 +634,25 @@ code { font-family: var(--mono); }
   .research-document { padding: 27px 20px 34px; }
   .prose h1 { font-size: 29px; }
   .prose p, .prose li { font-size: 12px; }
+  .learning-archive > h1 { font-size: 44px; }
+  .learning-archive > p:not(.section-label) { font-size: 14px; }
+  .learning-archive .archive-list > a { min-height: 0; padding: 21px 10px; }
+  .learning-archive .archive-list h2 { font-size: 19px; }
+  .learning-archive .archive-list p { font-size: 12px; }
+  .learning-document { padding-top: 42px; }
+  .learning-document .document-meta { flex-wrap: wrap; margin-bottom: 28px; }
+  .learning-document .prose h1 { font-size: 34px; }
+  .learning-document .prose h2 { margin-top: 48px; padding-top: 23px; font-size: 23px; }
+  .learning-document .prose h3 { margin-top: 32px; font-size: 19px; }
+  .learning-document .prose p, .learning-document .prose li { font-size: 16px; line-height: 1.88; }
+  .learning-document .prose ul, .learning-document .prose ol { padding-left: 23px; }
+  .learning-document .prose blockquote { padding: 19px; font-size: 16px; }
+  .learning-document .prose table { font-size: 12px; }
+  .learning-provenance { margin-bottom: 38px; }
+  .learning-provenance div { padding: 16px; }
+  .learning-source-panel { margin-top: 56px; border-radius: 18px; }
+  .learning-source-main, .related-learning { padding: 21px; }
+  .learning-source-panel dl { grid-template-columns: 1fr; }
   .evidence-card dl { grid-template-columns: 1fr; }
   .chapter-list > a { grid-template-columns: 30px minmax(0, 1fr) 16px; }
   .chapter-list b { display: none; }

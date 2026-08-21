@@ -1,0 +1,62 @@
+---
+import { withBase } from "../lib/paths";
+
+interface LearningSource {
+  source_id: string;
+  title: string;
+  publisher: string;
+  published: string;
+  url: string;
+  host?: string;
+  relationship: "original" | "repost" | "mirror";
+  retrieved: string;
+  verification_status: "ORIGINAL_VERIFIED" | "REPOST_VERIFIED" | "ORIGINAL_AND_REPOST_VERIFIED";
+}
+
+interface RelatedLearning {
+  id: string;
+  title: string;
+  description: string;
+}
+
+const { source, related = [] } = Astro.props as {
+  source: LearningSource;
+  related?: RelatedLearning[];
+};
+
+const relationshipLabel = {
+  original: "Original publisher page",
+  repost: "Verified repost",
+  mirror: "Verified mirror",
+}[source.relationship];
+---
+
+<section class="learning-source-panel" aria-labelledby="learning-source-title">
+  <div class="learning-source-main">
+    <p class="source-panel-label">PRIMARY SOURCE · {source.source_id}</p>
+    <h2 id="learning-source-title">主要来源</h2>
+    <p class="source-panel-title">{source.title}</p>
+    <dl>
+      <div><dt>Original publisher</dt><dd>{source.publisher}</dd></div>
+      <div><dt>Published</dt><dd>{source.published}</dd></div>
+      {source.host && <div><dt>Page host</dt><dd>{source.host}</dd></div>}
+      <div><dt>Verification</dt><dd>{source.verification_status.replaceAll("_", " ")}</dd></div>
+    </dl>
+    <a href={source.url} target="_blank" rel="noreferrer">{relationshipLabel} ↗</a>
+    <small>Retrieved {source.retrieved} · 公开页只保留来源身份与链接，不保存采访全文。</small>
+  </div>
+
+  {related.length > 0 && (
+    <aside class="related-learning" aria-label="关联学习">
+      <p class="source-panel-label">CONTINUE LEARNING</p>
+      <h2>关联方法</h2>
+      {related.map((item) => (
+        <a href={withBase(`learning/${item.id}/`)}>
+          <strong>{item.title}</strong>
+          <span>{item.description}</span>
+          <i>→</i>
+        </a>
+      ))}
+    </aside>
+  )}
+</section>

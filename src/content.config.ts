@@ -11,6 +11,33 @@ const researchSchema = z.object({
   updated: z.string(),
 });
 
+const learningSourceSchema = z.object({
+  source_id: z.string(),
+  title: z.string(),
+  publisher: z.string(),
+  published: z.string(),
+  url: z.url(),
+  host: z.string().optional(),
+  relationship: z.enum(["original", "repost", "mirror"]),
+  retrieved: z.string(),
+  verification_status: z.enum(["ORIGINAL_VERIFIED", "REPOST_VERIFIED", "ORIGINAL_AND_REPOST_VERIFIED"]),
+});
+
+const learningSchema = researchSchema.extend({
+  content_type: z.enum(["method", "concept", "interview-study"]).default("method"),
+  reading_time: z.number().int().positive().max(60).optional(),
+  primary_source: learningSourceSchema.optional(),
+  related_learning: z.array(z.string()).default([]),
+}).superRefine((entry, context) => {
+  if (entry.content_type === "interview-study" && !entry.primary_source) {
+    context.addIssue({
+      code: "custom",
+      path: ["primary_source"],
+      message: "Interview studies require a verified primary_source record.",
+    });
+  }
+});
+
 const companyResearch = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/companies" }),
   schema: researchSchema,
@@ -18,7 +45,7 @@ const companyResearch = defineCollection({
 
 const learning = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/learning" }),
-  schema: researchSchema,
+  schema: learningSchema,
 });
 
 const journal = defineCollection({

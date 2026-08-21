@@ -146,6 +146,34 @@ test("uses the light system palette and allows human confidence to remain unassi
   assert.match(claim, /confidence: 40/);
 });
 
+test("provides a reusable source-grounded interview Learning architecture", async () => {
+  const config = await readFile(new URL("src/content.config.ts", root), "utf8");
+  assert.match(config, /content_type: z\.enum\(\["method", "concept", "interview-study"\]\)/);
+  assert.match(config, /Interview studies require a verified primary_source record/);
+  assert.match(config, /related_learning: z\.array\(z\.string\(\)\)/);
+
+  const pageSource = await readFile(new URL("src/pages/learning/[id].astro", root), "utf8");
+  assert.match(pageSource, /LearningSourcePanel/);
+  assert.match(pageSource, /SOURCE-DERIVED/);
+  assert.match(pageSource, /MY INTERPRETATION/);
+  assert.match(pageSource, /MY PROCESS/);
+
+  const css = await readFile(new URL("src/styles/global.css", root), "utf8");
+  assert.match(css, /\.learning-document \.prose p, \.learning-document \.prose li \{ font-size: 17px/);
+  assert.match(css, /\.learning-document \.prose table \{ display: block; overflow-x: auto/);
+
+  await access(new URL("src/components/LearningSourcePanel.astro", root));
+  await access(new URL("docs/learning-interview-architecture.md", root));
+
+  const learningIndex = await page("learning/index.html");
+  assert.match(learningIndex, /METHOD/);
+  assert.match(learningIndex, /证据驱动的公司研究/);
+
+  const method = await page("learning/research-method/index.html");
+  assert.match(method, /LEARNING METHOD/);
+  assert.match(method, /FACT → INFERENCE → HYPOTHESIS → EVIDENCE → UPDATE/);
+});
+
 test("keeps every published Claim evidence reference linked to the public ledger", async () => {
   const companies = ["maotai", "pop-mart", "alibaba", "xpeng"];
   const missing = [];
