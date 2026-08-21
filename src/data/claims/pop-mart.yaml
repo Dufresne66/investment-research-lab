@@ -1,0 +1,23 @@
+- id: PM-IP-001
+  statement: 泡泡玛特已形成可重复的多 IP 孵化与商业化引擎，长期增长不依赖单一爆款。
+  status: OPEN
+  claim_type: HYPOTHESIS
+  confidence: null
+  owner: HUMAN
+  evidence_for:
+    - PM-EV-IP-001
+    - PM-EV-IP-002
+    - PM-EV-IP-003
+    - PM-EV-IP-004
+  evidence_against:
+    - PM-CE-IP-001
+    - PM-CE-IP-002
+    - PM-CE-IP-003
+    - PM-CE-IP-004
+    - PM-CE-IP-005
+  evidence_needed:
+    - 新 IP cohort 的签约、发布、过亿与三年留存率
+    - IP × 产品 × 地区收入、毛利与库存
+    - 同店、终端 sell-through、退货、折扣与复购
+    - 主要艺术家 IP 的权利、期限与续约边界
+  last_updated: "2026-08-21"

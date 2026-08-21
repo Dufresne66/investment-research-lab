@@ -3,24 +3,52 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import { withBase } from "../../lib/paths";
 ---
 
-<BaseLayout title="Blog" description="用原始公告、可复算数据和明确边界记录牧原经营变化。" active="blog">
+<BaseLayout title="Blog" description="用官方报告、可复算数据和明确边界记录公司经营变化。" active="blog">
   <section class="blog-index-page page-width">
     <div class="blog-index-hero">
       <p class="section-label">EVIDENCE-LED NOTES</p>
       <h1>Research Blog</h1>
-      <p>不是复述公告，也不是复制别人的结论。每篇文章都从官方 PDF 出发，把事实、推导、情景与判断分开。</p>
+      <p>不是复述公告，也不是复制别人的结论。每篇文章都从官方报告出发，把事实、推导、反证与未知分开。</p>
     </div>
 
     <div class="blog-featured-grid">
+      <a class="blog-index-card featured" href={withBase("blog/maotai-2025-annual/")}>
+        <span class="blog-card-index">01 · ANNUAL REPORT</span>
+        <h2>贵州茅台 2025 年报分析</h2>
+        <p>销量还在增长，收入为何回落？拆解主品牌韧性、系列酒压力与渠道重构。</p>
+        <div><span>2026-08-21</span><span>10 min read</span></div>
+        <b>Read analysis →</b>
+      </a>
+      <a class="blog-index-card" href={withBase("blog/pop-mart-2025-annual/")}>
+        <span class="blog-card-index">02 · ANNUAL REPORT</span>
+        <h2>泡泡玛特 2025 年报分析</h2>
+        <p>多 IP 引擎还是爆款放大器？同时观察集中度、毛绒、海外与库存。</p>
+        <div><span>2026-08-21</span><span>11 min read</span></div>
+        <b>Read analysis →</b>
+      </a>
+      <a class="blog-index-card" href={withBase("blog/alibaba-fy2026-annual/")}>
+        <span class="blog-card-index">03 · ANNUAL REPORT</span>
+        <h2>阿里巴巴 FY2026 年报分析</h2>
+        <p>Cloud 与 AI 收入重新加速，但资本开支和自由现金流决定回报质量。</p>
+        <div><span>2026-08-21</span><span>12 min read</span></div>
+        <b>Read analysis →</b>
+      </a>
+      <a class="blog-index-card" href={withBase("blog/xpeng-2025-annual/")}>
+        <span class="blog-card-index">04 · ANNUAL REPORT</span>
+        <h2>小鹏集团 2025 年报分析</h2>
+        <p>销量、毛利和现金流改善后，技术资产已经开始形成可重复收入了吗？</p>
+        <div><span>2026-08-21</span><span>10 min read</span></div>
+        <b>Read analysis →</b>
+      </a>
       <a class="blog-index-card featured" href={withBase("blog/muyuan-2026-h1-review/")}>
-        <span class="blog-card-index">01 · HALF-YEAR REVIEW</span>
+        <span class="blog-card-index">05 · HALF-YEAR REVIEW</span>
         <h2>牧原股份 2026 年半年报分析</h2>
         <p>猪价、成本、屠宰与现金流：亏损之外，核心经营机器发生了什么？</p>
         <div><span>2026-08-21</span><span>12 min read</span></div>
         <b>Read analysis →</b>
       </a>
       <a class="blog-index-card" href={withBase("blog/muyuan-2026-07-sales/")}>
-        <span class="blog-card-index">02 · MONTHLY MONITOR</span>
+        <span class="blog-card-index">06 · MONTHLY MONITOR</span>
         <h2>牧原股份 2026 年 7 月销售简报分析</h2>
         <p>从 666.1 万头和 88.97 亿元，推导重量、价格变化与成本敏感性。</p>
         <div><span>2026-08-21</span><span>9 min read</span></div>
@@ -38,8 +66,8 @@ import { withBase } from "../../lib/paths";
       <div><span>04</span><strong>JUDGMENT</strong><small>说明什么没有改变</small></div>
     </section>
 
-    <a class="report-library-cta" href={withBase("companies/muyuan/reports/")}>
-      <div><span>REPORT LIBRARY</span><strong>牧原官方报告索引</strong><p>半年报、2026 年 1–7 月销售简报、2021–2025 年报 PDF 直链。</p></div><b>打开报告中心 ↗</b>
+    <a class="report-library-cta" href={withBase("reports/")}>
+      <div><span>REPORT LIBRARY</span><strong>五家公司官方报告索引</strong><p>统一查看年报、半年度报告、业绩公告与监管文件的官方链接及发布状态。</p></div><b>打开报告中心 ↗</b>
     </a>
   </section>
 </BaseLayout>

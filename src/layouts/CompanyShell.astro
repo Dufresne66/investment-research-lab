@@ -14,13 +14,16 @@ interface Props {
     exchange: string;
     industry: string;
     last_updated: string;
-    economic_model: { formula: string };
+    economic_model: { formula: string } | null;
     sources: unknown[];
   };
-  claim: { id: string; status: string; confidence: number; statement: string };
+  claim: { id: string; status: string; confidence: number | null; statement: string };
+  availableSections: string[];
 }
 
-const { current, title, description, company, claim } = Astro.props;
+const { current, title, description, company, claim, availableSections } = Astro.props;
+const hasHumanConfidence = claim.confidence !== null;
+const visibleSections = companySections.filter(([, slug]) => availableSections.includes(slug));
 ---
 
 <BaseLayout title={`${company.name} · ${title}`} description={description} active="companies">
@@ -34,14 +37,14 @@ const { current, title, description, company, claim } = Astro.props;
       </div>
       <div class="company-equation">
         <span>ECONOMIC MODEL</span>
-        <strong>{company.economic_model.formula}</strong>
+        <strong>{company.economic_model?.formula ?? "Model under review"}</strong>
       </div>
     </div>
   </section>
 
-  <nav class="section-tabs" aria-label="牧原研究章节">
+  <nav class="section-tabs" aria-label={`${company.name}研究章节`}>
     <div class="page-width tabs-inner">
-      {companySections.map(([index, slug, label]) => (
+      {visibleSections.map(([index, slug, label]) => (
         <a class:list={[slug === current && "active"]} href={withBase(`companies/${company.slug}/${slug}/`)}>
           <span>{index}</span>{label}
         </a>
@@ -64,14 +67,16 @@ const { current, title, description, company, claim } = Astro.props;
         <header><span>CORE CLAIM</span><b>{claim.status}</b></header>
         <code>{claim.id}</code>
         <p>{claim.statement}</p>
-        <div class="aside-confidence"><i style={`width: ${claim.confidence}%`}></i></div>
-        <small>Human confidence · {claim.confidence}%</small>
+        <div class:list={["aside-confidence", !hasHumanConfidence && "is-unassigned"]}>
+          {hasHumanConfidence && <i style={`width: ${claim.confidence}%`}></i>}
+        </div>
+        <small>{hasHumanConfidence ? `Human confidence · ${claim.confidence}%` : "Human not assigned"}</small>
       </section>
       <section class="aside-card">
         <header><span>SOURCE LIBRARY</span><b class="good">AVAILABLE</b></header>
-        <strong>{company.sources.length} 份年度报告</strong>
-        <p>2021–2025 年原始 PDF 保存在私人研究层；本站只记录获准公开的引用、页码和判断变化。</p>
-        {company.slug === "muyuan" && <a class="aside-source-link" href={withBase("companies/muyuan/reports/")}>打开报告中心 →</a>}
+        <strong>{company.sources.length} 份公开来源已登记</strong>
+        <p>原始 PDF 与私人阅读笔记保存在研究层；本站只记录获准公开的引用、定位和判断变化。</p>
+        <a class="aside-source-link" href={withBase(`companies/${company.slug}/reports/`)}>打开报告中心 →</a>
       </section>
       <section class="aside-card rule-card">
         <span>CONTENT RULE</span>

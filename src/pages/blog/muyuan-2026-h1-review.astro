@@ -1,11 +1,12 @@
 ---
 import BlogLayout from "../../layouts/BlogLayout.astro";
 import publication from "../../data/publications/muyuan-2026.json";
-import reports from "../../data/reports/muyuan.json";
 import { withBase } from "../../lib/paths";
+import { getReportBySourceId } from "../../lib/reports";
 
 const h1 = publication.h1;
-const source = reports.interim.find((report) => report.source_id === h1.source_id)!;
+const source = getReportBySourceId("muyuan", h1.source_id);
+if (!source?.official_url) throw new Error(`Missing official report link for ${h1.source_id}`);
 const slaughter = h1.segments.find((segment) => segment.name.startsWith("屠宰"))!;
 const slaughterGrossProfit = slaughter.revenue - slaughter.cost;
 ---
@@ -125,7 +126,7 @@ const slaughterGrossProfit = slaughter.revenue - slaughter.cost;
 
   <footer class="blog-source-panel">
     <div><span>PRIMARY SOURCE</span><strong>{source.source_id}</strong><p>{source.title} · 关键页 p.7 / 11 / 20 / 57–60 / 67 / 116 / 153</p></div>
-    <a href={source.url} target="_blank" rel="noreferrer">打开巨潮 PDF ↗</a>
+    <a href={source.official_url} target="_blank" rel="noreferrer">打开巨潮 PDF ↗</a>
     <a href={withBase("companies/muyuan/reports/")}>全部报告</a>
     <a href={withBase("blog/muyuan-2026-07-sales/")}>继续读 7 月简报 →</a>
   </footer>

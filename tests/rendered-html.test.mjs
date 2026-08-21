@@ -6,6 +6,11 @@ import { fileURLToPath } from "node:url";
 
 const root = new URL("../", import.meta.url);
 const dist = new URL("../dist/", import.meta.url);
+const repository = process.env.GITHUB_REPOSITORY?.split("/").at(-1);
+const owner = process.env.GITHUB_REPOSITORY?.split("/").at(0);
+const isUserPage = repository && owner && repository === `${owner}.github.io`;
+const configuredBase = process.env.PUBLIC_BASE_PATH ?? (repository && !isUserPage ? `/${repository}` : "/");
+const normalizedBase = configuredBase === "/" ? "" : `/${configuredBase.replace(/^\/+|\/+$/g, "")}`;
 
 async function page(relativePath) {
   return readFile(new URL(relativePath, dist), "utf8");
@@ -35,7 +40,7 @@ test("renders the academic-style Investment Research Lab homepage", async () => 
   assert.doesNotMatch(html, /__next|react-server|vinext/i);
 });
 
-test("builds empty research entry pages for planned companies", async () => {
+test("builds research and report entry pages for every tracked company", async () => {
   const companies = [
     ["maotai", "贵州茅台", "600519"],
     ["xpeng", "小鹏集团", "9868"],
@@ -47,9 +52,13 @@ test("builds empty research entry pages for planned companies", async () => {
     const html = await page(`companies/${slug}/index.html`);
     assert.match(html, new RegExp(name));
     assert.match(html, new RegExp(ticker));
-    assert.match(html, /研究页面已建立，内容尚未开始/);
-    assert.match(html, /RESEARCH NOT STARTED/);
-    assert.doesNotMatch(html, /MY-COST-001|Investment Claim|Human confidence/i);
+    assert.match(html, new RegExp(`companies/${slug}/reports/`));
+
+    const reports = await page(`companies/${slug}/reports/index.html`);
+    assert.match(reports, new RegExp(name));
+    assert.match(reports, /官方报告索引/);
+    assert.match(reports, /公开网站不保存本地 PDF/);
+    assert.doesNotMatch(reports, /href="[^"]*\/investment-research-lab\/[^"]+\.pdf"/i);
   }
 });
 
@@ -96,7 +105,7 @@ test("publishes the two evidence-led Muyuan analyses", async () => {
 
 test("provides direct official PDFs in the Muyuan report library", async () => {
   const html = await page("companies/muyuan/reports/index.html");
-  assert.match(html, /牧原官方报告索引/);
+  assert.match(html, /牧原股份官方报告索引/);
   assert.match(html, /2026 年半年度报告/);
   assert.match(html, /2026 年 1 月份销售简报/);
   assert.match(html, /2026 年 7 月份销售简报/);
@@ -104,6 +113,65 @@ test("provides direct official PDFs in the Muyuan report library", async () => {
   assert.match(html, /2025 年年度报告/);
   assert.match(html, /static\.cninfo\.com\.cn\/finalpage/);
   assert.doesNotMatch(html, /href="\/investment-research-lab\/[^"]+\.pdf"/i);
+});
+
+test("publishes a reusable global reports hub without private file paths", async () => {
+  const html = await page("reports/index.html");
+  for (const name of ["牧原股份", "贵州茅台", "小鹏集团", "阿里巴巴", "泡泡玛特"]) {
+    assert.match(html, new RegExp(name));
+  }
+  assert.match(html, /PRIMARY SOURCES FIRST/);
+  assert.match(html, /PUBLICATION RULE/);
+  assert.doesNotMatch(html, /\/Users\/dufresne|investment-research\/companies/i);
+
+  const xpeng = await page("companies/xpeng/reports/index.html");
+  assert.match(xpeng, /PENDING — NOT YET RELEASED/);
+  assert.match(xpeng, /Official schedule ↗/);
+  assert.match(xpeng, /sec\.gov\/Archives\/edgar/);
+  assert.doesNotMatch(xpeng, /Official link pending/);
+});
+
+test("uses the light system palette and allows human confidence to remain unassigned", async () => {
+  const css = await readFile(new URL("src/styles/global.css", root), "utf8");
+  assert.match(css, /--bg:\s*#f5f5f7/i);
+  assert.match(css, /--surface:\s*#ffffff/i);
+  assert.match(css, /--text:\s*#1d1d1f/i);
+  assert.match(css, /--cyan:\s*#0071e3/i);
+  assert.match(css, /border-radius:\s*24px/i);
+
+  const config = await readFile(new URL("src/content.config.ts", root), "utf8");
+  assert.match(config, /confidence: z\.number\(\)\.min\(0\)\.max\(100\)\.nullable\(\)/);
+
+  const claim = await readFile(new URL("src/data/claims/muyuan.yaml", root), "utf8");
+  assert.match(claim, /confidence: 40/);
+});
+
+test("keeps every published Claim evidence reference linked to the public ledger", async () => {
+  const companies = ["maotai", "pop-mart", "alibaba", "xpeng"];
+  const missing = [];
+  const missingSources = [];
+
+  for (const slug of companies) {
+    const claim = await readFile(new URL(`src/data/claims/${slug}.yaml`, root), "utf8");
+    const company = JSON.parse(await readFile(new URL(`src/data/companies/${slug}.json`, root), "utf8"));
+    const defined = new Set(company.evidence.map((item) => item.evidence_id));
+    const definedSources = new Set(company.sources.map((item) => item.source_id));
+    const referenced = [...claim.matchAll(/\b(?:MT|PM|BABA|XPEV)-(?:EV|CE)-[A-Z0-9-]+\b/g)].map((match) => match[0]);
+
+    for (const evidenceId of referenced) {
+      if (!defined.has(evidenceId)) missing.push(`${slug} → ${evidenceId}`);
+    }
+
+    for (const evidence of company.evidence) {
+      const sourceIds = [evidence.source_id, ...(evidence.source_refs ?? []).map((item) => item.source_id)];
+      for (const sourceId of sourceIds) {
+        if (!definedSources.has(sourceId)) missingSources.push(`${evidence.evidence_id} → ${sourceId}`);
+      }
+    }
+  }
+
+  assert.deepEqual(missing, []);
+  assert.deepEqual(missingSources, []);
 });
 
 test("keeps the Claim centralized and removes framework dependencies", async () => {
@@ -140,7 +208,10 @@ test("has no broken internal links in generated HTML", async () => {
     for (const match of html.matchAll(/href="([^"]+)"/g)) {
       const href = match[1];
       if (!href.startsWith("/") || href.startsWith("//")) continue;
-      const clean = href.split(/[?#]/)[0];
+      const absolutePath = href.split(/[?#]/)[0];
+      const clean = normalizedBase && absolutePath.startsWith(`${normalizedBase}/`)
+        ? absolutePath.slice(normalizedBase.length)
+        : absolutePath;
       if (!clean) continue;
       const target = clean.endsWith("/") ? `${clean}index.html` : clean;
       try {

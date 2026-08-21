@@ -1,0 +1,97 @@
+---
+import BlogLayout from "../../layouts/BlogLayout.astro";
+import LineChart from "../../components/LineChart.astro";
+import { withBase } from "../../lib/paths";
+import { getReportBySourceId } from "../../lib/reports";
+
+const annual = getReportBySourceId("xpeng", "XPEV-SRC-AR-2025");
+if (!annual?.official_url) throw new Error("Missing official report link for XPEV-SRC-AR-2025");
+const deliveries = [{ label: "2023", value: 14.16 }, { label: "2024", value: 19.01 }, { label: "2025", value: 42.94 }];
+const vehicleMargin = [{ label: "2023", value: -1.6 }, { label: "2024", value: 8.3 }, { label: "2025", value: 12.8 }];
+---
+
+<BlogLayout
+  title="小鹏集团 2025 年报分析"
+  subtitle="销量、毛利和现金流同时改善，Volkswagen 也确认量产进展；技术资产的独立回报仍未拆出。"
+  eyebrow="ANNUAL REPORT REVIEW · FY2025"
+  date="2026-08-21"
+  readTime="10 min read"
+  tags={["年报", "E/E 架构", "技术服务", "现金流"]}
+  description="基于小鹏 2025 Form 20-F、业绩公告与 Volkswagen 对手方披露，检验技术资产是否开始变现。"
+  companyLabel="小鹏集团"
+  companyTicker="9868.HK"
+>
+  <section class="blog-lede">
+    <span>核心判断 · INFERENCE</span>
+    <p>2025 年小鹏完成销量扩张、车辆毛利改善与经营现金流转正，Volkswagen 也验证了 E/E 架构的工程交付。它们共同构成“技术开始变现”的迹象；技术服务未单拆、客户集中与 ADAS 第三方数据缺失，使“长期技术护城河”仍无法确认。[`XPEV-SRC-AR-2025`, 20-F pp.122–137；`XPEV-SRC-VW-AR-2025`, PDF pp.9、140]</p>
+  </section>
+
+  <section class="blog-section">
+    <div class="blog-section-heading"><span>01</span><div><p>THE FOUR NUMBERS</p><h2>财务拐点同时发生在规模、毛利和现金流</h2></div></div>
+    <div class="metric-grid four">
+      <article><span>FACT · 20-F p.122</span><strong>42.94<small>万辆</small></strong><p>2025 交付量</p><i>同比 +125.9%</i></article>
+      <article><span>FACT · p.127</span><strong>767.2<small>亿元</small></strong><p>营业收入</p><i>同比 +87.7%</i></article>
+      <article><span>FACT · p.135</span><strong>12.8<small>%</small></strong><p>车辆毛利率</p><i>同比 +4.5 pct</i></article>
+      <article><span>FACT · p.137</span><strong>+82.6<small>亿元</small></strong><p>经营现金流</p><i>由负转正</i></article>
+    </div>
+    <div class="chart-grid">
+      <LineChart title="年度交付量" subtitle="2023–2025" data={deliveries} unit="万辆" color="cyan" />
+      <LineChart title="车辆毛利率" subtitle="2023–2025" data={vehicleMargin} unit="%" color="green" />
+    </div>
+  </section>
+
+  <section class="blog-section">
+    <div class="blog-section-heading"><span>02</span><div><p>FINANCIAL BRIDGE</p><h2>收入增速低于销量，服务分部也不能直接叫软件</h2></div></div>
+    <div class="table-scroll"><table class="research-data-table"><thead><tr><th>指标</th><th>2023</th><th>2024</th><th>2025</th><th>研究含义</th></tr></thead><tbody>
+      <tr><td><strong>交付量（万辆）</strong></td><td>14.16</td><td>19.01</td><td class="positive">42.94</td><td>2025 +125.9%</td></tr>
+      <tr><td><strong>收入（亿元）</strong></td><td>306.8</td><td>408.7</td><td class="positive">767.2</td><td>2025 +87.7%，慢于销量</td></tr>
+      <tr><td><strong>R&D（亿元）</strong></td><td>52.8</td><td>64.6</td><td>94.9</td><td>研发仍保持高投入</td></tr>
+      <tr><td><strong>净利润（亿元）</strong></td><td class="negative">-103.8</td><td class="negative">-57.9</td><td class="negative">-11.4</td><td>亏损显著收窄</td></tr>
+    </tbody></table></div>
+    <div class="split-evidence">
+      <article><span>FACT</span><strong>83.41<small>亿元</small></strong><h3>服务及其他收入</h3><p>包括技术研发服务、配件与碳积分。</p></article>
+      <article><span>FACT</span><strong>68.2<small>%</small></strong><h3>混合分部毛利率</h3><p>不能直接资本化为“软件毛利率”。</p></article>
+    </div>
+    <p class="analysis-copy">来源：`XPEV-SRC-AR-2025`, 20-F pp.122–137。服务及其他分部还包含配件与碳积分。</p>
+  </section>
+
+  <section class="blog-section">
+    <div class="blog-section-heading"><span>03</span><div><p>COUNTERPARTY EVIDENCE</p><h2>Volkswagen 验证了工程交付，但没有验证 ADAS 安全领先</h2></div></div>
+    <div class="evidence-pipeline">
+      <div><span>01</span><strong>高 R&D</strong><small>94.9 亿元</small></div><i>→</i>
+      <div><span>02</span><strong>CEA 架构</strong><small>工程资产</small></div><i>→</i>
+      <div><span>03</span><strong>18 个月</strong><small>量产就绪</small></div><i>→</i>
+      <div><span>04</span><strong>外部采用</strong><small>Volkswagen</small></div>
+    </div>
+    <p class="analysis-copy">Volkswagen 在自己的 2025 年报中确认 CEA 在 18 个月内达到量产就绪，并在 2026 年 3 月确认首款联合开发车型下线。这是强于单方公告的 E/E 架构交付证据，但不能外推为 VLA/ADAS 比竞品更安全。[`XPEV-SRC-VW-AR-2025`, PDF pp.9、140；`XPEV-SRC-VW-SOP-2026`, official press release]</p>
+  </section>
+
+  <section class="blog-section">
+    <div class="blog-section-heading"><span>04</span><div><p>WHAT COULD BREAK</p><h2>从一次里程碑到可重复技术资产，还差三项证据</h2></div></div>
+    <div class="unknown-grid">
+      <article><span>UNKNOWN</span><h3>技术服务单拆</h3><p>收入、毛利、合同期限、回款与客户集中度均未单独披露。</p></article>
+      <article><span>UNKNOWN</span><h3>第二个客户</h3><p>需要新的外部 OEM 或 Volkswagen 的续约、平台扩围。</p></article>
+      <article><span>UNKNOWN</span><h3>ADAS 效果</h3><p>需要有暴露量分母的第三方安全、接管与用户付费数据。</p></article>
+      <article><span>RISK</span><h3>现金流质量</h3><p>需继续拆解供应商账期与营运资本对 2025 经营现金流的贡献。</p></article>
+    </div>
+    <div class="evidence-alert"><span>REPORTING STATUS</span><p><strong>PENDING — NOT YET RELEASED</strong>：截至 2026-08-21，小鹏 2026 Q2 正式财务业绩尚未发布，计划于 2026-08-24 公布。不能用交付公告替代财报。[`XPEV-SRC-Q2-2026-SCHEDULE`, official schedule]</p></div>
+  </section>
+
+  <section class="blog-conclusion numbered">
+    <span>RESEARCH SYNTHESIS</span><h2>“变现迹象”比“技术护城河”更贴近证据</h2>
+    <ol>
+      <li>2025 年销量、车辆毛利率和现金流改善是真实的财务拐点。</li>
+      <li>Volkswagen 为 E/E 架构提供了合作对手方的量产验证。</li>
+      <li>混合服务分部不能被直接解释为高毛利软件业务。</li>
+      <li>跨客户复制、ADAS 安全与多年 R&D 回报仍需后续数据。</li>
+    </ol>
+    <p>`XPEV-ADAS-001` 保持 OPEN / HYPOTHESIS，人工置信度未设置。本分析不构成最终投资决策。</p>
+  </section>
+
+  <footer class="blog-source-panel">
+    <div><span>PRIMARY SOURCE</span><strong>{annual.source_id}</strong><p>XPeng Inc. 2025 Form 20-F · 关键页 pp.122–137 / 218–221</p></div>
+    <a href={annual.official_url!} target="_blank" rel="noreferrer">SEC 20-F ↗</a>
+    <a href={withBase("companies/xpeng/reports/")}>全部报告</a>
+    <a href={withBase("companies/xpeng/thesis/")}>研究命题 →</a>
+  </footer>
+</BlogLayout>

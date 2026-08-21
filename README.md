@@ -7,10 +7,10 @@
 本仓库是公开出版层。日常阅读、原始资料、计算、草稿 Claim 和未完成判断位于相邻的私人研究仓库：
 
 ```text
-/Users/dufresne/Investment/investment-research/
+../investment-research/
 ```
 
-当前研究池：**牧原股份、贵州茅台、小鹏集团、阿里巴巴、泡泡玛特**。牧原正在研究，其余四家公司只建立入口，尚未加入研究内容。
+当前研究池：**牧原股份、贵州茅台、小鹏集团、阿里巴巴、泡泡玛特**。五家公司均已进入研究状态；公开站只呈现经过人工批准的阶段性结论。
 
 ## 你平时只需要知道什么
 
@@ -58,8 +58,8 @@ Pages: https://dufresne66.github.io/investment-research-lab/
 常规发布命令：
 
 ```bash
-git add .
-git commit -m "update muyuan research"
+git add <approved-public-files>
+git commit -m "publish approved research update"
 git push
 ```
 
@@ -73,13 +73,13 @@ git push
 
 1. 在 `src/data/companies/` 新建 `new-company.json`，只填写公司身份并把状态设为 `PLANNED`；
 2. 网站会自动把公司卡加入首页，并生成空白公司研究页；
-3. 真正开始研究时，复制 `src/content/companies/muyuan/` 为 `src/content/companies/new-company/`；
-4. 保留 00–15 对应文件名，修改每篇 frontmatter 的标题、描述、状态和日期；
+3. 真正开始研究时，只建立能回答耐久问题的页面；当前最小集合是 Overview、Business Model、Financials、Risks 与 Thesis；
+4. 为每篇内容填写 frontmatter 的标题、描述、状态、顺序和日期；章节导航会自动只显示实际存在的页面；
 5. 在 `src/data/claims/` 新建 `new-company.yaml`，至少写一个可证伪的 OPEN Claim；
 6. 在公司 JSON 中填入 `primary_claim_id`、经济模型、Evidence、风险和来源；
 7. 运行 `pnpm check`、`pnpm test`，确认后再推送。
 
-接入门槛：一句话经济模型、一个可证伪 Claim、Evidence Ledger、风险观察信号、原始来源索引，以及 Overview / First Principles / Thesis / Evidence / Risks 五个最小页面。
+接入门槛：一句话经济模型、一个可证伪 Claim、Evidence Ledger、风险观察信号、官方来源索引，以及能够回答当前研究问题的最小页面集。
 
 ## 研究纪律
 
@@ -92,7 +92,7 @@ git push
 原始年报保存在相邻的私人研究仓库，不复制进公开网站：
 
 ```text
-/Users/dufresne/Investment/investment-research/companies/<slug>/sources/
+../investment-research/companies/<slug>/sources/
 ```
 
 ## 常用检查

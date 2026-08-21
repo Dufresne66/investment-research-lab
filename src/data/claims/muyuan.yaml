@@ -1,6 +1,7 @@
 - id: MY-COST-001
   statement: 牧原能够长期保持显著低于行业平均水平的完全养殖成本。
   status: OPEN
+  claim_type: HYPOTHESIS
   confidence: 40
   owner: HUMAN
   evidence_for:

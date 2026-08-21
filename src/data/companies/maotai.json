@@ -4,13 +4,155 @@
   "ticker": "600519",
   "exchange": "SH",
   "industry": "白酒",
-  "research_status": "PLANNED",
-  "last_updated": "2026-08-20",
+  "research_status": "RESEARCHING",
+  "last_updated": "2026-08-21",
   "sort_order": 2,
-  "primary_claim_id": null,
-  "core_question_en": null,
-  "economic_model": null,
-  "evidence": [],
-  "risks": [],
-  "sources": []
+  "primary_claim_id": "MT-MOAT-001",
+  "core_question_en": "Can the flagship brand preserve realized pricing and channel health as supply and route-to-market evolve?",
+  "economic_model": {
+    "formula": "Revenue ≈ Volume × Realized revenue / kg",
+    "summary": "把销量与混合实现收入拆开，避免把收入变化直接等同于销量或单一产品提价。",
+    "variables": {
+      "Volume": "酒类销量",
+      "Realized revenue / kg": "混合产品、规格、渠道与地区后的实现收入"
+    }
+  },
+  "evidence": [
+    {
+      "evidence_id": "MT-EV-MOAT-001",
+      "claim_id": "MT-MOAT-001",
+      "type": "FACT",
+      "statement": "2025 年茅台酒收入 1,465.00 亿元、销量 46,750.66 吨，毛利率 93.53%。",
+      "direction": "SUPPORTS",
+      "source_title": "贵州茅台 2025 年年度报告",
+      "source_year": 2025,
+      "source_id": "MT-SRC-AR-2025",
+      "source_page": "10, 16",
+      "source_locator_status": "VERIFIED",
+      "verification_status": "HASH_VERIFIED",
+      "recorded_at": "2026-08-21",
+      "note": "主品牌最新一年接近稳定，但不能代替终端价格与渠道库存验证。"
+    },
+    {
+      "evidence_id": "MT-CE-MOAT-001",
+      "claim_id": "MT-MOAT-001",
+      "type": "DERIVED",
+      "statement": "2025 年酒类销量同比增长 2.13%，混合实现收入/kg 却下降约 3.14%。",
+      "direction": "WEAKENS",
+      "source_title": "贵州茅台 2025 年年度报告",
+      "source_year": 2025,
+      "source_id": "MT-SRC-AR-2025",
+      "source_page": 10,
+      "source_locator_status": "VERIFIED",
+      "verification_status": "RECALCULATED",
+      "recorded_at": "2026-08-21",
+      "note": "实现收入是混合口径，不等于飞天茅台单品出厂价。"
+    },
+    {
+      "evidence_id": "MT-EV-MOAT-002",
+      "claim_id": "MT-MOAT-001",
+      "type": "DERIVED",
+      "statement": "茅台酒实现收入/kg 由 2021 年约 2,577.53 元升至 2024 年约 3,144.12 元，2025 年约为 3,133.64 元。",
+      "direction": "SUPPORTS",
+      "source_title": "贵州茅台 2021–2025 年年度报告",
+      "source_year": 2025,
+      "source_id": "MT-SRC-AR-2025",
+      "source_refs": [
+        { "source_id": "MT-SRC-AR-2021", "source_page": "8-9, 14-15" },
+        { "source_id": "MT-SRC-AR-2022", "source_page": "9, 14-16" },
+        { "source_id": "MT-SRC-AR-2023", "source_page": "9-10, 15-17" },
+        { "source_id": "MT-SRC-AR-2024", "source_page": "9, 15-16" },
+        { "source_id": "MT-SRC-AR-2025", "source_page": "10, 16-17" }
+      ],
+      "source_page": 10,
+      "source_locator_status": "VERIFIED",
+      "verification_status": "RECALCULATED",
+      "recorded_at": "2026-08-21",
+      "note": "五年总体上升，但最新一年小幅回落；计算输入跨五份年报。"
+    },
+    {
+      "evidence_id": "MT-EV-MOAT-003",
+      "claim_id": "MT-MOAT-001",
+      "type": "FACT",
+      "statement": "2025 年直销毛利率为 94.58%，高于批发代理的 87.86%。",
+      "direction": "SUPPORTS",
+      "source_title": "贵州茅台 2025 年年度报告",
+      "source_year": 2025,
+      "source_id": "MT-SRC-AR-2025",
+      "source_page": 10,
+      "source_locator_status": "VERIFIED",
+      "verification_status": "HASH_VERIFIED",
+      "recorded_at": "2026-08-21",
+      "note": "毛利率差异不等于直销净收益差异，仍需渠道费用数据。"
+    },
+    {
+      "evidence_id": "MT-CE-MOAT-002",
+      "claim_id": "MT-MOAT-001",
+      "type": "DERIVED",
+      "statement": "2025 年系列酒销量增长 3.88%、收入下降 9.76%，实现收入/kg 约下降 13.13%，毛利率下降 3.76 个百分点。",
+      "direction": "WEAKENS",
+      "source_title": "贵州茅台 2025 年年度报告",
+      "source_year": 2025,
+      "source_id": "MT-SRC-AR-2025",
+      "source_page": "10, 16",
+      "source_locator_status": "VERIFIED",
+      "verification_status": "RECALCULATED",
+      "recorded_at": "2026-08-21",
+      "note": "系列酒压力不能直接外推到茅台酒主品牌。"
+    },
+    {
+      "evidence_id": "MT-CE-MOAT-003",
+      "claim_id": "MT-MOAT-001",
+      "type": "FACT",
+      "statement": "2025 年直销成本增长 31.07%，快于直销收入增长 12.96%，直销毛利率下降 0.75 个百分点。",
+      "direction": "WEAKENS",
+      "source_title": "贵州茅台 2025 年年度报告",
+      "source_year": 2025,
+      "source_id": "MT-SRC-AR-2025",
+      "source_page": 10,
+      "source_locator_status": "VERIFIED",
+      "verification_status": "HASH_VERIFIED",
+      "recorded_at": "2026-08-21",
+      "note": "渠道收入结构改善必须与投入和净收益一起判断。"
+    },
+    {
+      "evidence_id": "MT-CE-MOAT-004",
+      "claim_id": "MT-MOAT-001",
+      "type": "FACT",
+      "statement": "2026 上半年营业收入增长 1.47%，归母净利润下降 1.95%，营业成本增长 21.81%。",
+      "direction": "WEAKENS",
+      "source_title": "贵州茅台 2026 年半年度报告",
+      "source_year": 2026,
+      "source_id": "MT-SRC-H1-2026",
+      "source_page": "5, 7",
+      "source_locator_status": "VERIFIED",
+      "verification_status": "HASH_VERIFIED",
+      "recorded_at": "2026-08-21",
+      "note": "收入微增而利润下降，说明盈利压力尚未完全消失。"
+    }
+  ],
+  "risks": [
+    {
+      "risk_id": "MT-RISK-001",
+      "title": "价格与渠道健康背离",
+      "severity": "CRITICAL",
+      "falsification_condition": "实现收入持续下降，终端动销转弱且渠道库存上升。",
+      "signals": ["实现收入/kg", "批价与终端价", "渠道库存", "真实动销"]
+    },
+    {
+      "risk_id": "MT-RISK-002",
+      "title": "成熟产能与需求错配",
+      "severity": "HIGH",
+      "falsification_condition": "成熟可售量增长持续快于终端需求，迫使公司减量、降价或累积库存。",
+      "signals": ["基酒成熟节奏", "销量", "库存", "渠道政策"]
+    }
+  ],
+  "sources": [
+    { "source_id": "MT-SRC-AR-2025", "year": 2025, "title": "2025 年年度报告", "status": "HASH_VERIFIED" },
+    { "source_id": "MT-SRC-AR-2024", "year": 2024, "title": "2024 年年度报告", "status": "HASH_VERIFIED" },
+    { "source_id": "MT-SRC-AR-2023", "year": 2023, "title": "2023 年年度报告", "status": "HASH_VERIFIED" },
+    { "source_id": "MT-SRC-AR-2022", "year": 2022, "title": "2022 年年度报告", "status": "HASH_VERIFIED" },
+    { "source_id": "MT-SRC-AR-2021", "year": 2021, "title": "2021 年年度报告", "status": "HASH_VERIFIED" },
+    { "source_id": "MT-SRC-H1-2026", "year": 2026, "title": "2026 年半年度报告", "status": "HASH_VERIFIED" }
+  ]
 }

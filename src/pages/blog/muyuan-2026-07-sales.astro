@@ -2,13 +2,14 @@
 import BlogLayout from "../../layouts/BlogLayout.astro";
 import LineChart from "../../components/LineChart.astro";
 import publication from "../../data/publications/muyuan-2026.json";
-import reports from "../../data/reports/muyuan.json";
 import { withBase } from "../../lib/paths";
+import { getReportBySourceId } from "../../lib/reports";
 
 const rows = publication.monthly;
 const july = rows.at(-1)!;
 const june = rows.at(-2)!;
-const source = reports.monthly.find((report) => report.source_id === publication.july.source_id)!;
+const source = getReportBySourceId("muyuan", publication.july.source_id);
+if (!source?.official_url) throw new Error(`Missing official report link for ${publication.july.source_id}`);
 const priceSeries = rows.map((row) => ({ label: row.month, value: row.price }));
 const weightSeries = rows.map((row) => ({ label: row.month, value: row.implied_weight }));
 ---
@@ -97,7 +98,7 @@ const weightSeries = rows.map((row) => ({ label: row.month, value: row.implied_w
 
   <footer class="blog-source-panel">
     <div><span>PRIMARY SOURCE</span><strong>{source.source_id}</strong><p>{source.title} · PDF p.1–2 · 数据未经审计</p></div>
-    <a href={source.url} target="_blank" rel="noreferrer">打开巨潮 PDF ↗</a>
+    <a href={source.official_url} target="_blank" rel="noreferrer">打开巨潮 PDF ↗</a>
     <a href={withBase("companies/muyuan/reports/")}>全部报告</a>
     <a href={withBase("blog/muyuan-2026-h1-review/")}>继续读半年报分析 →</a>
   </footer>

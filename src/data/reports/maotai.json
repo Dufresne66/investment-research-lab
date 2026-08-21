@@ -1,0 +1,100 @@
+{
+  "company_slug": "maotai",
+  "updated": "2026-08-21",
+  "latest_annual_analysis": {
+    "title": "贵州茅台 2025 年报分析：量增、价格结构与渠道重构",
+    "period": "2025",
+    "href": "blog/maotai-2025-annual/",
+    "status": "published",
+    "summary": "2025 年酒类销量增长但收入下降；主品牌仍有韧性，系列酒、渠道成本与真实动销是下一步验证重点。"
+  },
+  "groups": [
+    {
+      "id": "latest",
+      "title": "最新定期报告",
+      "description": "用于校准年报判断的最新正式披露",
+      "items": [
+        {
+          "source_id": "MT-SRC-H1-2026",
+          "title": "2026 年半年度报告",
+          "period": "2026 H1",
+          "published": "2026-08-15",
+          "pages": 110,
+          "official_url": "https://www.moutaichina.com/mtgf/articleFileDir/2026-08/17/277c9b776bff4ae89dde75e987437760.pdf",
+          "publication_status": "published",
+          "verification_status": "HASH_VERIFIED",
+          "analysis_href": null,
+          "analysis_status": "pending",
+          "note": "收入同比增长 1.47%，归母净利润同比下降 1.95%；用于继续检验盈利韧性。"
+        }
+      ]
+    },
+    {
+      "id": "annual",
+      "title": "年度报告",
+      "description": "2021–2025 年官方年报",
+      "items": [
+        {
+          "source_id": "MT-SRC-AR-2025",
+          "title": "2025 年年度报告",
+          "period": "2025",
+          "published": "2026-04-17",
+          "pages": 143,
+          "official_url": "https://www.moutaichina.com/mtgf/articleFileDir/2026-04/17/1b9fae59825c41bf9a776892a00565f7.pdf",
+          "publication_status": "published",
+          "verification_status": "HASH_VERIFIED",
+          "analysis_href": "blog/maotai-2025-annual/",
+          "analysis_status": "published"
+        },
+        {
+          "source_id": "MT-SRC-AR-2024",
+          "title": "2024 年年度报告",
+          "period": "2024",
+          "published": "2025-04-03",
+          "pages": 143,
+          "official_url": "https://www.moutaichina.com/mtgf/articleFileDir/2025-04/08/8055b7bed7db41bdbc617f4c9b9ec591.pdf",
+          "publication_status": "published",
+          "verification_status": "HASH_VERIFIED",
+          "analysis_href": null,
+          "analysis_status": "pending"
+        },
+        {
+          "source_id": "MT-SRC-AR-2023",
+          "title": "2023 年年度报告",
+          "period": "2023",
+          "published": "2024-04-03",
+          "pages": 143,
+          "official_url": "https://www.moutaichina.com/mtgf/articleFileDir/2024-05/07/e7471b99e4e84c7e9dcf1e591174c08e.pdf",
+          "publication_status": "published",
+          "verification_status": "HASH_VERIFIED",
+          "analysis_href": null,
+          "analysis_status": "pending"
+        },
+        {
+          "source_id": "MT-SRC-AR-2022",
+          "title": "2022 年年度报告",
+          "period": "2022",
+          "published": "2023-03-31",
+          "pages": 127,
+          "official_url": "https://www.moutaichina.com/mtgf/articleFileDir/2023-03/31/555219.pdf",
+          "publication_status": "published",
+          "verification_status": "HASH_VERIFIED",
+          "analysis_href": null,
+          "analysis_status": "pending"
+        },
+        {
+          "source_id": "MT-SRC-AR-2021",
+          "title": "2021 年年度报告",
+          "period": "2021",
+          "published": "2022-03-31",
+          "pages": 124,
+          "official_url": "https://www.moutaichina.com/mtgf/articleFileDir/2022-03/31/526984.pdf",
+          "publication_status": "published",
+          "verification_status": "HASH_VERIFIED",
+          "analysis_href": null,
+          "analysis_status": "pending"
+        }
+      ]
+    }
+  ]
+}

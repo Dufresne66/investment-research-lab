@@ -10,9 +10,21 @@ interface Props {
   readTime: string;
   tags: string[];
   description: string;
+  companyLabel?: string;
+  companyTicker?: string;
 }
 
-const { title, subtitle, eyebrow, date, readTime, tags, description } = Astro.props;
+const {
+  title,
+  subtitle,
+  eyebrow,
+  date,
+  readTime,
+  tags,
+  description,
+  companyLabel = "牧原股份",
+  companyTicker = "002714.SZ",
+} = Astro.props;
 ---
 
 <BaseLayout title={title} description={description} active="blog">
@@ -22,7 +34,7 @@ const { title, subtitle, eyebrow, date, readTime, tags, description } = Astro.pr
       <p class="section-label">{eyebrow}</p>
       <h1>{title}</h1>
       <p class="blog-subtitle">{subtitle}</p>
-      <div class="blog-meta"><span>{date}</span><span>{readTime}</span><span>牧原股份 · 002714.SZ</span></div>
+      <div class="blog-meta"><span>{date}</span><span>{readTime}</span><span>{companyLabel} · {companyTicker}</span></div>
       <div class="blog-tags">{tags.map((tag) => <span>{tag}</span>)}</div>
     </header>
     <div class="blog-body page-width"><slot /></div>

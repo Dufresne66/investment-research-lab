@@ -1,0 +1,94 @@
+---
+import BlogLayout from "../../layouts/BlogLayout.astro";
+import LineChart from "../../components/LineChart.astro";
+import { withBase } from "../../lib/paths";
+import { getReportBySourceId } from "../../lib/reports";
+
+const annual = getReportBySourceId("pop-mart", "PM-SRC-AR-2025");
+if (!annual?.official_url) throw new Error("Missing official report link for PM-SRC-AR-2025");
+const top1 = [{ label: "2023", value: 16.3 }, { label: "2024", value: 23.3 }, { label: "2025", value: 38.1 }];
+const top5 = [{ label: "2023", value: 55.6 }, { label: "2024", value: 65.3 }, { label: "2025", value: 70.9 }];
+---
+
+<BlogLayout
+  title="泡泡玛特 2025 年报分析"
+  subtitle="多 IP 运营能力已经出现，但超级 IP、毛绒与海外低基数共同放大了 2025 年。"
+  eyebrow="ANNUAL REPORT REVIEW · FY2025"
+  date="2026-08-21"
+  readTime="11 min read"
+  tags={["年报", "IP", "产品结构", "库存"]}
+  description="基于泡泡玛特 2025 年报和 2026 半年业绩，检验多 IP 商业化是否可重复。"
+  companyLabel="泡泡玛特"
+  companyTicker="9992.HK"
+>
+  <section class="blog-lede">
+    <span>核心判断 · INFERENCE</span>
+    <p>泡泡玛特已经显示出多个 IP 跨年运营和新 IP 接力能力，但 2025 年的经济结果仍高度集中于 THE MONSTERS 与毛绒。2026 H1 的星星人增长、海外转弱和库存上升让证据同时向两边移动，“可重复 IP 引擎”仍是待验证 Claim。[`PM-SRC-AR-2025`, PDF pp.28–29；`PM-SRC-H1-2026`, PDF pp.24、30–31、35]</p>
+  </section>
+
+  <section class="blog-section">
+    <div class="blog-section-heading"><span>01</span><div><p>THE FOUR NUMBERS</p><h2>高增长真实，但增长结构更重要</h2></div></div>
+    <div class="metric-grid four">
+      <article><span>FACT · p.7</span><strong>371.2<small>亿元</small></strong><p>2025 收入</p><i>同比约 +184.7% · DERIVED</i></article>
+      <article><span>FACT · p.7</span><strong>130.1<small>亿元</small></strong><p>年内利润</p><i>盈利快速扩大</i></article>
+      <article><span>FACT · p.7</span><strong>72.1<small>%</small></strong><p>毛利率</p><i>同比提升</i></article>
+      <article class="derived"><span>DERIVED · p.28</span><strong>46.2<small>%</small></strong><p>THE MONSTERS 对收入增量贡献</p><i>约数</i></article>
+    </div>
+  </section>
+
+  <section class="blog-section">
+    <div class="blog-section-heading"><span>02</span><div><p>CONCENTRATION CHECK</p><h2>IP 变多了，收入却更集中</h2></div></div>
+    <div class="chart-grid">
+      <LineChart title="单列 Top1 IP 收入集中度" subtitle="DERIVED" data={top1} unit="%" color="coral" />
+      <LineChart title="单列 Top5 IP 收入集中度" subtitle="DERIVED" data={top5} unit="%" color="gold" />
+    </div>
+    <div class="table-scroll"><table class="research-data-table"><thead><tr><th>IP / 组合</th><th>2023</th><th>2024</th><th>2025</th><th>研究含义</th></tr></thead><tbody>
+      <tr><td><strong>THE MONSTERS 占集团收入</strong></td><td>16.3%</td><td>23.3%</td><td class="negative">38.1%</td><td>最大 IP 集中上升</td></tr>
+      <tr><td><strong>CRYBABY 收入</strong></td><td>0.71 亿元</td><td>11.64 亿元</td><td class="positive">29.29 亿元</td><td>新 IP 可快速放量</td></tr>
+      <tr><td><strong>星星人收入</strong></td><td>—</td><td>1.21 亿元</td><td class="positive">20.56 亿元</td><td>提供接力线索</td></tr>
+      <tr><td><strong>17 个艺术家 IP</strong></td><td>—</td><td>—</td><td class="positive">各超 1 亿元</td><td>组合宽度真实存在</td></tr>
+    </tbody></table></div>
+    <p class="analysis-copy">来源：`PM-SRC-AR-2024`, PDF p.27；`PM-SRC-AR-2025`, PDF pp.11、28。集中度与增量贡献均为可复算的 DERIVED 指标。</p>
+  </section>
+
+  <section class="blog-section">
+    <div class="blog-section-heading"><span>03</span><div><p>FORMAT SHIFT</p><h2>增长也集中在毛绒，而不只集中在角色</h2></div></div>
+    <div class="metric-grid four">
+      <article class="derived"><span>FACT · 2024 AR</span><strong>3.2<small>%</small></strong><p>2023 毛绒占比</p><i>产品结构起点</i></article>
+      <article><span>FACT · p.29</span><strong>50.4<small>%</small></strong><p>2025 毛绒占比</p><i>首次超过手办</i></article>
+      <article><span>FACT · H1 p.31</span><strong>57.2<small>%</small></strong><p>2026 H1 毛绒占比</p><i>集中继续上升</i></article>
+      <article class="negative-card"><span>FACT · H1 p.31</span><strong>+0.3<small>%</small></strong><p>2026 H1 手办收入同比</p><i>几乎没有增长</i></article>
+    </div>
+    <p class="analysis-copy">年报没有披露 `IP × 产品` 交叉表，因此不能证明毛绒能力已脱离 LABUBU 并复制到整个 IP 组合。[`PM-SRC-AR-2024`, PDF p.28；`PM-SRC-AR-2025`, PDF p.29；`PM-SRC-H1-2026`, PDF p.31]</p>
+  </section>
+
+  <section class="blog-section">
+    <div class="blog-section-heading"><span>04</span><div><p>POST-REPORT CHECK</p><h2>2026 H1：接力出现，海外与库存承压</h2></div></div>
+    <div class="table-scroll"><table class="research-data-table"><thead><tr><th>观察项</th><th>2026 H1</th><th>方向</th><th>来源</th></tr></thead><tbody>
+      <tr><td><strong>集团收入</strong></td><td>同比 +23.8%</td><td class="positive">支持组合韧性</td><td>p.1</td></tr>
+      <tr><td><strong>THE MONSTERS</strong></td><td>约 -7.5%</td><td class="negative">最大 IP 回落</td><td>pp.30–31 · DERIVED</td></tr>
+      <tr><td><strong>星星人</strong></td><td>+580.6%</td><td class="positive">出现接力</td><td>p.30</td></tr>
+      <tr><td><strong>亚太 / 美洲</strong></td><td>-9.7% / -16.5%</td><td class="negative">海外分化</td><td>p.24</td></tr>
+      <tr><td><strong>库存周转天数</strong></td><td>201 天</td><td class="negative">需要后续验证</td><td>p.35</td></tr>
+    </tbody></table></div>
+    <p class="analysis-copy">来源：`PM-SRC-H1-2026`, PDF pp.1、24、30–31、35。</p>
+  </section>
+
+  <section class="blog-conclusion numbered">
+    <span>RESEARCH SYNTHESIS</span><h2>平台线索真实，低爆款依赖未证明</h2>
+    <ol>
+      <li>多个 IP 跨年有规模，极端的“只有 LABUBU”说法不成立。</li>
+      <li>Top1/Top5 集中度继续上升，2025 增长不能称为低集中。</li>
+      <li>毛绒成为第二层集中风险，缺少 IP × 产品交叉表。</li>
+      <li>2026 H1 的接力与库存、海外压力必须同时保留。</li>
+    </ol>
+    <p>`PM-IP-001` 保持 OPEN，人工置信度未设置。本分析不构成最终投资决策。</p>
+  </section>
+
+  <footer class="blog-source-panel">
+    <div><span>PRIMARY SOURCE</span><strong>{annual.source_id}</strong><p>{annual.title} · 关键页 p.7 / 11 / 20 / 28–29 / 221 / 226 / 343</p></div>
+    <a href={annual.official_url!} target="_blank" rel="noreferrer">港交所年报 ↗</a>
+    <a href={withBase("companies/pop-mart/reports/")}>全部报告</a>
+    <a href={withBase("companies/pop-mart/thesis/")}>研究命题 →</a>
+  </footer>
+</BlogLayout>

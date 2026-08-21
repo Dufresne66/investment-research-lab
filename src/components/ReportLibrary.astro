@@ -1,0 +1,89 @@
+---
+import type { ReportLibrary as ReportLibraryData } from "../lib/reports";
+import { withBase } from "../lib/paths";
+import AnnualAnalysisLink from "./AnnualAnalysisLink.astro";
+
+interface Props {
+  company: {
+    slug: string;
+    name: string;
+    ticker: string;
+    exchange: string;
+  };
+  library: ReportLibraryData;
+}
+
+const { company, library } = Astro.props;
+const reportCount = library.groups.reduce((total, group) => total + group.items.length, 0);
+---
+
+<section class="report-library page-width">
+  <a class="back-row" href={withBase(`companies/${company.slug}/`)}>← {company.name}</a>
+  <p class="section-label">SOURCE LIBRARY · OFFICIAL LINKS</p>
+  <h1>{company.name}官方报告索引</h1>
+  <p class="report-library-intro">
+    这里仅保存发行人、交易所或监管机构的公开报告链接，不上传 PDF。发布状态与链接核验状态分开记录；待发布内容不会显示成已经披露。
+  </p>
+
+  <AnnualAnalysisLink analysis={library.latest_annual_analysis} companyName={company.name} />
+
+  {reportCount > 0 ? (
+    library.groups.map((group, groupIndex) => (
+      <section class="report-group" id={group.id}>
+        <header>
+          <span>{String(groupIndex + 1).padStart(2, "0")}</span>
+          <div><h2>{group.title}</h2><p>{group.description}</p></div>
+        </header>
+        <div class="report-list">
+          {group.items.map((report) => {
+            const isPublished = report.publication_status === "published";
+            const hasOfficialLink = Boolean(report.official_url);
+            return (
+              <article class:list={["report-row", !isPublished && "is-pending"]}>
+                <time>{report.published ?? (isPublished ? "日期未记录" : "待披露")}</time>
+                <div class="report-row-main">
+                  <strong>{report.title}</strong>
+                  <small>
+                    {report.source_id} · {report.pages ? `${report.pages} pages` : (isPublished ? "HTML / pages n/a" : "pages pending")}
+                  </small>
+                  {report.note && <p>{report.note}</p>}
+                </div>
+                <div class="report-row-status">
+                  <span class:list={["publication-status", isPublished ? "is-published" : "is-pending"]}>
+                    {isPublished ? "PUBLISHED" : "PENDING"}
+                  </span>
+                  <span class="verification-status">{report.verification_status.replaceAll("_", " ")}</span>
+                </div>
+                <div class="report-row-actions">
+                  {hasOfficialLink ? (
+                    <a href={report.official_url!} target="_blank" rel="noreferrer">
+                      {isPublished ? "Official source ↗" : "Official schedule ↗"}
+                    </a>
+                  ) : (
+                    <span>Official link pending</span>
+                  )}
+                  {report.analysis_status === "published" && report.analysis_href ? (
+                    <a href={withBase(report.analysis_href)}>Analysis →</a>
+                  ) : (
+                    <span>Analysis pending</span>
+                  )}
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+    ))
+  ) : (
+    <section class="report-empty-state">
+      <span>REPORT INDEX READY</span>
+      <h2>官方报告尚待录入</h2>
+      <p>页面结构已经建立。只有官方链接经过核验后，报告才会以 PUBLISHED 状态出现在这里。</p>
+    </section>
+  )}
+
+  <aside class="source-boundary-note">
+    <b>边界说明</b>
+    <p>公开网站不保存本地 PDF、私人阅读笔记或未批准研究判断。分析必须保留 Source ID 与页码或章节定位。</p>
+  </aside>
+</section>

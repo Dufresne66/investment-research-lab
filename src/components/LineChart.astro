@@ -53,7 +53,7 @@ const grid = Array.from({ length: 5 }, (_, index) => {
 </figure>
 
 <style>
-  .line-chart { margin: 24px 0; padding: 20px; border: 1px solid var(--line); background: #111115; overflow: hidden; }
+  .line-chart { margin: 24px 0; padding: 20px; border: 1px solid var(--line); border-radius: 20px; background: var(--surface); overflow: hidden; }
   figcaption { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 8px; }
   figcaption strong { font-family: var(--serif); font-size: 17px; }
   figcaption span { color: var(--dim); font-family: var(--mono); font-size: 8px; }
@@ -61,7 +61,7 @@ const grid = Array.from({ length: 5 }, (_, index) => {
   line { stroke: var(--line); stroke-width: 1; }
   text { fill: var(--dim); font-family: var(--mono); font-size: 10px; }
   .series { fill: none; stroke: var(--chart-color); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
-  circle { fill: #111115; stroke: var(--chart-color); stroke-width: 3; }
+  circle { fill: var(--surface); stroke: var(--chart-color); stroke-width: 3; }
   .value { fill: var(--text-soft); font-size: 9px; }
   .label { fill: var(--muted); }
   .unit { fill: var(--chart-color); font-size: 9px; }

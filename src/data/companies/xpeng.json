@@ -4,13 +4,89 @@
   "ticker": "9868",
   "exchange": "HK",
   "industry": "智能电动汽车",
-  "research_status": "PLANNED",
-  "last_updated": "2026-08-20",
+  "research_status": "RESEARCHING",
+  "last_updated": "2026-08-21",
   "sort_order": 3,
-  "primary_claim_id": null,
-  "core_question_en": null,
-  "economic_model": null,
-  "evidence": [],
-  "risks": [],
-  "sources": []
+  "primary_claim_id": "XPEV-ADAS-001",
+  "core_question_en": "Can XPENG convert sustained R&D into repeatable external technology revenue and durable vehicle economics?",
+  "economic_model": {
+    "formula": "Technology value = Adoption × Repeatability × Cash return",
+    "summary": "把工程交付、外部客户采用与真正的财务回报分开检验。",
+    "variables": {
+      "Adoption": "车型量产与外部 OEM 采用",
+      "Repeatability": "跨平台、跨客户复用",
+      "Cash return": "技术服务毛利、回款与研发回报"
+    }
+  },
+  "evidence": [
+    {
+      "evidence_id": "XPEV-EV-VW-001",
+      "claim_id": "XPEV-ADAS-001",
+      "type": "FACT",
+      "statement": "Volkswagen 在自身 2025 年报中确认双方 CEA 在 18 个月内达到量产就绪。",
+      "direction": "SUPPORTS",
+      "source_title": "Volkswagen Group Annual Report 2025",
+      "source_year": 2025,
+      "source_id": "XPEV-SRC-VW-AR-2025",
+      "source_page": 9,
+      "source_locator_status": "VERIFIED",
+      "verification_status": "HASH_VERIFIED",
+      "recorded_at": "2026-08-21",
+      "note": "这是 E/E 架构交付能力的对手方验证，不是 ADAS 安全领先证据。"
+    },
+    {
+      "evidence_id": "XPEV-EV-SVC-001",
+      "claim_id": "XPEV-ADAS-001",
+      "type": "FACT",
+      "statement": "2025 年服务及其他收入 83.41 亿元、毛利率 68.2%，但混合了技术服务、配件和碳积分。",
+      "direction": "SUPPORTS_WITH_LIMITS",
+      "source_title": "XPeng Inc. 2025 Form 20-F",
+      "source_year": 2025,
+      "source_id": "XPEV-SRC-AR-2025",
+      "source_page": "127-136",
+      "source_locator_status": "VERIFIED",
+      "verification_status": "OFFICIAL_FILING_VERIFIED",
+      "recorded_at": "2026-08-21",
+      "note": "不能把混合分部毛利率直接称作软件毛利率。"
+    },
+    {
+      "evidence_id": "XPEV-EV-CASH-001",
+      "claim_id": "XPEV-ADAS-001",
+      "type": "FACT",
+      "statement": "2025 年经营现金流转正至约 82.6 亿元，研发投入同时增长至 94.9 亿元。",
+      "direction": "SUPPORTS_WITH_LIMITS",
+      "source_title": "XPeng Inc. 2025 Form 20-F",
+      "source_year": 2025,
+      "source_id": "XPEV-SRC-AR-2025",
+      "source_page": "135, 137",
+      "source_locator_status": "VERIFIED",
+      "verification_status": "OFFICIAL_FILING_VERIFIED",
+      "recorded_at": "2026-08-21",
+      "note": "现金流改善支持研发开始产生经营结果，但仍需拆解营运资本与供应商账期。"
+    }
+  ],
+  "risks": [
+    {
+      "risk_id": "XPEV-RISK-001",
+      "title": "技术服务不可重复",
+      "severity": "CRITICAL",
+      "falsification_condition": "里程碑收入不能续约或扩展到第二个外部客户。",
+      "signals": ["外部 OEM 数量", "合同续约", "技术服务单拆", "现金回款"]
+    },
+    {
+      "risk_id": "XPEV-RISK-002",
+      "title": "R&D 不能转化为长期回报",
+      "severity": "HIGH",
+      "falsification_condition": "高研发投入长期不能改善车辆毛利、服务利润与自由现金流。",
+      "signals": ["R&D 强度", "车辆毛利率", "服务毛利率", "自由现金流"]
+    }
+  ],
+  "sources": [
+    { "source_id": "XPEV-SRC-AR-2025", "year": 2025, "title": "2025 Annual Report on Form 20-F", "status": "OFFICIAL_LINK" },
+    { "source_id": "XPEV-SRC-FY2025-RESULTS", "year": 2025, "title": "FY2025 Results", "status": "OFFICIAL_LINK" },
+    { "source_id": "XPEV-SRC-Q1-2026", "year": 2026, "title": "2026 Q1 Results", "status": "OFFICIAL_LINK" },
+    { "source_id": "XPEV-SRC-Q2-2026-SCHEDULE", "year": 2026, "title": "2026 Q2 Reporting Schedule", "status": "PENDING" },
+    { "source_id": "XPEV-SRC-VW-AR-2025", "year": 2025, "title": "Volkswagen Group Annual Report 2025", "status": "HASH_VERIFIED" },
+    { "source_id": "XPEV-SRC-VW-SOP-2026", "year": 2026, "title": "First Volkswagen-XPENG jointly developed car rolls off the production line", "status": "OFFICIAL_LINK" }
+  ]
 }

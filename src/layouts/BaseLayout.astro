@@ -5,7 +5,7 @@ import { withBase } from "../lib/paths";
 interface Props {
   title?: string;
   description?: string;
-  active?: "home" | "companies" | "learning" | "journal" | "blog";
+  active?: "home" | "companies" | "reports" | "learning" | "journal" | "blog";
 }
 
 const {
@@ -25,7 +25,7 @@ const ogImage = Astro.site ? new URL(withBase("og.png"), Astro.site) : undefined
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#0c0c0f" />
+    <meta name="theme-color" content="#f5f5f7" />
     <title>{pageTitle}</title>
     {canonical && <link rel="canonical" href={canonical} />}
     <meta property="og:type" content="website" />
@@ -41,6 +41,7 @@ const ogImage = Astro.site ? new URL(withBase("og.png"), Astro.site) : undefined
         <div class="nav-links">
           <a class:list={[active === "home" && "active"]} href={withBase()}>Home</a>
           <a class:list={[active === "companies" && "active"]} href={withBase("#companies")}>Companies</a>
+          <a class:list={[active === "reports" && "active"]} href={withBase("reports/")}>Reports</a>
           <a class:list={[active === "blog" && "active"]} href={withBase("blog/")}>Blog</a>
           <a class:list={[active === "learning" && "active"]} href={withBase("learning/")}>Learning</a>
           <a class:list={[active === "journal" && "active"]} href={withBase("journal/")}>Research Journal</a>

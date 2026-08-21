@@ -1,0 +1,106 @@
+---
+import BlogLayout from "../../layouts/BlogLayout.astro";
+import LineChart from "../../components/LineChart.astro";
+import { withBase } from "../../lib/paths";
+import { getReportBySourceId } from "../../lib/reports";
+
+const annual = getReportBySourceId("alibaba", "BABA-SRC-AR-2026");
+if (!annual?.official_url) throw new Error("Missing official report link for BABA-SRC-AR-2026");
+const cloudRevenue = [
+  { label: "FY22", value: 1020.16 },
+  { label: "FY23", value: 1034.97 },
+  { label: "FY24", value: 1063.74 },
+  { label: "FY25", value: 1180.28 },
+  { label: "FY26", value: 1581.32 },
+];
+const cloudMargin = [
+  { label: "FY22", value: 3.67 },
+  { label: "FY23", value: 3.96 },
+  { label: "FY24", value: 5.75 },
+  { label: "FY25", value: 8.94 },
+  { label: "FY26", value: 9.02 },
+];
+---
+
+<BlogLayout
+  title="阿里巴巴 FY2026 年报分析"
+  subtitle="Cloud 重新加速、AI 收入开始可见；高资本开支与负自由现金流决定了研究不能停在增速。"
+  eyebrow="ANNUAL REPORT REVIEW · FY2026"
+  date="2026-08-21"
+  readTime="12 min read"
+  tags={["年报", "Cloud", "AI", "资本开支"]}
+  description="基于阿里巴巴 FY2026 年报及 FY2027 Q1 业绩，检验 AI + Cloud 是否形成高回报第二曲线。"
+  companyLabel="阿里巴巴"
+  companyTicker="9988.HK"
+>
+  <section class="blog-lede">
+    <span>核心判断 · INFERENCE</span>
+    <p>FY2026 与 FY2027 Q1 证明 Cloud 重新加速、AI 产品形成可见收入、经营杠杆改善；但资本开支与自由现金流代价同步放大。缺少 Cloud 独立资本开支、折旧与投入资本回报时，只能确认“商业化增强”，不能确认“高回报第二曲线已经建立”。[`BABA-SRC-AR-2026`, PDF pp.71–72、76、95；`BABA-SRC-EARN-Q1FY2027`, PDF pp.3、6、8、14]</p>
+  </section>
+
+  <section class="blog-section">
+    <div class="blog-section-heading"><span>01</span><div><p>THE FOUR NUMBERS</p><h2>增长与资本代价必须在同一页</h2></div></div>
+    <div class="metric-grid four">
+      <article><span>FACT · p.71</span><strong>1,581.32<small>亿元</small></strong><p>FY2026 旧 Cloud 收入</p><i>同比 +34%</i></article>
+      <article><span>FACT · p.72</span><strong>142.65<small>亿元</small></strong><p>Cloud Adjusted EBITA</p><i>同比 +35%</i></article>
+      <article class="negative-card"><span>FACT · p.95</span><strong>1,260.63<small>亿元</small></strong><p>集团资本开支</p><i>不全属于 AI/Cloud</i></article>
+      <article class="negative-card"><span>FACT · p.76</span><strong>-466.09<small>亿元</small></strong><p>公司定义自由现金流</p><i>转为负值</i></article>
+    </div>
+  </section>
+
+  <section class="blog-section">
+    <div class="blog-section-heading"><span>02</span><div><p>CLOUD HISTORY</p><h2>收入重新加速，年度利润率几乎没有跃升</h2></div></div>
+    <div class="chart-grid">
+      <LineChart title="旧 Cloud 分部收入" subtitle="FY2022–FY2026" data={cloudRevenue} unit="亿元" color="cyan" />
+      <LineChart title="旧 Cloud Adjusted EBITA margin" subtitle="DERIVED" data={cloudMargin} unit="%" color="green" />
+    </div>
+    <p class="analysis-copy">FY2026 利润率为 9.02%，FY2025 为 8.94%，只提升约 0.08 个百分点。年内增长主要体现为规模扩大，不是利润率跃升。[`BABA-SRC-AR-2026`, PDF pp.71–72、78]</p>
+  </section>
+
+  <section class="blog-section">
+    <div class="blog-section-heading"><span>03</span><div><p>NEW SEGMENT CHECK</p><h2>AI 收入第一次可见，但口径已经改变</h2></div></div>
+    <div class="table-scroll"><table class="research-data-table"><thead><tr><th>FY2027 Q1 新口径</th><th>金额</th><th>同比</th><th>解释边界</th><th>来源</th></tr></thead><tbody>
+      <tr><td><strong>AI Cloud and Compute 收入</strong></td><td>484.37 亿元</td><td class="positive">+45%</td><td>加入 T-Head</td><td>pp.3、6</td></tr>
+      <tr><td><strong>Adjusted EBITA</strong></td><td>56.28 亿元</td><td class="positive">+133%</td><td>margin 11.62% · DERIVED</td><td>pp.6、8</td></tr>
+      <tr><td><strong>AI 产品收入</strong></td><td>123.76 亿元</td><td>首次单列</td><td>约占新分部 25.55% · DERIVED</td><td>p.3</td></tr>
+      <tr><td><strong>AI Labs Adjusted EBITA</strong></td><td class="negative">-138.61 亿元</td><td>—</td><td>新业务投入仍大</td><td>p.9</td></tr>
+    </tbody></table></div>
+    <div class="evidence-alert"><span>COMPARABILITY LIMIT</span><p>25.55% 不能与年报“AI 产品占外部云收入 30%”直接环比：分母、范围、期间和分部口径均不同。[`BABA-SRC-EARN-Q1FY2027`, PDF pp.3、6、8–9]</p></div>
+  </section>
+
+  <section class="blog-section">
+    <div class="blog-section-heading"><span>04</span><div><p>T-HEAD EVIDENCE</p><h2>能力证据强于经济性证据</h2></div></div>
+    <div class="unknown-grid">
+      <article><span>FACT</span><h3>归入 Cloud</h3><p>FY2027 起 T-Head 被纳入 AI Cloud and Compute Services，商业所有权边界更清楚。[`BABA-SRC-EARN-Q1FY2027`, PDF pp.2、6]</p></article>
+      <article><span>MANAGEMENT</span><h3>量产与采用</h3><p>公司称 Zhenwu 已规模量产，并通过阿里云被 650+ 外部客户采用；“采用”不等于付费或复购。[`BABA-SRC-EARN-Q1FY2027`, PDF p.3]</p></article>
+      <article><span>UNKNOWN</span><h3>独立经济性</h3><p>没有型号级出货、售价、毛利、现金流、资本开支或同口径第三方 TCO。</p></article>
+      <article><span>RISK FACT</span><h3>供应链约束</h3><p>20-F 披露先进芯片、半导体技术与远程算力可能受出口管制和关键组件限制。[`BABA-SRC-20F-2026`, PDF pp.35–36]</p></article>
+    </div>
+  </section>
+
+  <section class="blog-section">
+    <div class="blog-section-heading"><span>05</span><div><p>CAPITAL DISCIPLINE</p><h2>3,800 亿元是计划，不是已经发生的支出</h2></div></div>
+    <div class="split-evidence">
+      <article><span>MANAGEMENT PLAN</span><strong>3,800<small>亿元</small></strong><h3>未来三年 AI + Cloud 基础设施计划</h3><p>不是已发生成本，也不是不可撤销合同。[`BABA-SRC-AI380-2025`, official announcement]</p></article>
+      <article><span>FACT · FY2027 Q1</span><strong>-446.70<small>亿元</small></strong><h3>单季自由现金流</h3><p>同季资本开支 676.78 亿元，投入的现金代价已经可见。[`BABA-SRC-EARN-Q1FY2027`, PDF p.14]</p></article>
+    </div>
+  </section>
+
+  <section class="blog-conclusion numbered">
+    <span>RESEARCH SYNTHESIS</span><h2>从“增长”走到“高回报”还差一座桥</h2>
+    <ol>
+      <li>Cloud 重新加速与 AI 产品收入可见已经得到正式披露支持。</li>
+      <li>新分部加入 T-Head，旧 Cloud 五年序列不能直接延长。</li>
+      <li>电商仍是最大利润池，但自由现金流转负说明内部融资不是无代价。</li>
+      <li>缺少分部 capex、折旧和 ROIC 时，高回报仍是未证实命题。</li>
+    </ol>
+    <p>`BABA-CLOUD-001` 与 `BABA-CHIP-001` 保持 OPEN，人工置信度未设置。本分析不构成最终投资决策。</p>
+  </section>
+
+  <footer class="blog-source-panel">
+    <div><span>PRIMARY SOURCE</span><strong>{annual.source_id}</strong><p>{annual.title} · 关键页 p.71–72 / 76 / 78 / 95</p></div>
+    <a href={annual.official_url!} target="_blank" rel="noreferrer">港交所年报 ↗</a>
+    <a href={withBase("companies/alibaba/reports/")}>全部报告</a>
+    <a href={withBase("companies/alibaba/thesis/")}>研究命题 →</a>
+  </footer>
+</BlogLayout>

@@ -29,7 +29,7 @@ Investment Research Lab 是 Investment 工作区的公开出版层，不是原�
 
 页面只消费 Markdown、YAML 与 JSON，不在组件中悄悄保存第二份研究结论。
 
-私人研究层的文件结构与发布候选由 `/Users/dufresne/Investment/investment-research/` 管理；本仓库不直接引用私人绝对路径，避免把本地结构或资料意外暴露到网页。
+私人研究层的文件结构与发布候选由相邻的 `investment-research/` 仓库管理；本仓库不记录私人绝对路径，避免把本地结构或资料意外暴露到公开仓库与网页。
 
 ## 4. 核心研究循环
 

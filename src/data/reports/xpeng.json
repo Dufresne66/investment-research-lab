@@ -1,0 +1,102 @@
+{
+  "company_slug": "xpeng",
+  "updated": "2026-08-21",
+  "latest_annual_analysis": {
+    "title": "小鹏集团 2025 年报分析：技术资产开始变现了吗？",
+    "period": "2025",
+    "href": "blog/xpeng-2025-annual/",
+    "status": "published",
+    "summary": "销量、车辆毛利率与经营现金流改善，Volkswagen 验证了 E/E 架构交付；技术服务规模与 ADAS 第三方数据仍未拆出。"
+  },
+  "groups": [
+    {
+      "id": "latest",
+      "title": "最新财务披露",
+      "description": "报告日与实际发布状态严格分开",
+      "items": [
+        {
+          "source_id": "XPEV-SRC-Q2-2026-SCHEDULE",
+          "title": "XPENG 2026 年第二季度业绩",
+          "period": "2026 Q2",
+          "published": null,
+          "pages": null,
+          "official_url": "https://ir.xiaopeng.com/news-releases/news-release-details/xpeng-report-second-quarter-2026-financial-results-monday-august",
+          "publication_status": "pending",
+          "verification_status": "OFFICIAL_LINK",
+          "analysis_href": null,
+          "analysis_status": "pending",
+          "note": "PENDING — NOT YET RELEASED · scheduled for 2026-08-24 · status as of 2026-08-21."
+        },
+        {
+          "source_id": "XPEV-SRC-Q1-2026",
+          "title": "2026 年第一季度未经审计财务业绩",
+          "period": "2026 Q1",
+          "published": "2026-05-28",
+          "pages": null,
+          "official_url": "https://ir.xiaopeng.com/zh-hans/news-releases/news-release-details/xpeng-reports-first-quarter-2026-unaudited-financial-results",
+          "publication_status": "published",
+          "verification_status": "OFFICIAL_LINK",
+          "analysis_href": null,
+          "analysis_status": "pending"
+        },
+        {
+          "source_id": "XPEV-SRC-FY2025-RESULTS",
+          "title": "2025 年第四季度及全年未经审计财务业绩",
+          "period": "2025",
+          "published": "2026-03-20",
+          "pages": null,
+          "official_url": "https://ir.xiaopeng.com/news-releases/news-release-details/xpeng-reports-fourth-quarter-and-fiscal-year-2025-unaudited",
+          "publication_status": "published",
+          "verification_status": "OFFICIAL_LINK",
+          "analysis_href": "blog/xpeng-2025-annual/",
+          "analysis_status": "published"
+        }
+      ]
+    },
+    {
+      "id": "annual",
+      "title": "年度报告与对手方验证",
+      "description": "公司监管文件与 Volkswagen 独立披露",
+      "items": [
+        {
+          "source_id": "XPEV-SRC-AR-2025",
+          "title": "XPeng Inc. 2025 Annual Report on Form 20-F",
+          "period": "2025",
+          "published": "2026-04-16",
+          "pages": 293,
+          "official_url": "https://www.sec.gov/Archives/edgar/data/1810997/000119312526157849/d36361d20f.htm",
+          "publication_status": "published",
+          "verification_status": "OFFICIAL_LINK",
+          "analysis_href": "blog/xpeng-2025-annual/",
+          "analysis_status": "published"
+        },
+        {
+          "source_id": "XPEV-SRC-VW-AR-2025",
+          "title": "Volkswagen Group Annual Report 2025",
+          "period": "2025",
+          "published": null,
+          "pages": 673,
+          "official_url": "https://annualreport2025.volkswagen-group.com/_assets/downloads/entire-vw-ar25.pdf?h=bz8bYG_n",
+          "publication_status": "published",
+          "verification_status": "HASH_VERIFIED",
+          "analysis_href": "blog/xpeng-2025-annual/",
+          "analysis_status": "published",
+          "note": "对手方确认 CEA 在 18 个月内达到量产就绪；这验证 E/E 架构交付，不等于验证 ADAS 安全领先。"
+        },
+        {
+          "source_id": "XPEV-SRC-VW-SOP-2026",
+          "title": "Volkswagen–XPENG 首款联合开发车型下线",
+          "period": "2026-03",
+          "published": "2026-03-13",
+          "pages": null,
+          "official_url": "https://www.volkswagen-group.com/en/press-releases/milestone-of-in-china-for-china-strategy-first-car-developed-jointly-by-volkswagen-and-xpeng-rolls-off-the-production-line-20218",
+          "publication_status": "published",
+          "verification_status": "OFFICIAL_LINK",
+          "analysis_href": "blog/xpeng-2025-annual/",
+          "analysis_status": "published",
+          "note": "Volkswagen 对手方确认联合开发车型进入量产；验证合作落地，不等于验证 ADAS 安全领先。"
+        }
+      ]
+    }
+  ]
+}

@@ -4,13 +4,163 @@
   "ticker": "9988",
   "exchange": "HK",
   "industry": "互联网与云计算",
-  "research_status": "PLANNED",
-  "last_updated": "2026-08-20",
+  "research_status": "RESEARCHING",
+  "last_updated": "2026-08-21",
   "sort_order": 4,
-  "primary_claim_id": null,
-  "core_question_en": null,
-  "economic_model": null,
-  "evidence": [],
-  "risks": [],
-  "sources": []
+  "primary_claim_id": "BABA-CLOUD-001",
+  "core_question_en": "Can AI + Cloud become a high-return second growth curve after accounting for capital intensity and cash conversion?",
+  "economic_model": {
+    "formula": "Cloud value ≠ Revenue growth alone",
+    "summary": "收入和 Adjusted EBITA 只是起点；还要桥接资本开支、折旧、自由现金流与投入资本回报。",
+    "variables": {
+      "Growth": "Cloud 与 AI 产品收入增长",
+      "Operating return": "Adjusted EBITA 与折旧后利润",
+      "Capital intensity": "资本开支、利用率与维护性投入"
+    }
+  },
+  "evidence": [
+    {
+      "evidence_id": "BABA-EV-CLOUD-001",
+      "claim_id": "BABA-CLOUD-001",
+      "type": "FACT",
+      "statement": "FY2026 旧 Cloud 收入 1,581.32 亿元，同比增长 34%；Adjusted EBITA 142.65 亿元，同比增长 35%。",
+      "direction": "SUPPORTS",
+      "source_title": "Alibaba FY2026 Annual Report",
+      "source_year": 2026,
+      "source_id": "BABA-SRC-AR-2026",
+      "source_page": 71,
+      "source_locator_status": "VERIFIED",
+      "verification_status": "HASH_VERIFIED",
+      "recorded_at": "2026-08-21",
+      "note": "利润率仅小幅改善，增长主要体现为规模扩大。"
+    },
+    {
+      "evidence_id": "BABA-CE-CASH-001",
+      "claim_id": "BABA-CLOUD-001",
+      "type": "FACT",
+      "statement": "FY2026 集团资本开支升至 1,260.63 亿元，公司定义自由现金流转为负 466.09 亿元。",
+      "direction": "WEAKENS",
+      "source_title": "Alibaba FY2026 Annual Report",
+      "source_year": 2026,
+      "source_id": "BABA-SRC-AR-2026",
+      "source_page": "76, 95",
+      "source_locator_status": "VERIFIED",
+      "verification_status": "HASH_VERIFIED",
+      "recorded_at": "2026-08-21",
+      "note": "集团资本开支不能全部标为 AI/Cloud，但足以证明投入并非没有现金代价。"
+    },
+    {
+      "evidence_id": "BABA-EV-CLOUD-002",
+      "claim_id": "BABA-CLOUD-001",
+      "type": "FACT",
+      "statement": "FY2027 Q1 新 AI Cloud and Compute 收入 484.37 亿元、Adjusted EBITA 56.28 亿元，分别同比增长 45% 与 133%。",
+      "direction": "SUPPORTS",
+      "source_title": "Alibaba June Quarter 2026 Results",
+      "source_year": 2027,
+      "source_id": "BABA-SRC-EARN-Q1FY2027",
+      "source_page": "3, 6, 8",
+      "source_locator_status": "VERIFIED",
+      "verification_status": "HASH_VERIFIED",
+      "recorded_at": "2026-08-21",
+      "note": "新分部包含 T-Head，不能与旧 Cloud 序列直接拼接。"
+    },
+    {
+      "evidence_id": "BABA-EV-AI-001",
+      "claim_id": "BABA-CLOUD-001",
+      "type": "FACT",
+      "statement": "FY2027 Q1 首次单列 AI-related product revenue 123.76 亿元。",
+      "direction": "SUPPORTS_WITH_LIMITS",
+      "source_title": "Alibaba June Quarter 2026 Results",
+      "source_year": 2027,
+      "source_id": "BABA-SRC-EARN-Q1FY2027",
+      "source_page": 3,
+      "source_locator_status": "VERIFIED",
+      "verification_status": "HASH_VERIFIED",
+      "recorded_at": "2026-08-21",
+      "note": "定义、毛利、客户留存与价格/用量仍未拆分。"
+    },
+    {
+      "evidence_id": "BABA-EV-FUNDING-001",
+      "claim_id": "BABA-CLOUD-001",
+      "type": "FACT",
+      "statement": "FY2026 中国电商 Adjusted EBITA 为 1,075.09 亿元，是集团最大的正向利润池。",
+      "direction": "SUPPORTS_WITH_LIMITS",
+      "source_title": "Alibaba FY2026 Annual Report",
+      "source_year": 2026,
+      "source_id": "BABA-SRC-AR-2026",
+      "source_page": 72,
+      "source_locator_status": "VERIFIED",
+      "verification_status": "HASH_VERIFIED",
+      "recorded_at": "2026-08-21",
+      "note": "电商可支持投入，但集团自由现金流转负说明内部融资并非没有代价。"
+    },
+    {
+      "evidence_id": "BABA-EV-TH-001",
+      "claim_id": "BABA-CHIP-001",
+      "type": "FACT",
+      "statement": "FY2027 起 T-Head 被纳入 AI Cloud and Compute Services 分部。",
+      "direction": "SUPPORTS",
+      "source_title": "Alibaba June Quarter 2026 Results",
+      "source_year": 2027,
+      "source_id": "BABA-SRC-EARN-Q1FY2027",
+      "source_page": "2, 6",
+      "source_locator_status": "VERIFIED",
+      "verification_status": "HASH_VERIFIED",
+      "recorded_at": "2026-08-21",
+      "note": "分部归属支持嵌入云服务的商业路径，不支持独立芯片估值。"
+    },
+    {
+      "evidence_id": "BABA-EV-TH-002",
+      "claim_id": "BABA-CHIP-001",
+      "type": "MANAGEMENT",
+      "statement": "公司称 Zhenwu 已规模量产，并可支持训练、微调与推理。",
+      "direction": "SUPPORTS_WITH_LIMITS",
+      "source_title": "Alibaba FY2026 Annual Report",
+      "source_year": 2026,
+      "source_id": "BABA-SRC-AR-2026",
+      "source_page": "7, 97",
+      "source_locator_status": "VERIFIED",
+      "verification_status": "MANAGEMENT_STATEMENT",
+      "recorded_at": "2026-08-21",
+      "note": "没有同口径第三方性能、功耗、稳定性或 TCO 验证。"
+    },
+    {
+      "evidence_id": "BABA-EV-TH-003",
+      "claim_id": "BABA-CHIP-001",
+      "type": "MANAGEMENT",
+      "statement": "公司称 Zhenwu 通过 Alibaba Cloud 被超过 650 家外部客户采用，覆盖 20 多个行业。",
+      "direction": "SUPPORTS_WITH_LIMITS",
+      "source_title": "Alibaba June Quarter 2026 Results",
+      "source_year": 2027,
+      "source_id": "BABA-SRC-EARN-Q1FY2027",
+      "source_page": 3,
+      "source_locator_status": "VERIFIED",
+      "verification_status": "MANAGEMENT_STATEMENT",
+      "recorded_at": "2026-08-21",
+      "note": "客户采用不等于付费、复购或独立芯片销售。"
+    }
+  ],
+  "risks": [
+    {
+      "risk_id": "BABA-RISK-001",
+      "title": "增长无法覆盖资本成本",
+      "severity": "CRITICAL",
+      "falsification_condition": "收入增长持续需要更快资本投入，折旧后回报长期低于资本成本。",
+      "signals": ["分部收入", "Adjusted EBITA", "资本开支", "折旧", "自由现金流"]
+    },
+    {
+      "risk_id": "BABA-RISK-002",
+      "title": "新旧口径不可桥接",
+      "severity": "HIGH",
+      "falsification_condition": "新分部长期只披露增速，无法区分 Cloud、T-Head 与 AI Labs 的经济性。",
+      "signals": ["分部重列", "AI 产品收入", "T-Head 财务", "AI Labs 亏损"]
+    }
+  ],
+  "sources": [
+    { "source_id": "BABA-SRC-AR-2026", "year": 2026, "title": "FY2026 Annual Report", "status": "HASH_VERIFIED" },
+    { "source_id": "BABA-SRC-20F-2026", "year": 2026, "title": "FY2026 Form 20-F", "status": "HASH_VERIFIED" },
+    { "source_id": "BABA-SRC-EARN-FY2026", "year": 2026, "title": "FY2026 Results", "status": "HASH_VERIFIED" },
+    { "source_id": "BABA-SRC-EARN-Q1FY2027", "year": 2027, "title": "FY2027 Q1 Results", "status": "HASH_VERIFIED" },
+    { "source_id": "BABA-SRC-AR-2024", "year": 2024, "title": "FY2024 Annual Report", "status": "HASH_VERIFIED" }
+  ]
 }

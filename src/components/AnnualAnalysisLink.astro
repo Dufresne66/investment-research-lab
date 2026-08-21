@@ -1,0 +1,28 @@
+---
+import { withBase } from "../lib/paths";
+import type { AnnualAnalysisEntry } from "../lib/reports";
+
+interface Props {
+  analysis: AnnualAnalysisEntry;
+  companyName: string;
+  compact?: boolean;
+}
+
+const { analysis, companyName, compact = false } = Astro.props;
+const isPublished = analysis.status === "published" && analysis.href;
+---
+
+<article class:list={["annual-analysis-link", compact && "is-compact", !isPublished && "is-pending"]}>
+  <div>
+    <span>LATEST ANNUAL ANALYSIS</span>
+    <strong>{analysis.title}</strong>
+    <p>{analysis.summary}</p>
+  </div>
+  {isPublished ? (
+    <a href={withBase(analysis.href!)} aria-label={`阅读${companyName}最新年报分析`}>
+      阅读分析 <i>→</i>
+    </a>
+  ) : (
+    <span class="analysis-pending">PENDING</span>
+  )}
+</article>

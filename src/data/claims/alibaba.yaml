@@ -1,0 +1,40 @@
+- id: BABA-CLOUD-001
+  statement: 阿里巴巴 AI + Cloud 能成为高回报、可持续的第二增长曲线。
+  status: OPEN
+  claim_type: HYPOTHESIS
+  confidence: null
+  owner: HUMAN
+  evidence_for:
+    - BABA-EV-CLOUD-001
+    - BABA-EV-CLOUD-002
+    - BABA-EV-AI-001
+    - BABA-EV-FUNDING-001
+  evidence_against:
+    - BABA-CE-CASH-001
+    - Cloud 独立资本开支、折旧、投入资本与自由现金流未披露
+    - FY2027 新分部加入 T-Head，旧 Cloud 序列不可直接拼接
+  evidence_needed:
+    - 至少四个季度的新分部收入、Adjusted EBITA 与 AI 产品收入
+    - 分部折旧、资本开支、利用率或可信替代指标
+    - AI 产品客户留存、用量、毛利与价格变化
+    - 经营利润到自由现金流和投入资本回报的桥接
+  last_updated: "2026-08-21"
+- id: BABA-CHIP-001
+  statement: T-Head 能为阿里云形成可持续的算力供给韧性和单位成本优势。
+  status: OPEN
+  claim_type: HYPOTHESIS
+  confidence: null
+  owner: HUMAN
+  evidence_for:
+    - BABA-EV-TH-001
+    - BABA-EV-TH-002
+    - BABA-EV-TH-003
+  evidence_against:
+    - 没有独立收入、毛利、现金流、资本开支或资产负债表
+    - 客户采用不等于付费、复购或独立芯片销售
+    - 先进制程、封装、HBM 与软件生态仍有供应链约束
+  evidence_needed:
+    - 型号级交付、外部付费使用和复购
+    - 同口径第三方性能、功耗、稳定性与 TCO
+    - 对 Cloud 毛利率、交付周期与资本效率的量化贡献
+  last_updated: "2026-08-21"

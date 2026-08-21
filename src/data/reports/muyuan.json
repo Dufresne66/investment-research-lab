@@ -1,128 +1,190 @@
 {
-  "company": "牧原股份",
-  "ticker": "002714.SZ",
+  "company_slug": "muyuan",
   "updated": "2026-08-21",
-  "interim": [
+  "latest_annual_analysis": {
+    "title": "最新年报分析待发布",
+    "period": null,
+    "href": null,
+    "status": "pending",
+    "summary": "最新年报的正式分析尚未形成获准公开的版本。"
+  },
+  "groups": [
     {
-      "source_id": "MY-SRC-H1-2026",
-      "title": "2026 年半年度报告",
-      "period": "2026 H1",
-      "published": "2026-08-21",
-      "pages": 196,
-      "url": "https://static.cninfo.com.cn/finalpage/2026-08-21/1225485220.PDF",
-      "status": "VERIFIED"
-    }
-  ],
-  "monthly": [
-    {
-      "source_id": "MY-SRC-MS-2026-07",
-      "title": "2026 年 7 月份销售简报",
-      "period": "2026-07",
-      "published": "2026-08-06",
-      "pages": 2,
-      "url": "https://static.cninfo.com.cn/finalpage/2026-08-06/1225460373.PDF",
-      "status": "VERIFIED"
+      "id": "interim",
+      "title": "定期报告",
+      "description": "当前研究校准文件",
+      "items": [
+        {
+          "source_id": "MY-SRC-H1-2026",
+          "title": "2026 年半年度报告",
+          "period": "2026 H1",
+          "published": "2026-08-21",
+          "pages": 196,
+          "official_url": "https://static.cninfo.com.cn/finalpage/2026-08-21/1225485220.PDF",
+          "publication_status": "published",
+          "verification_status": "VERIFIED",
+          "analysis_href": "blog/muyuan-2026-h1-review/",
+          "analysis_status": "published"
+        }
+      ]
     },
     {
-      "source_id": "MY-SRC-MS-2026-06",
-      "title": "2026 年 6 月份销售简报",
-      "period": "2026-06",
-      "published": "2026-07-07",
-      "pages": 2,
-      "url": "https://static.cninfo.com.cn/finalpage/2026-07-07/1225411958.PDF",
-      "status": "LINK_VERIFIED"
+      "id": "monthly",
+      "title": "2026 月度销售简报",
+      "description": "高频经营追踪；阶段性数据未经审计",
+      "items": [
+        {
+          "source_id": "MY-SRC-MS-2026-07",
+          "title": "2026 年 7 月份销售简报",
+          "period": "2026-07",
+          "published": "2026-08-06",
+          "pages": 2,
+          "official_url": "https://static.cninfo.com.cn/finalpage/2026-08-06/1225460373.PDF",
+          "publication_status": "published",
+          "verification_status": "VERIFIED",
+          "analysis_href": "blog/muyuan-2026-07-sales/",
+          "analysis_status": "published"
+        },
+        {
+          "source_id": "MY-SRC-MS-2026-06",
+          "title": "2026 年 6 月份销售简报",
+          "period": "2026-06",
+          "published": "2026-07-07",
+          "pages": 2,
+          "official_url": "https://static.cninfo.com.cn/finalpage/2026-07-07/1225411958.PDF",
+          "publication_status": "published",
+          "verification_status": "LINK_VERIFIED",
+          "analysis_href": null,
+          "analysis_status": "pending"
+        },
+        {
+          "source_id": "MY-SRC-MS-2026-05",
+          "title": "2026 年 5 月份销售简报",
+          "period": "2026-05",
+          "published": "2026-06-06",
+          "pages": 2,
+          "official_url": "https://static.cninfo.com.cn/finalpage/2026-06-06/1225354982.PDF",
+          "publication_status": "published",
+          "verification_status": "LINK_VERIFIED",
+          "analysis_href": null,
+          "analysis_status": "pending"
+        },
+        {
+          "source_id": "MY-SRC-MS-2026-04",
+          "title": "2026 年 4 月份销售简报",
+          "period": "2026-04",
+          "published": "2026-05-07",
+          "pages": 2,
+          "official_url": "https://static.cninfo.com.cn/finalpage/2026-05-07/1225279922.PDF",
+          "publication_status": "published",
+          "verification_status": "LINK_VERIFIED",
+          "analysis_href": null,
+          "analysis_status": "pending"
+        },
+        {
+          "source_id": "MY-SRC-MS-2026-03",
+          "title": "2026 年 3 月份销售简报",
+          "period": "2026-03",
+          "published": "2026-04-09",
+          "pages": 2,
+          "official_url": "https://static.cninfo.com.cn/finalpage/2026-04-09/1225085025.PDF",
+          "publication_status": "published",
+          "verification_status": "LINK_VERIFIED",
+          "analysis_href": null,
+          "analysis_status": "pending"
+        },
+        {
+          "source_id": "MY-SRC-MS-2026-02",
+          "title": "2026 年 2 月份销售简报",
+          "period": "2026-02",
+          "published": "2026-03-06",
+          "pages": 2,
+          "official_url": "https://static.cninfo.com.cn/finalpage/2026-03-06/1224998404.PDF",
+          "publication_status": "published",
+          "verification_status": "LINK_VERIFIED",
+          "analysis_href": null,
+          "analysis_status": "pending"
+        },
+        {
+          "source_id": "MY-SRC-MS-2026-01",
+          "title": "2026 年 1 月份销售简报",
+          "period": "2026-01",
+          "published": "2026-02-06",
+          "pages": 2,
+          "official_url": "https://static.cninfo.com.cn/finalpage/2026-02-06/1224969408.PDF",
+          "publication_status": "published",
+          "verification_status": "LINK_VERIFIED",
+          "analysis_href": null,
+          "analysis_status": "pending"
+        }
+      ]
     },
     {
-      "source_id": "MY-SRC-MS-2026-05",
-      "title": "2026 年 5 月份销售简报",
-      "period": "2026-05",
-      "published": "2026-06-06",
-      "pages": 2,
-      "url": "https://static.cninfo.com.cn/finalpage/2026-06-06/1225354982.PDF",
-      "status": "LINK_VERIFIED"
-    },
-    {
-      "source_id": "MY-SRC-MS-2026-04",
-      "title": "2026 年 4 月份销售简报",
-      "period": "2026-04",
-      "published": "2026-05-07",
-      "pages": 2,
-      "url": "https://static.cninfo.com.cn/finalpage/2026-05-07/1225279922.PDF",
-      "status": "LINK_VERIFIED"
-    },
-    {
-      "source_id": "MY-SRC-MS-2026-03",
-      "title": "2026 年 3 月份销售简报",
-      "period": "2026-03",
-      "published": "2026-04-09",
-      "pages": 2,
-      "url": "https://static.cninfo.com.cn/finalpage/2026-04-09/1225085025.PDF",
-      "status": "LINK_VERIFIED"
-    },
-    {
-      "source_id": "MY-SRC-MS-2026-02",
-      "title": "2026 年 2 月份销售简报",
-      "period": "2026-02",
-      "published": "2026-03-06",
-      "pages": 2,
-      "url": "https://static.cninfo.com.cn/finalpage/2026-03-06/1224998404.PDF",
-      "status": "LINK_VERIFIED"
-    },
-    {
-      "source_id": "MY-SRC-MS-2026-01",
-      "title": "2026 年 1 月份销售简报",
-      "period": "2026-01",
-      "published": "2026-02-06",
-      "pages": 2,
-      "url": "https://static.cninfo.com.cn/finalpage/2026-02-06/1224969408.PDF",
-      "status": "LINK_VERIFIED"
-    }
-  ],
-  "annual": [
-    {
-      "source_id": "MY-SRC-AR-2025",
-      "title": "2025 年年度报告",
-      "period": "2025",
-      "published": "2026-03-28",
-      "pages": 253,
-      "url": "https://static.cninfo.com.cn/finalpage/2026-03-28/1225042507.PDF",
-      "status": "HASH_VERIFIED"
-    },
-    {
-      "source_id": "MY-SRC-AR-2024",
-      "title": "2024 年年度报告",
-      "period": "2024",
-      "published": "2025-03-20",
-      "pages": 273,
-      "url": "https://static.cninfo.com.cn/finalpage/2025-03-20/1222845025.PDF",
-      "status": "HASH_VERIFIED"
-    },
-    {
-      "source_id": "MY-SRC-AR-2023",
-      "title": "2023 年年度报告",
-      "period": "2023",
-      "published": "2024-04-27",
-      "pages": 281,
-      "url": "https://static.cninfo.com.cn/finalpage/2024-04-27/1219861302.PDF",
-      "status": "HASH_VERIFIED"
-    },
-    {
-      "source_id": "MY-SRC-AR-2022",
-      "title": "2022 年年度报告",
-      "period": "2022",
-      "published": "2023-04-28",
-      "pages": 299,
-      "url": "https://static.cninfo.com.cn/finalpage/2023-04-28/1216647248.PDF",
-      "status": "HASH_VERIFIED"
-    },
-    {
-      "source_id": "MY-SRC-AR-2021",
-      "title": "2021 年年度报告",
-      "period": "2021",
-      "published": "2022-04-30",
-      "pages": 333,
-      "url": "https://static.cninfo.com.cn/finalpage/2022-04-30/1213254727.PDF",
-      "status": "HASH_VERIFIED"
+      "id": "annual",
+      "title": "过往年度报告",
+      "description": "2021–2025 年完整年报",
+      "items": [
+        {
+          "source_id": "MY-SRC-AR-2025",
+          "title": "2025 年年度报告",
+          "period": "2025",
+          "published": "2026-03-28",
+          "pages": 253,
+          "official_url": "https://static.cninfo.com.cn/finalpage/2026-03-28/1225042507.PDF",
+          "publication_status": "published",
+          "verification_status": "HASH_VERIFIED",
+          "analysis_href": null,
+          "analysis_status": "pending"
+        },
+        {
+          "source_id": "MY-SRC-AR-2024",
+          "title": "2024 年年度报告",
+          "period": "2024",
+          "published": "2025-03-20",
+          "pages": 273,
+          "official_url": "https://static.cninfo.com.cn/finalpage/2025-03-20/1222845025.PDF",
+          "publication_status": "published",
+          "verification_status": "HASH_VERIFIED",
+          "analysis_href": null,
+          "analysis_status": "pending"
+        },
+        {
+          "source_id": "MY-SRC-AR-2023",
+          "title": "2023 年年度报告",
+          "period": "2023",
+          "published": "2024-04-27",
+          "pages": 281,
+          "official_url": "https://static.cninfo.com.cn/finalpage/2024-04-27/1219861302.PDF",
+          "publication_status": "published",
+          "verification_status": "HASH_VERIFIED",
+          "analysis_href": null,
+          "analysis_status": "pending"
+        },
+        {
+          "source_id": "MY-SRC-AR-2022",
+          "title": "2022 年年度报告",
+          "period": "2022",
+          "published": "2023-04-28",
+          "pages": 299,
+          "official_url": "https://static.cninfo.com.cn/finalpage/2023-04-28/1216647248.PDF",
+          "publication_status": "published",
+          "verification_status": "HASH_VERIFIED",
+          "analysis_href": null,
+          "analysis_status": "pending"
+        },
+        {
+          "source_id": "MY-SRC-AR-2021",
+          "title": "2021 年年度报告",
+          "period": "2021",
+          "published": "2022-04-30",
+          "pages": 333,
+          "official_url": "https://static.cninfo.com.cn/finalpage/2022-04-30/1213254727.PDF",
+          "publication_status": "published",
+          "verification_status": "HASH_VERIFIED",
+          "analysis_href": null,
+          "analysis_status": "pending"
+        }
+      ]
     }
   ]
 }

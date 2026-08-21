@@ -1,0 +1,99 @@
+---
+import BlogLayout from "../../layouts/BlogLayout.astro";
+import LineChart from "../../components/LineChart.astro";
+import { withBase } from "../../lib/paths";
+import { getReportBySourceId } from "../../lib/reports";
+
+const annual = getReportBySourceId("maotai", "MT-SRC-AR-2025");
+if (!annual?.official_url) throw new Error("Missing official report link for MT-SRC-AR-2025");
+const realized = [
+  { label: "2021", value: 1596.35 },
+  { label: "2022", value: 1815.47 },
+  { label: "2023", value: 2009.16 },
+  { label: "2024", value: 2047.36 },
+  { label: "2025", value: 1983.15 },
+];
+---
+
+<BlogLayout
+  title="贵州茅台 2025 年报分析"
+  subtitle="销量还在增长，收入却回落：把主品牌韧性、系列酒压力和渠道重构放进同一张证据图。"
+  eyebrow="ANNUAL REPORT REVIEW · FY2025"
+  date="2026-08-21"
+  readTime="10 min read"
+  tags={["年报", "定价权", "产品结构", "渠道"]}
+  description="基于贵州茅台 2025 年报与 2026 半年报，拆解销量、实现收入、渠道和定价权。"
+  companyLabel="贵州茅台"
+  companyTicker="600519.SH"
+>
+  <section class="blog-lede">
+    <span>核心判断 · INFERENCE</span>
+    <p>2025 年不是“酒卖少了”：酒类销量增长 2.13%，混合实现收入/kg 却下降约 3.14%。主品牌表现接近稳定，主要压力集中在系列酒和渠道结构；这支持“主品牌有定价韧性”，还不能证明所有产品与渠道都拥有无损定价权。[`MT-SRC-AR-2024`, PDF pp.9、15；`MT-SRC-AR-2025`, PDF pp.10、16]</p>
+  </section>
+
+  <section class="blog-section">
+    <div class="blog-section-heading"><span>01</span><div><p>THE FOUR NUMBERS</p><h2>量增、收入降，价格结构才是关键变量</h2></div></div>
+    <div class="metric-grid four">
+      <article class="negative-card"><span>FACT · p.6</span><strong>1,688.38<small>亿元</small></strong><p>营业收入</p><i>同比 -1.21%</i></article>
+      <article class="negative-card"><span>FACT · p.6</span><strong>823.20<small>亿元</small></strong><p>归母净利润</p><i>同比 -4.53%</i></article>
+      <article><span>FACT · p.10</span><strong>85,104<small>吨</small></strong><p>酒类销量</p><i>同比 +2.13%</i></article>
+      <article class="derived"><span>DERIVED · p.10</span><strong>-3.14<small>%</small></strong><p>混合实现收入/kg</p><i>不是单品出厂价</i></article>
+    </div>
+    <LineChart title="酒类混合实现收入/kg" subtitle="DERIVED · 产品、规格、渠道混合口径" data={realized} unit="元/kg" color="gold" />
+  </section>
+
+  <section class="blog-section">
+    <div class="blog-section-heading"><span>02</span><div><p>PRODUCT BRIDGE</p><h2>主品牌接近稳定，系列酒是主要压力源</h2></div></div>
+    <div class="table-scroll">
+      <table class="research-data-table">
+        <thead><tr><th>产品</th><th>销量同比</th><th>收入同比</th><th>实现收入/kg 同比</th><th>2025 毛利率</th><th>来源</th></tr></thead>
+        <tbody>
+          <tr><td><strong>酒类合计</strong></td><td class="positive">+2.13%</td><td class="negative">-1.08%</td><td class="negative">-3.14%</td><td>91.23%</td><td>p.10</td></tr>
+          <tr><td><strong>茅台酒</strong></td><td class="positive">+0.73%</td><td class="positive">+0.39%</td><td class="negative">-0.33%</td><td>93.53%</td><td>pp.10、16</td></tr>
+          <tr><td><strong>系列酒</strong></td><td class="positive">+3.88%</td><td class="negative">-9.76%</td><td class="negative">-13.13%</td><td>76.11%</td><td>pp.10、16</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="analysis-copy">实现收入/kg 混合了产品、规格、渠道和地区结构。它比单纯收入增速更接近“公司实际实现了什么价格”，却不能替代飞天茅台终端价或出厂价。[`MT-SRC-AR-2024`, PDF pp.9、15；`MT-SRC-AR-2025`, PDF pp.10、16]</p>
+  </section>
+
+  <section class="blog-section">
+    <div class="blog-section-heading"><span>03</span><div><p>CHANNEL REBUILD</p><h2>直销增长，不等于 i茅台增长</h2></div></div>
+    <div class="table-scroll"><table class="research-data-table"><thead><tr><th>渠道</th><th>2024（亿元）</th><th>2025（亿元）</th><th>同比</th><th>解释边界</th></tr></thead><tbody>
+      <tr><td><strong>直销</strong></td><td>748.43</td><td>845.43</td><td class="positive">+12.96%</td><td>含多种自营/直销口径</td></tr>
+      <tr><td><strong>批发代理</strong></td><td>957.69</td><td>842.32</td><td class="negative">-12.05%</td><td>渠道结构重排</td></tr>
+      <tr><td><strong>i茅台</strong></td><td>200.24</td><td>130.31</td><td class="negative">-34.92%</td><td>不能代表全部直销</td></tr>
+      <tr class="current-row"><td><strong>非 i茅台直销残差</strong></td><td>548.20</td><td>715.12</td><td class="positive">+30.45%</td><td>DERIVED，不进一步命名渠道</td></tr>
+    </tbody></table></div>
+    <div class="evidence-alert"><span>OPEN QUESTION</span><p>直销成本增长 31.07%，快于收入增长 12.96%。需要知道渠道投入、费用与净收益，而不只看收入占比。[`MT-SRC-AR-2025`, PDF p.10]</p></div>
+  </section>
+
+  <section class="blog-section">
+    <div class="blog-section-heading"><span>04</span><div><p>POST-REPORT CHECK</p><h2>2026 半年报没有让压力消失</h2></div></div>
+    <div class="metric-grid four">
+      <article><span>FACT · H1 p.5</span><strong>907.03<small>亿元</small></strong><p>营业收入</p><i>同比 +1.47%</i></article>
+      <article class="negative-card"><span>FACT · H1 p.5</span><strong>445.17<small>亿元</small></strong><p>归母净利润</p><i>同比 -1.95%</i></article>
+      <article class="negative-card"><span>FACT · H1 p.7</span><strong>+21.81<small>%</small></strong><p>营业成本同比</p><i>快于收入</i></article>
+      <article class="derived"><span>FACT · H1 p.9</span><strong>-60.31<small>%</small></strong><p>合同负债较年初</p><i>受模式与政策调整影响</i></article>
+    </div>
+    <p class="analysis-copy">来源：`MT-SRC-H1-2026`, PDF pp.5、7、9。收入微增而利润下降，说明盈利压力尚未消失。</p>
+  </section>
+
+  <section class="blog-conclusion numbered">
+    <span>RESEARCH SYNTHESIS</span><h2>结论保留两面</h2>
+    <ol>
+      <li>2025 年销量没有下降，收入压力主要来自实现价格与结构。</li>
+      <li>茅台酒表现比系列酒稳定，不能把两者合成一句“定价权失效”。</li>
+      <li>直销占比上升，但 i茅台下降且渠道成本更快增长。</li>
+      <li>终端价格、真实动销和经销商库存仍是最重要的缺失证据。</li>
+    </ol>
+    <p>`MT-MOAT-001` 保持 OPEN，人工置信度未设置。本分析不构成最终投资决策。</p>
+  </section>
+
+  <footer class="blog-source-panel">
+    <div><span>PRIMARY SOURCE</span><strong>{annual.source_id}</strong><p>{annual.title} · 关键页 p.6 / 10 / 16–17 / 136</p></div>
+    <a href={annual.official_url!} target="_blank" rel="noreferrer">官方年报 ↗</a>
+    <a href={withBase("companies/maotai/reports/")}>全部报告</a>
+    <a href={withBase("companies/maotai/thesis/")}>研究命题 →</a>
+  </footer>
+</BlogLayout>

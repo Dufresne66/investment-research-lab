@@ -1,0 +1,34 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import ReportLibrary from "../../../../components/ReportLibrary.astro";
+import BaseLayout from "../../../../layouts/BaseLayout.astro";
+import { getReportLibraries, type ReportLibrary as ReportLibraryData } from "../../../../lib/reports";
+
+export async function getStaticPaths() {
+  const companies = await getCollection("companies");
+  const bySlug = new Map(companies.map((entry) => [entry.data.slug, entry]));
+
+  return getReportLibraries().map((library) => {
+    const company = bySlug.get(library.company_slug);
+    if (!company) throw new Error(`Missing company record for report library ${library.company_slug}`);
+    return {
+      params: { company: library.company_slug },
+      props: { company, library },
+    };
+  });
+}
+
+const { company: companyEntry, library } = Astro.props as {
+  company: CollectionEntry<"companies">;
+  library: ReportLibraryData;
+};
+const company = companyEntry.data;
+---
+
+<BaseLayout
+  title={`${company.name}报告索引`}
+  description={`${company.name}官方报告链接与公开分析入口。`}
+  active="reports"
+>
+  <ReportLibrary company={company} library={library} />
+</BaseLayout>

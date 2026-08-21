@@ -12,18 +12,28 @@ export async function getStaticPaths() {
   const entries = await getCollection("companyResearch");
   const companies = await getCollection("companies");
   const bySlug = new Map(companies.map((entry) => [entry.data.slug, entry]));
+  const availableByCompany = new Map<string, string[]>();
+
+  for (const entry of entries) {
+    const [companySlug, section] = entry.id.split("/");
+    const available = availableByCompany.get(companySlug) ?? [];
+    available.push(section);
+    availableByCompany.set(companySlug, available);
+  }
 
   return entries.map((entry) => {
     const [companySlug, section] = entry.id.split("/");
     const companyEntry = bySlug.get(companySlug);
     if (!companyEntry) throw new Error(`Missing company record for ${companySlug}`);
-    return { params: { company: companySlug, section }, props: { entry, companyEntry } };
+    const availableSections = availableByCompany.get(companySlug) ?? [];
+    return { params: { company: companySlug, section }, props: { entry, companyEntry, availableSections } };
   });
 }
 
-const { entry, companyEntry } = Astro.props as {
+const { entry, companyEntry, availableSections } = Astro.props as {
   entry: CollectionEntry<"companyResearch">;
   companyEntry: CollectionEntry<"companies">;
+  availableSections: string[];
 };
 const company = companyEntry.data;
 const section = entry.id.split("/").at(-1) ?? "overview";
@@ -35,7 +45,7 @@ const claim = claimFiles
 if (!claim) throw new Error(`Primary claim is missing for ${company.slug}`);
 ---
 
-<CompanyShell current={section} title={entry.data.title} description={entry.data.description} company={company} claim={claim}>
+<CompanyShell current={section} title={entry.data.title} description={entry.data.description} company={company} claim={claim} availableSections={availableSections}>
   <Content />
 
   <div slot="signals">

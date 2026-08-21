@@ -1,0 +1,65 @@
+---
+import { getCollection } from "astro:content";
+import AnnualAnalysisLink from "../../components/AnnualAnalysisLink.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { withBase } from "../../lib/paths";
+import { getPublishedReports, getReportLibraries } from "../../lib/reports";
+
+const companies = await getCollection("companies");
+const bySlug = new Map(companies.map((entry) => [entry.data.slug, entry.data]));
+const libraries = getReportLibraries()
+  .map((library) => {
+    const company = bySlug.get(library.company_slug);
+    if (!company) throw new Error(`Missing company record for report library ${library.company_slug}`);
+    return { library, company, reports: getPublishedReports(library) };
+  })
+  .sort((a, b) => a.company.sort_order - b.company.sort_order);
+---
+
+<BaseLayout title="Reports" description="各公司官方报告链接与获准公开的最新年报分析。" active="reports">
+  <section class="reports-hub page-width">
+    <div class="reports-hub-hero">
+      <p class="section-label">REPORTS · PRIMARY SOURCES FIRST</p>
+      <h1>Reports</h1>
+      <p>从官方报告回到原始披露，再进入经过人工批准的分析。这里不保存本地 PDF，也不把待发布内容伪装成已发布。</p>
+    </div>
+
+    <div class="reports-company-grid">
+      {libraries.map(({ library, company, reports }) => {
+        const latestReport = reports.at(0);
+        return (
+          <article class="reports-company-card">
+            <header>
+              <div>
+                <span>{company.ticker} · {company.exchange}</span>
+                <h2>{company.name}</h2>
+              </div>
+              <a href={withBase(`companies/${company.slug}/reports/`)}>全部报告 →</a>
+            </header>
+
+            {latestReport ? (
+              <a class="latest-official-report" href={latestReport.official_url!} target="_blank" rel="noreferrer">
+                <span>LATEST OFFICIAL REPORT</span>
+                <strong>{latestReport.title}</strong>
+                <small>{latestReport.published} · {latestReport.source_id} · Official source ↗</small>
+              </a>
+            ) : (
+              <div class="latest-official-report is-pending">
+                <span>LATEST OFFICIAL REPORT</span>
+                <strong>官方报告索引待录入</strong>
+                <small>PENDING · Official link not yet verified</small>
+              </div>
+            )}
+
+            <AnnualAnalysisLink analysis={library.latest_annual_analysis} companyName={company.name} compact />
+          </article>
+        );
+      })}
+    </div>
+
+    <aside class="source-boundary-note reports-boundary">
+      <b>PUBLICATION RULE</b>
+      <p>官方报告链接可直接查阅；分析只有完成来源校验并经人工批准后才进入公开网站。Claim confidence 与最终投资决定仍由人维护。</p>
+    </aside>
+  </section>
+</BaseLayout>

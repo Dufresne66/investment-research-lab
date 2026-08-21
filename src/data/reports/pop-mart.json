@@ -1,0 +1,88 @@
+{
+  "company_slug": "pop-mart",
+  "updated": "2026-08-21",
+  "latest_annual_analysis": {
+    "title": "泡泡玛特 2025 年报分析：多 IP 引擎还是爆款放大器？",
+    "period": "2025",
+    "href": "blog/pop-mart-2025-annual/",
+    "status": "published",
+    "summary": "多 IP 运营能力已经出现，但收入仍集中于 THE MONSTERS 和毛绒；2026 上半年接力与库存数据给出了新的双向证据。"
+  },
+  "groups": [
+    {
+      "id": "latest",
+      "title": "最新经营披露",
+      "description": "用于校准 2025 年报判断的季度与半年度资料",
+      "items": [
+        {
+          "source_id": "PM-SRC-H1-2026",
+          "title": "2026 年中期业绩公告",
+          "period": "2026 H1",
+          "published": "2026-08-20",
+          "pages": 44,
+          "official_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0820/2026082000353.pdf",
+          "publication_status": "published",
+          "verification_status": "HASH_VERIFIED",
+          "analysis_href": null,
+          "analysis_status": "pending",
+          "note": "THE MONSTERS 回落、星星人增长，同时亚太/美洲收入转负且库存周转天数升至 201 天。"
+        },
+        {
+          "source_id": "PM-SRC-Q1-2026",
+          "title": "2026 年第一季度最新业务更新",
+          "period": "2026 Q1",
+          "published": "2026-05-12",
+          "pages": 2,
+          "official_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0512/2026051200579.pdf",
+          "publication_status": "published",
+          "verification_status": "HASH_VERIFIED",
+          "analysis_href": null,
+          "analysis_status": "pending"
+        },
+        {
+          "source_id": "PM-SRC-FY-2025-RESULTS",
+          "title": "2025 年全年业绩公告",
+          "period": "2025",
+          "published": "2026-03-25",
+          "pages": 48,
+          "official_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0325/2026032500285.pdf",
+          "publication_status": "published",
+          "verification_status": "HASH_VERIFIED",
+          "analysis_href": "blog/pop-mart-2025-annual/",
+          "analysis_status": "published"
+        }
+      ]
+    },
+    {
+      "id": "annual",
+      "title": "年度报告",
+      "description": "港交所官方年报链接",
+      "items": [
+        {
+          "source_id": "PM-SRC-AR-2025",
+          "title": "Annual Report 2025",
+          "period": "2025",
+          "published": "2026-04-21",
+          "pages": 370,
+          "official_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0421/2026042100394.pdf",
+          "publication_status": "published",
+          "verification_status": "HASH_VERIFIED",
+          "analysis_href": "blog/pop-mart-2025-annual/",
+          "analysis_status": "published"
+        },
+        {
+          "source_id": "PM-SRC-AR-2024",
+          "title": "Annual Report 2024",
+          "period": "2024",
+          "published": "2025-04-23",
+          "pages": 338,
+          "official_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/0423/2025042300687.pdf",
+          "publication_status": "published",
+          "verification_status": "HASH_VERIFIED",
+          "analysis_href": null,
+          "analysis_status": "pending"
+        }
+      ]
+    }
+  ]
+}

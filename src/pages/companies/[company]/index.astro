@@ -3,6 +3,7 @@ import { getCollection, type CollectionEntry } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { companySections } from "../../../lib/research";
 import { withBase } from "../../../lib/paths";
+import { getReportLibrary } from "../../../lib/reports";
 
 export async function getStaticPaths() {
   return (await getCollection("companies")).map((entry) => ({
@@ -17,6 +18,8 @@ const researchEntries = (
   await getCollection("companyResearch", (item) => item.id.startsWith(`${company.slug}/`))
 ).sort((a, b) => a.data.order - b.data.order);
 const hasResearch = researchEntries.length > 0;
+const latestAnnualAnalysis = getReportLibrary(company.slug)?.latest_annual_analysis;
+const hasPublishedAnnualAnalysis = latestAnnualAnalysis?.status === "published" && latestAnnualAnalysis.href;
 ---
 
 <BaseLayout title={`${company.name}研究`} description={`${company.name}公司研究入口与研究进度。`} active="companies">
@@ -33,13 +36,27 @@ const hasResearch = researchEntries.length > 0;
       <span>Updated {company.last_updated}</span>
     </div>
 
-    {company.slug === "muyuan" && (
-      <nav class="company-publication-links" aria-label="牧原公开分析与报告">
-        <a href={withBase("companies/muyuan/reports/")}><span>REPORT LIBRARY</span><strong>官方报告索引</strong><i>↗</i></a>
-        <a href={withBase("blog/muyuan-2026-h1-review/")}><span>2026 H1</span><strong>半年报分析</strong><i>→</i></a>
-        <a href={withBase("blog/muyuan-2026-07-sales/")}><span>2026/07</span><strong>月度简报分析</strong><i>→</i></a>
-      </nav>
-    )}
+    <nav class="company-publication-links" aria-label={`${company.name}公开分析与报告`}>
+      <a href={withBase(`companies/${company.slug}/reports/`)}>
+        <span>REPORT LIBRARY</span><strong>官方报告与分析</strong><i>↗</i>
+      </a>
+      {hasPublishedAnnualAnalysis ? (
+        <a href={withBase(latestAnnualAnalysis.href!)}>
+          <span>{latestAnnualAnalysis.period ?? "LATEST ANNUAL"}</span>
+          <strong>{latestAnnualAnalysis.title}</strong>
+          <i>→</i>
+        </a>
+      ) : company.slug === "muyuan" ? (
+        <>
+          <a href={withBase("blog/muyuan-2026-h1-review/")}><span>2026 H1</span><strong>半年报分析</strong><i>→</i></a>
+          <a href={withBase("blog/muyuan-2026-07-sales/")}><span>2026/07</span><strong>月度简报分析</strong><i>→</i></a>
+        </>
+      ) : (
+        <div class="publication-placeholder">
+          <span>LATEST ANNUAL ANALYSIS</span><strong>待发布</strong><i>PENDING</i>
+        </div>
+      )}
+    </nav>
 
     {hasResearch ? (
       <div class="chapter-list">

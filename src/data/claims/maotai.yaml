@@ -1,0 +1,21 @@
+- id: MT-MOAT-001
+  statement: 贵州茅台主品牌拥有可持续的定价权。
+  status: OPEN
+  claim_type: HYPOTHESIS
+  confidence: null
+  owner: HUMAN
+  evidence_for:
+    - MT-EV-MOAT-001
+    - MT-EV-MOAT-002
+    - MT-EV-MOAT-003
+  evidence_against:
+    - MT-CE-MOAT-001
+    - MT-CE-MOAT-002
+    - MT-CE-MOAT-003
+    - MT-CE-MOAT-004
+  evidence_needed:
+    - 真实终端成交价、批价与渠道库存时间序列
+    - 分规格、分渠道净实现价
+    - 直销投入与净收益的可比数据
+    - 成熟产能释放与终端动销的匹配数据
+  last_updated: "2026-08-21"

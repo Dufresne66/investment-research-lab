@@ -3,26 +3,28 @@ interface Claim {
   id: string;
   statement: string;
   status: string;
-  confidence: number;
+  claim_type: "FACT" | "INFERENCE" | "HYPOTHESIS";
+  confidence: number | null;
   evidence_needed: string[];
   last_updated: string;
 }
 
 const { claim, compact = false } = Astro.props as { claim: Claim; compact?: boolean };
+const hasHumanConfidence = claim.confidence !== null;
 ---
 
 <article class:list={["thesis-card", compact && "is-compact"]}>
   <header>
     <div>
-      <span class="card-type">INVESTMENT CLAIM</span>
+      <span class="card-type">INVESTMENT CLAIM · {claim.claim_type}</span>
       <code>{claim.id}</code>
     </div>
     <span class="status-badge">{claim.status}</span>
   </header>
   <h3>{claim.statement}</h3>
-  <div class="confidence" aria-label={`当前人工置信度 ${claim.confidence}%`}>
-    <div><span>HUMAN CONFIDENCE</span><strong>{claim.confidence}%</strong></div>
-    <div class="confidence-track"><i style={`width: ${claim.confidence}%`}></i></div>
+  <div class:list={["confidence", !hasHumanConfidence && "is-unassigned"]} aria-label={hasHumanConfidence ? `当前人工置信度 ${claim.confidence}%` : "人工置信度尚未指定"}>
+    <div><span>HUMAN CONFIDENCE</span><strong>{hasHumanConfidence ? `${claim.confidence}%` : "Human not assigned"}</strong></div>
+    <div class="confidence-track">{hasHumanConfidence && <i style={`width: ${claim.confidence}%`}></i>}</div>
   </div>
   {!compact && (
     <div class="needed-evidence">

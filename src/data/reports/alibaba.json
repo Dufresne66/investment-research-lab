@@ -1,0 +1,108 @@
+{
+  "company_slug": "alibaba",
+  "updated": "2026-08-21",
+  "latest_annual_analysis": {
+    "title": "阿里巴巴 FY2026 年报分析：AI + Cloud 是高回报第二曲线吗？",
+    "period": "FY2026",
+    "href": "blog/alibaba-fy2026-annual/",
+    "status": "published",
+    "summary": "Cloud 已重新加速，AI 收入开始可见；资本开支、自由现金流和分部资本回报仍是决定性未知。"
+  },
+  "groups": [
+    {
+      "id": "latest",
+      "title": "最新业绩与监管文件",
+      "description": "新分部口径与风险披露的正式来源",
+      "items": [
+        {
+          "source_id": "BABA-SRC-EARN-Q1FY2027",
+          "title": "June Quarter 2026 Results",
+          "period": "FY2027 Q1",
+          "published": "2026-08-20",
+          "pages": 25,
+          "official_url": "https://data.alibabagroup.com/ecms-files/1532295521/fa5d65fc-9b3e-4e82-a8fc-4ce1c3e2c407/Alibaba%20Group%20Announces%20June%20Quarter%202026%20Results.pdf",
+          "publication_status": "published",
+          "verification_status": "HASH_VERIFIED",
+          "analysis_href": null,
+          "analysis_status": "pending",
+          "note": "新 AI Cloud and Compute 分部加入 T-Head，不能与旧 Cloud 序列直接拼接。"
+        },
+        {
+          "source_id": "BABA-SRC-20F-2026",
+          "title": "FY2026 Form 20-F",
+          "period": "FY2026",
+          "published": "2026-05-20",
+          "pages": 299,
+          "official_url": "https://data.alibabagroup.com/ecms-files/1514386754/b0f928b2-88f0-469d-905e-a714d19fb913/2026%20SEC%20Form%2020-F.pdf",
+          "publication_status": "published",
+          "verification_status": "HASH_VERIFIED",
+          "analysis_href": "blog/alibaba-fy2026-annual/",
+          "analysis_status": "published"
+        },
+        {
+          "source_id": "BABA-SRC-EARN-FY2026",
+          "title": "March Quarter and Fiscal Year 2026 Results",
+          "period": "FY2026",
+          "published": "2026-05-13",
+          "pages": 38,
+          "official_url": "https://data.alibabagroup.com/ecms-files/1532295521/5b1cb883-8d00-4237-a148-6631cc12a5d2/Alibaba%20Group%20Announces%20March%20Quarter%202026%20and%20Fiscal%20Year%202026%20Results.pdf",
+          "publication_status": "published",
+          "verification_status": "HASH_VERIFIED",
+          "analysis_href": "blog/alibaba-fy2026-annual/",
+          "analysis_status": "published"
+        }
+      ]
+    },
+    {
+      "id": "annual",
+      "title": "年度报告",
+      "description": "港交所与阿里巴巴投资者关系官方文件",
+      "items": [
+        {
+          "source_id": "BABA-SRC-AR-2026",
+          "title": "Fiscal Year 2026 Annual Report",
+          "period": "FY2026",
+          "published": "2026-06-18",
+          "pages": 270,
+          "official_url": "https://www.hkexnews.hk/listedco/listconews/sehk/2026/0618/2026061800844.pdf",
+          "publication_status": "published",
+          "verification_status": "HASH_VERIFIED",
+          "analysis_href": "blog/alibaba-fy2026-annual/",
+          "analysis_status": "published"
+        },
+        {
+          "source_id": "BABA-SRC-AR-2024",
+          "title": "Fiscal Year 2024 Annual Report",
+          "period": "FY2024",
+          "published": "2024-05-23",
+          "pages": 341,
+          "official_url": "https://data.alibabagroup.com/ecms-files/1514443390/5788a02d-696c-412a-ad2a-386d19b21769/Alibaba%20Group%20Holding%20Limited%20Fiscal%20Year%202024%20Annual%20Report.pdf",
+          "publication_status": "published",
+          "verification_status": "HASH_VERIFIED",
+          "analysis_href": null,
+          "analysis_status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "official-announcements",
+      "title": "AI 与 Cloud 官方公告",
+      "description": "管理层陈述，不替代财务报表或第三方验证",
+      "items": [
+        {
+          "source_id": "BABA-SRC-AI380-2025",
+          "title": "未来三年 AI 与 Cloud 基础设施投入计划",
+          "period": "2025–2028 plan",
+          "published": "2025-02-24",
+          "pages": null,
+          "official_url": "https://www.alibabagroup.com/en-US/document-1830678592242057216",
+          "publication_status": "published",
+          "verification_status": "OFFICIAL_LINK",
+          "analysis_href": "blog/alibaba-fy2026-annual/",
+          "analysis_status": "published",
+          "note": "RMB 3,800 亿元是计划，不是已经发生的资本开支。"
+        }
+      ]
+    }
+  ]
+}

@@ -4,13 +4,190 @@
   "ticker": "9992",
   "exchange": "HK",
   "industry": "潮流玩具",
-  "research_status": "PLANNED",
-  "last_updated": "2026-08-20",
+  "research_status": "RESEARCHING",
+  "last_updated": "2026-08-21",
   "sort_order": 5,
-  "primary_claim_id": null,
-  "core_question_en": null,
-  "economic_model": null,
-  "evidence": [],
-  "risks": [],
-  "sources": []
+  "primary_claim_id": "PM-IP-001",
+  "core_question_en": "Can POP MART repeatedly create and commercialize IP without depending on one hit character or one product format?",
+  "economic_model": {
+    "formula": "Growth ≈ IP cohort × Product extension × Distribution",
+    "summary": "用 IP cohort、产品形态与地区渠道三层检验增长是否可以复制。",
+    "variables": {
+      "IP cohort": "新旧 IP 的放量与留存",
+      "Product extension": "手办、毛绒及其他载体",
+      "Distribution": "地区、门店、线上与批发渠道"
+    }
+  },
+  "evidence": [
+    {
+      "evidence_id": "PM-EV-IP-003",
+      "claim_id": "PM-IP-001",
+      "type": "FACT",
+      "statement": "2026 H1 THE MONSTERS 同比回落时，星星人快速增长，集团收入仍增长 23.8%。",
+      "direction": "SUPPORTS",
+      "source_title": "泡泡玛特 2026 年中期业绩公告",
+      "source_year": 2026,
+      "source_id": "PM-SRC-H1-2026",
+      "source_page": "1, 30-31",
+      "source_locator_status": "VERIFIED",
+      "verification_status": "HASH_VERIFIED",
+      "recorded_at": "2026-08-21",
+      "note": "一个半年期的接力证据不足以证明长期、低波动的 IP 引擎。"
+    },
+    {
+      "evidence_id": "PM-CE-IP-001",
+      "claim_id": "PM-IP-001",
+      "type": "DERIVED",
+      "statement": "单列 Top1/Top5 IP 收入集中度由 2023 年 16.3%/55.6% 升至 2025 年 38.1%/70.9%。",
+      "direction": "WEAKENS",
+      "source_title": "泡泡玛特 2024、2025 年年度报告",
+      "source_year": 2025,
+      "source_id": "PM-SRC-AR-2025",
+      "source_refs": [
+        { "source_id": "PM-SRC-AR-2024", "source_page": 27 },
+        { "source_id": "PM-SRC-AR-2025", "source_page": 28 }
+      ],
+      "source_page": 28,
+      "source_locator_status": "VERIFIED",
+      "verification_status": "RECALCULATED",
+      "recorded_at": "2026-08-21",
+      "note": "成功 IP 的数量增加与收入集中度上升可以同时发生。"
+    },
+    {
+      "evidence_id": "PM-EV-IP-001",
+      "claim_id": "PM-IP-001",
+      "type": "FACT",
+      "statement": "2025 年有 17 个艺术家 IP 收入过亿元，七个单列 IP 收入均超过 17 亿元。",
+      "direction": "SUPPORTS",
+      "source_title": "泡泡玛特 2025 年年度报告",
+      "source_year": 2025,
+      "source_id": "PM-SRC-AR-2025",
+      "source_page": 11,
+      "source_locator_status": "VERIFIED",
+      "verification_status": "HASH_VERIFIED",
+      "recorded_at": "2026-08-21",
+      "note": "组合宽度存在，但不能单独证明新 IP 成功率与长期留存。"
+    },
+    {
+      "evidence_id": "PM-EV-IP-002",
+      "claim_id": "PM-IP-001",
+      "type": "FACT",
+      "statement": "CRYBABY、THE MONSTERS 与星星人在不同年度快速放量，MOLLY、SKULLPANDA、DIMOO 跨 2023–2025 仍保持规模。",
+      "direction": "SUPPORTS",
+      "source_title": "泡泡玛特 2024、2025 年年度报告",
+      "source_year": 2025,
+      "source_id": "PM-SRC-AR-2025",
+      "source_refs": [
+        { "source_id": "PM-SRC-AR-2024", "source_page": 27 },
+        { "source_id": "PM-SRC-AR-2025", "source_page": 28 }
+      ],
+      "source_page": 28,
+      "source_locator_status": "VERIFIED",
+      "verification_status": "HASH_VERIFIED",
+      "recorded_at": "2026-08-21",
+      "note": "跨年组合来自 PM-SRC-AR-2024 p.27 与 PM-SRC-AR-2025 p.28。"
+    },
+    {
+      "evidence_id": "PM-EV-IP-004",
+      "claim_id": "PM-IP-001",
+      "type": "FACT",
+      "statement": "毛绒收入占比从 2023 年 3.2% 升至 2025 年 50.4%，说明商业化载体可以扩展。",
+      "direction": "SUPPORTS",
+      "source_title": "泡泡玛特 2024、2025 年年度报告",
+      "source_year": 2025,
+      "source_id": "PM-SRC-AR-2025",
+      "source_refs": [
+        { "source_id": "PM-SRC-AR-2024", "source_page": 28 },
+        { "source_id": "PM-SRC-AR-2025", "source_page": 29 }
+      ],
+      "source_page": 29,
+      "source_locator_status": "VERIFIED",
+      "verification_status": "HASH_VERIFIED",
+      "recorded_at": "2026-08-21",
+      "note": "起点来自 PM-SRC-AR-2024 p.28；产品扩展也带来新的集中风险。"
+    },
+    {
+      "evidence_id": "PM-CE-IP-002",
+      "claim_id": "PM-IP-001",
+      "type": "DERIVED",
+      "statement": "THE MONSTERS 贡献约 46.2% 的 2024–2025 集团收入增量。",
+      "direction": "WEAKENS",
+      "source_title": "泡泡玛特 2025 年年度报告",
+      "source_year": 2025,
+      "source_id": "PM-SRC-AR-2025",
+      "source_page": 28,
+      "source_locator_status": "VERIFIED",
+      "verification_status": "RECALCULATED",
+      "recorded_at": "2026-08-21",
+      "note": "单个 IP 对增量贡献较高，削弱低爆款依赖命题。"
+    },
+    {
+      "evidence_id": "PM-CE-IP-003",
+      "claim_id": "PM-IP-001",
+      "type": "FACT",
+      "statement": "2026 H1 手办收入仅增长 0.3%，毛绒占比升至 57.2%。",
+      "direction": "WEAKENS",
+      "source_title": "泡泡玛特 2026 年中期业绩公告",
+      "source_year": 2026,
+      "source_id": "PM-SRC-H1-2026",
+      "source_page": 31,
+      "source_locator_status": "VERIFIED",
+      "verification_status": "HASH_VERIFIED",
+      "recorded_at": "2026-08-21",
+      "note": "增长继续集中于单一产品形态。"
+    },
+    {
+      "evidence_id": "PM-CE-IP-004",
+      "claim_id": "PM-IP-001",
+      "type": "FACT",
+      "statement": "2026 H1 亚太和美洲收入分别下降 9.7% 与 16.5%，库存周转天数升至 201 天。",
+      "direction": "WEAKENS",
+      "source_title": "泡泡玛特 2026 年中期业绩公告",
+      "source_year": 2026,
+      "source_id": "PM-SRC-H1-2026",
+      "source_page": "24, 35",
+      "source_locator_status": "VERIFIED",
+      "verification_status": "HASH_VERIFIED",
+      "recorded_at": "2026-08-21",
+      "note": "管理层的提前备货解释仍需未来周转、折扣与退货数据验证。"
+    },
+    {
+      "evidence_id": "PM-CE-IP-005",
+      "claim_id": "PM-IP-001",
+      "type": "FACT",
+      "statement": "公司提示无法保证持续设计热门产品或维持成功产品热度，授权产品还存在最低保证使用费风险。",
+      "direction": "WEAKENS",
+      "source_title": "泡泡玛特 2025 年年度报告",
+      "source_year": 2025,
+      "source_id": "PM-SRC-AR-2025",
+      "source_page": 36,
+      "source_locator_status": "VERIFIED",
+      "verification_status": "HASH_VERIFIED",
+      "recorded_at": "2026-08-21",
+      "note": "这是发行人在风险因素中的正式披露。"
+    }
+  ],
+  "risks": [
+    {
+      "risk_id": "PM-RISK-001",
+      "title": "爆款与产品形态集中",
+      "severity": "CRITICAL",
+      "falsification_condition": "最大 IP 或毛绒回落后，其他 IP 无法在两个完整年度内维持组合增长。",
+      "signals": ["Top1/Top5 集中度", "IP cohort 留存", "毛绒收入占比"]
+    },
+    {
+      "risk_id": "PM-RISK-002",
+      "title": "海外 sell-through 弱于出货",
+      "severity": "HIGH",
+      "falsification_condition": "库存、折扣、退货或减值持续上升，同时海外终端销售转弱。",
+      "signals": ["库存周转", "地区收入", "折扣与退货", "同店销售"]
+    }
+  ],
+  "sources": [
+    { "source_id": "PM-SRC-AR-2025", "year": 2025, "title": "Annual Report 2025", "status": "HASH_VERIFIED" },
+    { "source_id": "PM-SRC-AR-2024", "year": 2024, "title": "Annual Report 2024", "status": "HASH_VERIFIED" },
+    { "source_id": "PM-SRC-FY-2025-RESULTS", "year": 2025, "title": "2025 年全年业绩公告", "status": "HASH_VERIFIED" },
+    { "source_id": "PM-SRC-Q1-2026", "year": 2026, "title": "2026 Q1 业务更新", "status": "HASH_VERIFIED" },
+    { "source_id": "PM-SRC-H1-2026", "year": 2026, "title": "2026 H1 业绩公告", "status": "HASH_VERIFIED" }
+  ]
 }
