@@ -8,13 +8,25 @@
 
 ## 页面所有权
 
+Markdown 是 Learning 的唯一内容来源。每篇文章就是 `src/content/learning/` 下的一个 `.md` 文件；没有单独的 JSON、数据库或手写索引。内容 schema 由 `src/content.config.ts` 的 `learningSchema` 校验。
+
 - 内容文件：`src/content/learning/<slug>.md`
 - 内容 schema：`src/content.config.ts` 的 `learningSchema`
 - 动态路由：`src/pages/learning/[id].astro`
+- 索引页：`src/pages/learning/index.astro`
 - 来源与关联方法组件：`src/components/LearningSourcePanel.astro`
 - 排版：`src/styles/global.css` 中的 `learning-*` 规则
 
-新增文章不需要创建 Astro 页面、组件或 CSS，也不需要修改 Learning index。内容文件通过动态路由自动生成页面并进入索引。
+新增文章不需要创建 Astro 页面、组件或 CSS，也不需要修改 Learning index。任何 `status: active` 的内容文件都会通过动态路由自动生成独立页面，并自动进入索引。
+
+## 索引排序规则
+
+Learning 索引只展示 `status === "active"` 的内容，并按以下规则排序：
+
+1. `updated` 日期倒序——最新更新的内容排在最前面。
+2. 相同 `updated` 日期时，用 `order` 升序作为稳定的次级排序。
+
+索引不依赖标题或文件系统顺序做隐式排序，也不硬编码任何文章 slug。因此新增文章时，只要 `updated` 比现有文章更新，它就会自动排在最前面，无需改动索引页。
 
 ## Interview Study frontmatter
 
@@ -56,6 +68,10 @@ related_learning:
 - GitHub Pages 子路径兼容。
 
 Markdown 正文只负责文章本身，不重复手写来源卡、导航或页面结构。
+
+## GitHub Pages 缓存
+
+GitHub Pages 的 HTML 约有 600 秒缓存。部署成功后，验证新内容应使用无缓存请求或附加一个临时查询参数（例如 `/learning/?deploy=<commit-sha>`）来绕过缓存；但永久链接必须保持干净，不能依赖任何查询参数。临时查询参数只用于部署验收，绝不写入网站的永久链接。
 
 ## 发布门
 

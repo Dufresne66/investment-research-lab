@@ -26,6 +26,24 @@ async function walk(directory) {
   return files;
 }
 
+async function readLearningEntries() {
+  const dir = new URL("src/content/learning/", root);
+  const names = (await readdir(dir)).filter((name) => name.endsWith(".md"));
+  const entries = [];
+  for (const name of names) {
+    const raw = await readFile(new URL(name, dir), "utf8");
+    const frontmatter = raw.match(/^---\r?\n([\s\S]*?)\r?\n---/)?.[1] ?? "";
+    const title = frontmatter.match(/^title:\s*(.+)$/m)?.[1]?.trim() ?? "";
+    const status = frontmatter.match(/^status:\s*(.+)$/m)?.[1]?.trim() ?? "";
+    entries.push({ slug: name.replace(/\.md$/, ""), title, status });
+  }
+  return entries;
+}
+
+function learningHref(slug) {
+  return `href="${normalizedBase}/learning/${slug}/"`;
+}
+
 test("renders the academic-style Investment Research Lab homepage", async () => {
   const html = await page("index.html");
   assert.match(html, /<title>Investment Research Lab<\/title>/i);
@@ -172,6 +190,44 @@ test("provides a reusable source-grounded interview Learning architecture", asyn
   const method = await page("learning/research-method/index.html");
   assert.match(method, /LEARNING METHOD/);
   assert.match(method, /FACT → INFERENCE → HYPOTHESIS → EVIDENCE → UPDATE/);
+});
+
+test("publishes every active Learning entry into the index and its own route", async () => {
+  const entries = await readLearningEntries();
+  const active = entries.filter((entry) => entry.status === "active");
+  assert.ok(active.length > 0, "expected at least one active Learning entry");
+
+  const learningIndex = await page("learning/index.html");
+
+  for (const { slug, title } of active) {
+    await access(new URL(`learning/${slug}/index.html`, dist));
+    assert.ok(learningIndex.includes(title), `Learning index is missing the title of ${slug}`);
+    assert.ok(learningIndex.includes(learningHref(slug)), `Learning index is missing the link ${learningHref(slug)}`);
+
+    const standalone = await page(`learning/${slug}/index.html`);
+    assert.ok(standalone.includes(title), `Standalone page for ${slug} does not show its title`);
+  }
+});
+
+test("renders the Shan Weijian interview study with its verified source panel", async () => {
+  const slug = "shan-weijian-investing-like-archaeology";
+  const learningIndex = await page("learning/index.html");
+  assert.match(learningIndex, /投资如考古/);
+
+  const html = await page(`learning/${slug}/index.html`);
+  assert.match(html, /INTERVIEW STUDY/);
+  assert.match(html, /PRIMARY SOURCE/);
+  assert.match(html, /ORIGINAL AND REPOST VERIFIED/);
+  assert.match(html, /https:\/\/www\.nbd\.com\.cn\/articles\/2026-06-23\/4434183\.html/);
+});
+
+test("orders the Learning index newest-first with order as the same-day tiebreaker", async () => {
+  const learningIndex = await page("learning/index.html");
+  const interviewPos = learningIndex.indexOf(learningHref("shan-weijian-investing-like-archaeology"));
+  const methodPos = learningIndex.indexOf(learningHref("research-method"));
+  assert.ok(interviewPos !== -1, "interview link missing from Learning index");
+  assert.ok(methodPos !== -1, "research-method link missing from Learning index");
+  assert.ok(interviewPos < methodPos, "the newer interview must appear before the older research method");
 });
 
 test("keeps every published Claim evidence reference linked to the public ledger", async () => {

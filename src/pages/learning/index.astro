@@ -2,7 +2,10 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { withBase } from "../../lib/paths";
-const entries = (await getCollection("learning")).sort((a, b) => a.data.order - b.data.order);
+const entries = (await getCollection("learning", (entry) => entry.data.status === "active")).sort((a, b) => {
+  const byUpdated = b.data.updated.localeCompare(a.data.updated);
+  return byUpdated !== 0 ? byUpdated : a.data.order - b.data.order;
+});
 const typeLabel = {
   method: "METHOD",
   concept: "CONCEPT",
