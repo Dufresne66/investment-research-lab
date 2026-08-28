@@ -143,10 +143,28 @@ test("publishes a reusable global reports hub without private file paths", async
   assert.doesNotMatch(html, /\/Users\/dufresne|investment-research\/companies/i);
 
   const xpeng = await page("companies/xpeng/reports/index.html");
-  assert.match(xpeng, /PENDING — NOT YET RELEASED/);
-  assert.match(xpeng, /Official schedule ↗/);
+  assert.match(xpeng, /2026 年第二季度未经审计财务业绩/);
+  assert.match(xpeng, /2026-08-24/);
+  assert.doesNotMatch(xpeng, /PENDING — NOT YET RELEASED/);
   assert.match(xpeng, /sec\.gov\/Archives\/edgar/);
   assert.doesNotMatch(xpeng, /Official link pending/);
+});
+
+test("publishes the source-grounded XPENG R&D and technology-assets page", async () => {
+  const html = await page("companies/xpeng/moat/index.html");
+  assert.match(html, /研发与技术资产：从投入到外部变现/);
+  assert.match(html, /data-xpeng-rd-dashboard/);
+  assert.match(html, /七条技术树 × 五道证据门/);
+  assert.match(html, /Volkswagen 转化漏斗/);
+  assert.match(html, /ID\. UNYX 07 进入量产/);
+  assert.match(html, /客户交付/);
+  assert.match(html, /技术研发服务收入从未单独列报/);
+  assert.match(html, /5 FULFILLED/);
+  assert.match(html, /<strong[^>]*>9<\/strong><span[^>]*>OPEN_UNVERIFIED/);
+  assert.match(html, /XPEV-SRC-VW-AUTOCHINA-2026/);
+  assert.match(html, /Research updated 2026-08-28/);
+  assert.doesNotMatch(html, /\/Users\/dufresne|investment-research\/companies|sha256/i);
+  assert.doesNotMatch(html, /目标价|买入建议|卖出建议/);
 });
 
 test("uses the light system palette and allows human confidence to remain unassigned", async () => {

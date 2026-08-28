@@ -1,0 +1,94 @@
+{
+  "updated": "2026-08-28",
+  "asOfPeriod": "2026Q2",
+  "thesis": {
+    "status": "OPEN",
+    "type": "HYPOTHESIS",
+    "confidence": null,
+    "statement": "小鹏已经证明了持续产品化、平台复用，以及 Volkswagen 单一外部集团的 CEA 量产采用。尚未证明的是跨客户复制、SOP 后 royalty、技术服务独立毛利与现金回款。因此，研发能力已经成立，研发护城河和资本回报仍待证明。",
+    "boundary": "投入、事件或员工人数都不能单独证明效率或回报。"
+  },
+  "summaryCards": [
+    { "label": "2025 费用化研发", "value": "RMB9.49bn", "note": "2020–2025 累计 RMB32.28bn" },
+    { "label": "2025 研发组织", "value": "8,845 人", "note": "占员工 44.5%，项目归属未披露" },
+    { "label": "外部 OEM 验证", "value": "1 个集团", "note": "Volkswagen 已量产；官方资料未识别第二客户" }
+  ],
+  "annualRd": [
+    { "year": "2020", "rdExpenseRmbM": 1725.906, "rdPctRevenue": 29.5, "rdEmployees": 2063, "rdEmployeeShare": 40.6 },
+    { "year": "2021", "rdExpenseRmbM": 4114.267, "rdPctRevenue": 19.6, "rdEmployees": 5271, "rdEmployeeShare": 38.0 },
+    { "year": "2022", "rdExpenseRmbM": 5214.836, "rdPctRevenue": 19.4, "rdEmployees": 6313, "rdEmployeeShare": 39.9 },
+    { "year": "2023", "rdExpenseRmbM": 5276.574, "rdPctRevenue": 17.2, "rdEmployees": 5401, "rdEmployeeShare": 39.9 },
+    { "year": "2024", "rdExpenseRmbM": 6456.734, "rdPctRevenue": 15.8, "rdEmployees": 6200, "rdEmployeeShare": 40.4 },
+    { "year": "2025", "rdExpenseRmbM": 9489.979, "rdPctRevenue": 12.4, "rdEmployees": 8845, "rdEmployeeShare": 44.5 }
+  ],
+  "technologyGates": [
+    { "technology": "ADAS / AI", "existence": "PROVEN", "engineering": "PARTIAL", "production": "PROVEN", "externalAdoption": "UNKNOWN", "economic": "UNKNOWN", "note": "自有车型持续部署；缺第三方暴露量、外部采用与独立经济性。" },
+    { "technology": "OS / OTA", "existence": "PROVEN", "engineering": "PARTIAL", "production": "PROVEN", "externalAdoption": "UNKNOWN", "economic": "UNKNOWN", "note": "多车型持续推送；未见外部客户或软件单位经济性。" },
+    { "technology": "E/E / SEPA / CEA", "existence": "PROVEN", "engineering": "PROVEN", "production": "PROVEN", "externalAdoption": "PROVEN", "economic": "PARTIAL", "note": "Volkswagen 首款 CEA 车型量产；技术服务金额、royalty 与现金未拆。" },
+    { "technology": "动力与充电", "existence": "PROVEN", "engineering": "PARTIAL", "production": "PROVEN", "externalAdoption": "UNKNOWN", "economic": "UNKNOWN", "note": "自有产品与网络已部署；利用率、回报和技术外供未披露。" },
+    { "technology": "车型与平台工程", "existence": "PROVEN", "engineering": "PARTIAL", "production": "PROVEN", "externalAdoption": "PARTIAL", "economic": "UNKNOWN", "note": "连续车型量产及联合车型下线；缺项目级开发成本与回收期。" },
+    { "technology": "自研芯片", "existence": "UNKNOWN", "engineering": "UNKNOWN", "production": "UNKNOWN", "externalAdoption": "UNKNOWN", "economic": "UNKNOWN", "note": "公开账本尚不足以证明量产装车、替代成本或外部采用。" },
+    { "technology": "机器人 / Physical AI", "existence": "PROVEN", "engineering": "UNKNOWN", "production": "UNKNOWN", "externalAdoption": "UNKNOWN", "economic": "UNKNOWN", "note": "项目、收购和融资存在；产品、客户、收入和可审计技术结果未闭合。" }
+  ],
+  "vwFunnel": [
+    { "stage": "agreement", "label": "协议", "status": "PROVEN", "text": "2023–2025 多份合作协议" },
+    { "stage": "development", "label": "开发", "status": "PROVEN", "text": "VW 年报确认联合开发 CEA" },
+    { "stage": "validation", "label": "验证", "status": "PROVEN", "text": "VW 称 18 个月达到量产要求" },
+    { "stage": "production", "label": "量产", "status": "PROVEN", "text": "ID. UNYX 07 进入量产" },
+    { "stage": "delivery", "label": "客户交付", "status": "UNKNOWN", "text": "无官方终端交付数量" },
+    { "stage": "royalty", "label": "Royalty", "status": "UNKNOWN", "text": "未披露实际销量 royalty" },
+    { "stage": "cash", "label": "现金", "status": "UNKNOWN", "text": "应收与现金未按技术服务拆分" }
+  ],
+  "promiseSummary": [
+    { "status": "FULFILLED", "count": 5, "label": "已完成" },
+    { "status": "OPEN_UNVERIFIED", "count": 9, "label": "未能核验" },
+    { "status": "NOT_COMPARABLE", "count": 1, "label": "不可比" }
+  ],
+  "promiseGroups": [
+    { "category": "近期车型与首个 VW CEA 量产排期", "result": "5 FULFILLED", "explanation": "可由后续正式材料同口径回测。" },
+    { "category": "SEPA / XNGP 成本、效率、兼容率", "result": "OPEN_UNVERIFIED", "explanation": "缺分母、基线或项目映射。" },
+    { "category": "高速 / 城市接管目标", "result": "OPEN_UNVERIFIED", "explanation": "缺 ODD、暴露里程和接管定义。" }
+  ],
+  "businessModel": [
+    { "label": "平台 / IP / know-how", "note": "与定制研发服务捆绑" },
+    { "label": "定制研发", "note": "深度工程交付" },
+    { "label": "成本投入法", "note": "按履约进度确认" },
+    { "label": "里程碑对价", "note": "可能形成当期 catch-up" },
+    { "label": "SOP", "note": "生产门与交付门分开" },
+    { "label": "潜在 royalty", "note": "按客户车型销量" },
+    { "label": "应收 / 现金", "note": "当前未按技术服务拆分" }
+  ],
+  "supportingEvidence": [
+    "连续车型与 OTA 证明持续产品化。",
+    "G6、X9 等车型形成 SEPA 2.0 自有量产链。",
+    "Volkswagen 对手方确认联合 CEA 开发、验证与首款车型量产。",
+    "技术研发服务已形成里程碑收入贡献。"
+  ],
+  "contraryEvidence": [
+    "充分核验的独立 OEM 仍只有 Volkswagen 一个集团。",
+    "技术服务收入、毛利、royalty、应收和现金没有单独列报。",
+    "SEPA / XNGP 量化承诺缺少可比的分母与基线。",
+    "ADAS 缺少带 ODD、暴露里程和接管定义的第三方数据。"
+  ],
+  "falsificationConditions": [
+    "出现 Volkswagen 之外、双方官方材料均确认的独立 OEM。",
+    "首次披露可识别的 SOP 后 royalty 与现金回款。",
+    "至少两个车型项目披露同口径开发周期与成本。",
+    "第三方 ADAS 数据提供 ODD、暴露里程、接管定义和对照组。"
+  ],
+  "sources": [
+    { "sourceId": "XPEV-SRC-AR-2020", "title": "XPeng 2020 Annual Report", "url": "https://www.sec.gov/Archives/edgar/data/1810997/000119312521118515/d63077d20f.htm" },
+    { "sourceId": "XPEV-SRC-AR-2021", "title": "XPeng 2021 Annual Report", "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2022/0428/2022042802498.pdf" },
+    { "sourceId": "XPEV-SRC-AR-2022", "title": "XPeng 2022 Annual Report", "url": "https://www.hkexnews.hk/listedco/listconews/sehk/2023/0412/2023041200474.pdf" },
+    { "sourceId": "XPEV-SRC-AR-2023", "title": "XPeng 2023 Annual Report", "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2024/0417/2024041701118.pdf" },
+    { "sourceId": "XPEV-SRC-AR-2024", "title": "XPeng 2024 Annual Report", "url": "https://www.hkexnews.hk/listedco/listconews/sehk/2025/0416/2025041600064.pdf" },
+    { "sourceId": "XPEV-SRC-AR-2025", "title": "XPeng 2025 Annual Report", "url": "https://www.sec.gov/Archives/edgar/data/1810997/000119312526157849/d36361d20f.htm" },
+    { "sourceId": "XPEV-SRC-FY2025-RESULTS", "title": "XPENG FY2025 Results", "url": "https://ir.xiaopeng.com/news-releases/news-release-details/xpeng-reports-fourth-quarter-and-fiscal-year-2025-unaudited" },
+    { "sourceId": "XPEV-SRC-Q1-2026", "title": "XPENG 2026 Q1 Results", "url": "https://ir.xiaopeng.com/zh-hans/news-releases/news-release-details/xpeng-reports-first-quarter-2026-unaudited-financial-results" },
+    { "sourceId": "XPEV-SRC-Q2-2026", "title": "XPENG 2026 Q2 Results", "url": "https://ir.xiaopeng.com/zh-hans/news-releases/news-release-details/xpeng-reports-second-quarter-2026-unaudited-financial-results" },
+    { "sourceId": "XPEV-SRC-VW-AR-2025", "title": "Volkswagen Group Annual Report 2025", "url": "https://annualreport2025.volkswagen-group.com/_assets/downloads/entire-vw-ar25.pdf?h=bz8bYG_n" },
+    { "sourceId": "XPEV-SRC-VW-CEA-SOP-2026", "title": "Volkswagen CEA production release", "url": "https://www.volkswagen-group.com/en/press-releases/volkswagen-group-china-starts-production-of-its-first-locally-developed-zonal-electronic-architecture-20144" },
+    { "sourceId": "XPEV-SRC-VW-SOP-2026", "title": "Volkswagen–XPENG joint vehicle production release", "url": "https://www.volkswagen-group.com/en/press-releases/milestone-of-in-china-for-china-strategy-first-car-developed-jointly-by-volkswagen-and-xpeng-rolls-off-the-production-line-20218" },
+    { "sourceId": "XPEV-SRC-VW-AUTOCHINA-2026", "title": "Volkswagen Auto China 2026 release", "url": "https://www.volkswagen-group.com/en/press-releases/auto-china-2026-volkswagen-group-unveils-record-product-offensive-and-agentic-ai-roadmap-for-china-20333" }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "company_slug": "xpeng",
-  "updated": "2026-08-21",
+  "updated": "2026-08-28",
   "latest_annual_analysis": {
     "title": "小鹏集团 2025 年报分析：技术资产开始变现了吗？",
     "period": "2025",
@@ -15,17 +15,17 @@
       "description": "报告日与实际发布状态严格分开",
       "items": [
         {
-          "source_id": "XPEV-SRC-Q2-2026-SCHEDULE",
-          "title": "XPENG 2026 年第二季度业绩",
+          "source_id": "XPEV-SRC-Q2-2026",
+          "title": "2026 年第二季度未经审计财务业绩",
           "period": "2026 Q2",
-          "published": null,
-          "pages": null,
-          "official_url": "https://ir.xiaopeng.com/news-releases/news-release-details/xpeng-report-second-quarter-2026-financial-results-monday-august",
-          "publication_status": "pending",
-          "verification_status": "OFFICIAL_LINK",
+          "published": "2026-08-24",
+          "pages": 14,
+          "official_url": "https://ir.xiaopeng.com/zh-hans/news-releases/news-release-details/xpeng-reports-second-quarter-2026-unaudited-financial-results",
+          "publication_status": "published",
+          "verification_status": "OFFICIAL_FILE_HASH_RECORDED_AND_VISUALLY_VERIFIED",
           "analysis_href": null,
           "analysis_status": "pending",
-          "note": "PENDING — NOT YET RELEASED · scheduled for 2026-08-24 · status as of 2026-08-21."
+          "note": "研发费用 RMB2,914.440m；技术研发服务里程碑与零配件共同推动服务及其他收入，技术服务未单独拆分。"
         },
         {
           "source_id": "XPEV-SRC-Q1-2026",
@@ -84,6 +84,19 @@
           "note": "对手方确认 CEA 在 18 个月内达到量产就绪；这验证 E/E 架构交付，不等于验证 ADAS 安全领先。"
         },
         {
+          "source_id": "XPEV-SRC-VW-CEA-SOP-2026",
+          "title": "Volkswagen 首款 CEA 车型量产公告",
+          "period": "2026-01",
+          "published": "2026-01-28",
+          "pages": null,
+          "official_url": "https://www.volkswagen-group.com/en/press-releases/volkswagen-group-china-starts-production-of-its-first-locally-developed-zonal-electronic-architecture-20144",
+          "publication_status": "published",
+          "verification_status": "OFFICIAL_LINK",
+          "analysis_href": "companies/xpeng/moat/",
+          "analysis_status": "published",
+          "note": "对手方确认 ID. UNYX 07 为首款搭载联合 CEA 的量产车型；终端交付与 royalty 仍未披露。"
+        },
+        {
           "source_id": "XPEV-SRC-VW-SOP-2026",
           "title": "Volkswagen–XPENG 首款联合开发车型下线",
           "period": "2026-03",
@@ -95,6 +108,19 @@
           "analysis_href": "blog/xpeng-2025-annual/",
           "analysis_status": "published",
           "note": "Volkswagen 对手方确认联合开发车型进入量产；验证合作落地，不等于验证 ADAS 安全领先。"
+        },
+        {
+          "source_id": "XPEV-SRC-VW-AUTOCHINA-2026",
+          "title": "Volkswagen Auto China 2026 技术与产品公告",
+          "period": "2026-04",
+          "published": "2026-04-21",
+          "pages": null,
+          "official_url": "https://www.volkswagen-group.com/en/press-releases/auto-china-2026-volkswagen-group-unveils-record-product-offensive-and-agentic-ai-roadmap-for-china-20333",
+          "publication_status": "published",
+          "verification_status": "OFFICIAL_LINK",
+          "analysis_href": "companies/xpeng/moat/",
+          "analysis_status": "published",
+          "note": "ID. AURA T6 被点名完全基于 CEA；这是后续计划，不是已量产或客户交付。"
         }
       ]
     }

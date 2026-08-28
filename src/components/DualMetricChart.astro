@@ -1,0 +1,134 @@
+---
+interface Point {
+  label: string;
+  bar: number;
+  line: number;
+}
+
+interface Props {
+  title: string;
+  subtitle: string;
+  data: Point[];
+  barLabel: string;
+  barUnit: string;
+  lineLabel: string;
+  lineUnit: string;
+  barDecimals?: number;
+  lineDecimals?: number;
+}
+
+const {
+  title,
+  subtitle,
+  data,
+  barLabel,
+  barUnit,
+  lineLabel,
+  lineUnit,
+  barDecimals = 1,
+  lineDecimals = 1,
+} = Astro.props;
+
+const width = 760;
+const height = 330;
+const plot = { left: 62, top: 40, width: 636, height: 205 };
+const maxBar = Math.max(...data.map((point) => point.bar)) * 1.14;
+const rawLineMax = Math.max(...data.map((point) => point.line));
+const maxLine = Math.max(10, Math.ceil(rawLineMax / 10) * 10);
+const step = plot.width / data.length;
+const barWidth = Math.min(58, step * 0.56);
+const xFor = (index: number) => plot.left + step * index + step / 2;
+const barY = (value: number) => plot.top + plot.height - (value / maxBar) * plot.height;
+const lineY = (value: number) => plot.top + plot.height - (value / maxLine) * plot.height;
+const polyline = data.map((point, index) => `${xFor(index)},${lineY(point.line)}`).join(" ");
+const grid = Array.from({ length: 5 }, (_, index) => {
+  const ratio = index / 4;
+  return {
+    y: plot.top + plot.height * ratio,
+    barValue: maxBar * (1 - ratio),
+    lineValue: maxLine * (1 - ratio),
+  };
+});
+---
+
+<figure class="dual-chart">
+  <figcaption>
+    <div><strong>{title}</strong><span>{subtitle}</span></div>
+    <div class="chart-legend" aria-hidden="true">
+      <span><i class="bar-key"></i>{barLabel}</span>
+      <span><i class="line-key"></i>{lineLabel}</span>
+    </div>
+  </figcaption>
+  <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label={`${title}；柱形为${barLabel}，折线为${lineLabel}`}>
+    {grid.map((line) => (
+      <g>
+        <line class="grid-line" x1={plot.left} x2={plot.left + plot.width} y1={line.y} y2={line.y} />
+        <text x={plot.left - 10} y={line.y + 4} text-anchor="end">{line.barValue.toFixed(barDecimals)}</text>
+        <text x={plot.left + plot.width + 10} y={line.y + 4}>{line.lineValue.toFixed(0)}</text>
+      </g>
+    ))}
+    {data.map((point, index) => (
+      <g class="bar-point">
+        <rect x={xFor(index) - barWidth / 2} y={barY(point.bar)} width={barWidth} height={plot.top + plot.height - barY(point.bar)} rx="5" />
+        <text class="bar-value" x={xFor(index)} y={barY(point.bar) - 8} text-anchor="middle">{point.bar.toFixed(barDecimals)}</text>
+        <text class="x-label" x={xFor(index)} y={plot.top + plot.height + 28} text-anchor="middle">{point.label}</text>
+      </g>
+    ))}
+    <polyline class="line-series" points={polyline} />
+    {data.map((point, index) => (
+      <g class="line-point">
+        <circle cx={xFor(index)} cy={lineY(point.line)} r="4.5" />
+        <text class="line-value" x={xFor(index)} y={lineY(point.line) - 12} text-anchor="middle">{point.line.toFixed(lineDecimals)}%</text>
+      </g>
+    ))}
+    <text class="axis-unit" x={plot.left} y={height - 12}>{barUnit}</text>
+    <text class="axis-unit right" x={plot.left + plot.width} y={height - 12} text-anchor="end">{lineUnit}</text>
+  </svg>
+  <details>
+    <summary>查看图表数据</summary>
+    <div class="chart-table-wrap">
+      <table>
+        <thead><tr><th>年份</th><th>{barLabel}</th><th>{lineLabel}</th></tr></thead>
+        <tbody>{data.map((point) => <tr><td>{point.label}</td><td>{point.bar.toFixed(barDecimals)} {barUnit}</td><td>{point.line.toFixed(lineDecimals)}%</td></tr>)}</tbody>
+      </table>
+    </div>
+  </details>
+</figure>
+
+<style>
+  .dual-chart { margin: 0; padding: 19px; border: 1px solid var(--line); border-radius: 20px; background: var(--surface); overflow: hidden; }
+  figcaption { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; min-height: 50px; }
+  figcaption strong, figcaption span { display: block; }
+  figcaption strong { font-family: var(--serif); font-size: 16px; }
+  figcaption > div:first-child span { margin-top: 5px; color: var(--dim); font-family: var(--mono); font-size: 8px; line-height: 1.5; }
+  .chart-legend { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px 12px; color: var(--muted); font-family: var(--mono); font-size: 7px; }
+  .chart-legend span { display: flex; align-items: center; gap: 5px; }
+  .chart-legend i { display: inline-block; width: 11px; height: 4px; border-radius: 3px; }
+  .bar-key { background: var(--cyan); }
+  .line-key { background: var(--gold); }
+  svg { display: block; width: 100%; height: auto; }
+  text { fill: var(--dim); font-family: var(--mono); font-size: 9px; }
+  .grid-line { stroke: var(--line); stroke-width: 1; }
+  rect { fill: rgba(0, 113, 227, .72); }
+  .bar-value { fill: var(--text-soft); font-size: 8px; }
+  .line-series { fill: none; stroke: var(--gold); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+  circle { fill: var(--surface); stroke: var(--gold); stroke-width: 3; }
+  .line-value { fill: var(--gold); font-size: 8px; font-weight: 700; }
+  .x-label { fill: var(--muted); }
+  .axis-unit { fill: var(--cyan); font-size: 8px; }
+  .axis-unit.right { fill: var(--gold); }
+  details { margin-top: 4px; border-top: 1px solid var(--line); }
+  summary { padding-top: 10px; color: var(--dim); cursor: pointer; font-family: var(--mono); font-size: 8px; }
+  .chart-table-wrap { overflow-x: auto; margin-top: 10px; }
+  table { width: 100%; border-collapse: collapse; font-size: 9px; }
+  th, td { padding: 7px; border: 1px solid var(--line); text-align: right; }
+  th:first-child, td:first-child { text-align: left; }
+  @media (max-width: 560px) {
+    .dual-chart { padding: 15px 8px 11px; }
+    figcaption { padding-inline: 7px; flex-direction: column; }
+    .chart-legend { justify-content: flex-start; }
+    .bar-value { display: none; }
+    text { font-size: 8px; }
+  }
+</style>
+

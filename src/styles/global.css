@@ -171,6 +171,8 @@ code { font-family: var(--mono); }
 .tabs-inner a.active span { color: var(--cyan); }
 
 .research-page { display: grid; grid-template-columns: minmax(0, 1fr) 240px; gap: 24px; align-items: start; padding-top: 42px; padding-bottom: 64px; }
+.research-page-wide { grid-template-columns: minmax(0, 1fr); }
+.research-page-wide .research-aside { grid-template-columns: repeat(4, minmax(0, 1fr)); position: static; }
 .research-document { min-width: 0; padding: 36px 40px 46px; border: 1px solid var(--line); background: var(--surface); }
 .document-meta { display: flex; justify-content: space-between; margin-bottom: 36px; padding-bottom: 13px; border-bottom: 1px solid var(--line); color: var(--dim); font-family: var(--mono); font-size: 8px; letter-spacing: .08em; text-transform: uppercase; }
 .prose h1 { margin: 0 0 28px; font-family: var(--serif); font-size: 34px; line-height: 1.25; }

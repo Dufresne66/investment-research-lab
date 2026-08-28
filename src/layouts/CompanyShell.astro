@@ -52,7 +52,7 @@ const visibleSections = companySections.filter(([, slug]) => availableSections.i
     </div>
   </nav>
 
-  <div class="research-page page-width">
+  <div class:list={["research-page", "page-width", company.slug === "xpeng" && current === "moat" && "research-page-wide"]}>
     <article class="research-document">
       <div class="document-meta">
         <span>RESEARCH NOTE</span>

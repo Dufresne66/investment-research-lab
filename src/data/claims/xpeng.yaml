@@ -11,10 +11,10 @@
   evidence_against:
     - 技术研发服务收入、毛利和合同期限未单独披露
     - Volkswagen 合作验证 E/E 架构，不等于验证 ADAS 安全领先
-    - 2026 Q1 再次亏损，技术投入尚未形成稳定季度盈利
+    - 终端客户交付、SOP 后 royalty 与技术服务现金回款尚未披露
   evidence_needed:
-    - 第二个外部 OEM 客户或 Volkswagen 续约扩围
+    - Volkswagen 之外的第二个独立外部 OEM 客户
     - 技术服务单独收入、毛利、现金回款与客户集中度
-    - CEA 多车型量产的对手方持续确认
+    - CEA 多车型客户交付的对手方持续确认
     - 有暴露量分母的第三方 ADAS 安全与接管数据
-  last_updated: "2026-08-21"
+  last_updated: "2026-08-28"

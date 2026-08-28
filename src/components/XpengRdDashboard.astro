@@ -1,0 +1,222 @@
+---
+import DualMetricChart from "./DualMetricChart.astro";
+
+interface Props { data: any; }
+const { data } = Astro.props;
+const expenseData = data.annualRd.map((row: any) => ({ label: row.year, bar: row.rdExpenseRmbM / 1000, line: row.rdPctRevenue }));
+const peopleData = data.annualRd.map((row: any) => ({ label: row.year, bar: row.rdEmployees, line: row.rdEmployeeShare }));
+const gateKeys = ["existence", "engineering", "production", "externalAdoption", "economic"];
+const gateLabels = ["存在", "工程", "量产", "外部采用", "经济"];
+---
+
+<div class="xrd-dashboard" data-xpeng-rd-dashboard>
+  <section class="summary-grid" aria-label="研发追踪摘要">
+    {data.summaryCards.map((card: any) => (
+      <article><span>{card.label}</span><strong>{card.value}</strong><p>{card.note}</p></article>
+    ))}
+  </section>
+
+  <p class="boundary-note"><b>BOUNDARY</b>{data.thesis.boundary}</p>
+
+  <section class="xrd-section" aria-labelledby="xrd-investment-title">
+    <header><span>01</span><div><h2 id="xrd-investment-title">投入与组织</h2><p>同时看绝对投入、收入强度和研发组织，不把任何单项写成效率。</p></div></header>
+    <div class="chart-grid">
+      <DualMetricChart title="年度研发费用与费用率" subtitle="费用扩大，收入增长更快" data={expenseData} barLabel="研发费用" barUnit="RMB bn" lineLabel="研发费用 / 收入" lineUnit="%" barDecimals={2} />
+      <DualMetricChart title="研发人员与组织占比" subtitle="人数是资源规模，不是产出率" data={peopleData} barLabel="研发人员" barUnit="人" lineLabel="研发人员占比" lineUnit="%" barDecimals={0} />
+    </div>
+    <p class="section-footnote">2023 年研发人数下降与 2025 年快速扩张均未披露项目归属；人数变化不是效率变化。</p>
+  </section>
+
+  <section class="xrd-section" aria-labelledby="xrd-gates-title">
+    <header><span>02</span><div><h2 id="xrd-gates-title">七条技术树 × 五道证据门</h2><p>发布会不是量产，量产不是外部采用，外部采用也不等于高回报。</p></div></header>
+    <div class="matrix-wrap" tabindex="0" aria-label="技术树证据矩阵，可横向滚动">
+      <table class="gate-matrix">
+        <thead><tr><th>技术树</th>{gateLabels.map((label) => <th>{label}</th>)}<th>当前边界</th></tr></thead>
+        <tbody>
+          {data.technologyGates.map((row: any) => (
+            <tr>
+              <th scope="row">{row.technology}</th>
+              {gateKeys.map((key) => <td><span class:list={["gate", `is-${row[key].toLowerCase()}`]}>{row[key]}</span></td>)}
+              <td>{row.note}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <div class="matrix-key"><span class="gate is-proven">PROVEN</span><p>有一手事实，不代表技术领先。</p><span class="gate is-partial">PARTIAL</span><p>定义、覆盖或经济归属不完整。</p><span class="gate is-unknown">UNKNOWN</span><p>缺证据，不等于已经失败。</p></div>
+  </section>
+
+  <section class="xrd-section" aria-labelledby="xrd-vw-title">
+    <header><span>03</span><div><h2 id="xrd-vw-title">Volkswagen 转化漏斗</h2><p>CEA 已进入量产，但研究问题要继续追到客户、royalty 和现金。</p></div></header>
+    <div class="vw-funnel">
+      {data.vwFunnel.map((item: any, index: number) => (
+        <article class:list={[`is-${item.status.toLowerCase()}`]}>
+          <span>{String(index + 1).padStart(2, "0")} · {item.stage}</span>
+          <strong>{item.label}</strong>
+          <b>{item.status}</b>
+          <p>{item.text}</p>
+        </article>
+      ))}
+    </div>
+    <div class="vw-boundaries">
+      <p><b>后续计划</b>ID. AURA T6 被官方点名完全基于 CEA，但尚不是 SOP 或客户交付事实。</p>
+      <p><b>不得混同</b>CARIZON / 地平线 ADAS 是另一条技术链，不属于小鹏 ADAS 外供证据。</p>
+    </div>
+  </section>
+
+  <section class="xrd-section" aria-labelledby="xrd-model-title">
+    <header><span>04</span><div><h2 id="xrd-model-title">技术服务是什么生意</h2><p>现阶段更接近“平台许可 + 深度定制工程 + 里程碑 + 潜在销量 royalty”。</p></div></header>
+    <div class="business-flow">
+      {data.businessModel.map((item: any, index: number) => (
+        <article><span>{String(index + 1).padStart(2, "0")}</span><strong>{item.label}</strong><p>{item.note}</p></article>
+      ))}
+    </div>
+    <ul class="model-limits">
+      <li>技术研发服务收入从未单独列报。</li>
+      <li><i>services and others</i> 同时混有零配件和碳积分等。</li>
+      <li>确认收入不等于收到现金。</li>
+    </ul>
+  </section>
+
+  <section class="xrd-section" aria-labelledby="xrd-promises-title">
+    <header><span>05</span><div><h2 id="xrd-promises-title">承诺回测</h2><p>未能核验不是失败，因此不计算“兑现率”。</p></div></header>
+    <div class="promise-summary">
+      {data.promiseSummary.map((item: any) => <article class:list={[`is-${item.status.toLowerCase()}`]}><strong>{item.count}</strong><span>{item.status}</span><p>{item.label}</p></article>)}
+    </div>
+    <div class="promise-table-wrap">
+      <table class="promise-table">
+        <thead><tr><th>承诺类别</th><th>结果</th><th>为什么</th></tr></thead>
+        <tbody>{data.promiseGroups.map((item: any) => <tr><td>{item.category}</td><td><b>{item.result}</b></td><td>{item.explanation}</td></tr>)}</tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="xrd-section" aria-labelledby="xrd-evidence-title">
+    <header><span>06</span><div><h2 id="xrd-evidence-title">支持、限制与升级条件</h2><p>当前判断必须能够被后续证据提高、削弱或推翻。</p></div></header>
+    <div class="evidence-columns">
+      <article class="supports"><span>SUPPORTING</span><h3>为什么能力已成立</h3><ul>{data.supportingEvidence.map((item: string) => <li>{item}</li>)}</ul></article>
+      <article class="contrary"><span>CONTRARY</span><h3>为什么护城河未闭合</h3><ul>{data.contraryEvidence.map((item: string) => <li>{item}</li>)}</ul></article>
+      <article class="triggers"><span>UPDATE TRIGGERS</span><h3>什么证据会升级判断</h3><ul>{data.falsificationConditions.map((item: string) => <li>{item}</li>)}</ul></article>
+    </div>
+  </section>
+
+  <section class="xrd-section source-section" aria-labelledby="xrd-sources-title">
+    <header><span>07</span><div><h2 id="xrd-sources-title">核心一手来源</h2><p>Research updated {data.updated} · Data through {data.asOfPeriod}</p></div></header>
+    <div class="source-grid">
+      {data.sources.map((source: any) => <a href={source.url} target="_blank" rel="noreferrer"><code>{source.sourceId}</code><strong>{source.title}</strong><span>Official source ↗</span></a>)}
+    </div>
+  </section>
+</div>
+
+<style>
+  .xrd-dashboard { margin-top: 36px; }
+  .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 11px; }
+  .summary-grid article { min-width: 0; padding: 20px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); }
+  .summary-grid span, .summary-grid strong { display: block; }
+  .summary-grid span { color: var(--dim); font-family: var(--mono); font-size: 8px; text-transform: uppercase; }
+  .summary-grid strong { margin-top: 17px; color: var(--cyan); font-family: var(--mono); font-size: 24px; }
+  .summary-grid p { margin: 8px 0 0; color: var(--muted); font-size: 10px; line-height: 1.55; }
+  .boundary-note { display: grid; grid-template-columns: auto 1fr; gap: 12px; margin: 13px 0 0; padding: 13px 15px; border: 1px dashed rgba(154, 82, 0, .35); border-radius: 14px; background: var(--gold-soft); color: var(--text-soft); font-size: 11px; line-height: 1.6; }
+  .boundary-note b { color: var(--gold); font-family: var(--mono); font-size: 8px; letter-spacing: .1em; }
+  .xrd-section { margin-top: 48px; padding-top: 28px; border-top: 1px solid var(--line); }
+  .xrd-section > header { display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 12px; margin-bottom: 22px; }
+  .xrd-section > header > span { padding-top: 5px; color: var(--cyan); font-family: var(--mono); font-size: 9px; }
+  .xrd-section h2 { margin: 0; font-family: var(--serif); font-size: 23px; }
+  .xrd-section header p { margin: 6px 0 0; color: var(--muted); font-size: 11px; line-height: 1.65; }
+  .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .section-footnote { margin: 11px 0 0; color: var(--dim); font-size: 10px; line-height: 1.65; }
+  .matrix-wrap, .promise-table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 17px; background: var(--surface); }
+  .gate-matrix, .promise-table { width: 100%; border-collapse: collapse; font-size: 9px; }
+  .gate-matrix { min-width: 800px; }
+  .gate-matrix th, .gate-matrix td, .promise-table th, .promise-table td { padding: 10px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); text-align: left; }
+  .gate-matrix tr:last-child th, .gate-matrix tr:last-child td, .promise-table tr:last-child td { border-bottom: 0; }
+  .gate-matrix th:last-child, .gate-matrix td:last-child, .promise-table th:last-child, .promise-table td:last-child { border-right: 0; }
+  .gate-matrix thead th, .promise-table thead th { background: var(--surface-2); color: var(--dim); font-family: var(--mono); font-size: 8px; }
+  .gate-matrix tbody th { min-width: 135px; font-family: var(--serif); font-size: 10px; }
+  .gate-matrix td:last-child { min-width: 210px; color: var(--muted); line-height: 1.55; }
+  .gate { display: inline-flex; padding: 4px 6px; border-radius: 999px; font-family: var(--mono); font-size: 7px; white-space: nowrap; }
+  .gate.is-proven { background: var(--green-soft); color: var(--green); }
+  .gate.is-partial { background: var(--gold-soft); color: var(--gold); }
+  .gate.is-unknown { background: var(--surface-3); color: var(--dim); }
+  .matrix-key { display: grid; grid-template-columns: auto 1fr auto 1fr auto 1fr; gap: 8px 10px; align-items: center; margin-top: 12px; }
+  .matrix-key p { margin: 0; color: var(--dim); font-size: 9px; line-height: 1.5; }
+  .vw-funnel { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; }
+  .vw-funnel article { position: relative; min-width: 0; padding: 14px 10px; border-right: 1px solid var(--line); background: var(--surface); }
+  .vw-funnel article:last-child { border-right: 0; }
+  .vw-funnel article::after { content: "→"; position: absolute; z-index: 1; right: -7px; top: 45px; color: var(--cyan); font-family: var(--mono); font-size: 11px; }
+  .vw-funnel article:last-child::after { display: none; }
+  .vw-funnel span, .vw-funnel strong, .vw-funnel b { display: block; }
+  .vw-funnel span { overflow: hidden; color: var(--dim); font-family: var(--mono); font-size: 6px; text-overflow: ellipsis; white-space: nowrap; }
+  .vw-funnel strong { margin-top: 17px; font-family: var(--serif); font-size: 12px; }
+  .vw-funnel b { margin-top: 7px; color: var(--green); font-family: var(--mono); font-size: 7px; }
+  .vw-funnel article.is-unknown b { color: var(--dim); }
+  .vw-funnel p { min-height: 46px; margin: 9px 0 0; color: var(--muted); font-size: 8px; line-height: 1.45; }
+  .vw-boundaries { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 11px; }
+  .vw-boundaries p { margin: 0; padding: 13px; border-radius: 13px; background: var(--surface-2); color: var(--muted); font-size: 10px; line-height: 1.6; }
+  .vw-boundaries b { display: block; margin-bottom: 4px; color: var(--text); font-family: var(--mono); font-size: 7px; }
+  .business-flow { display: grid; grid-template-columns: repeat(7, 1fr); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; }
+  .business-flow article { position: relative; min-width: 0; min-height: 132px; padding: 13px 9px; border-right: 1px solid var(--line); background: var(--surface); }
+  .business-flow article:last-child { border-right: 0; }
+  .business-flow article::after { content: "+"; position: absolute; right: -6px; top: 20px; z-index: 1; color: var(--cyan); font-family: var(--mono); }
+  .business-flow article:nth-last-child(-n+5)::after { content: "→"; }
+  .business-flow article:last-child::after { display: none; }
+  .business-flow span { color: var(--dim); font-family: var(--mono); font-size: 7px; }
+  .business-flow strong { display: block; margin-top: 22px; font-family: var(--serif); font-size: 11px; line-height: 1.35; }
+  .business-flow p { margin: 7px 0 0; color: var(--muted); font-size: 8px; line-height: 1.45; }
+  .model-limits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; margin: 11px 0 0; padding: 0; list-style: none; }
+  .model-limits li { padding: 12px; border: 1px solid rgba(215, 0, 21, .15); border-radius: 12px; background: var(--coral-soft); color: var(--text-soft); font-size: 9px; line-height: 1.55; }
+  .promise-summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 11px; }
+  .promise-summary article { display: grid; grid-template-columns: auto 1fr; gap: 3px 10px; padding: 16px; border: 1px solid var(--line); border-radius: 15px; background: var(--surface); }
+  .promise-summary strong { grid-row: 1 / span 2; font-family: var(--mono); font-size: 28px; }
+  .promise-summary span { align-self: end; font-family: var(--mono); font-size: 7px; }
+  .promise-summary p { margin: 0; color: var(--muted); font-size: 9px; }
+  .promise-summary .is-fulfilled strong, .promise-summary .is-fulfilled span { color: var(--green); }
+  .promise-summary .is-open_unverified strong, .promise-summary .is-open_unverified span { color: var(--gold); }
+  .promise-summary .is-not_comparable strong, .promise-summary .is-not_comparable span { color: var(--dim); }
+  .promise-table { min-width: 620px; }
+  .promise-table td { color: var(--muted); font-size: 9px; line-height: 1.55; }
+  .promise-table b { color: var(--text-soft); font-family: var(--mono); font-size: 8px; }
+  .evidence-columns { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .evidence-columns article { padding: 18px; border: 1px solid var(--line); border-top: 2px solid; border-radius: 16px; background: var(--surface); }
+  .evidence-columns .supports { border-top-color: var(--green); }
+  .evidence-columns .contrary { border-top-color: var(--coral); }
+  .evidence-columns .triggers { border-top-color: var(--cyan); }
+  .evidence-columns > article > span { font-family: var(--mono); font-size: 7px; }
+  .supports > span { color: var(--green); }
+  .contrary > span { color: var(--coral); }
+  .triggers > span { color: var(--cyan); }
+  .evidence-columns h3 { margin: 11px 0 12px; font-family: var(--serif); font-size: 14px; }
+  .evidence-columns ul { margin: 0; padding-left: 16px; }
+  .evidence-columns li { margin: 7px 0; color: var(--muted); font-size: 9px; line-height: 1.55; }
+  .source-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .source-grid a { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 5px 12px; min-width: 0; padding: 13px; border: 1px solid var(--line); border-radius: 13px; background: var(--surface); }
+  .source-grid a:hover { border-color: rgba(0, 113, 227, .4); transform: translateY(-1px); }
+  .source-grid code { grid-column: 1 / -1; overflow: hidden; color: var(--cyan); font-size: 7px; text-overflow: ellipsis; white-space: nowrap; }
+  .source-grid strong { min-width: 0; overflow: hidden; font-family: var(--serif); font-size: 10px; font-weight: 500; text-overflow: ellipsis; white-space: nowrap; }
+  .source-grid span { color: var(--dim); font-family: var(--mono); font-size: 7px; white-space: nowrap; }
+  @media (max-width: 900px) {
+    .chart-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 820px) {
+    .summary-grid, .evidence-columns { grid-template-columns: 1fr; }
+    .matrix-key { grid-template-columns: auto 1fr; }
+    .vw-funnel, .business-flow { grid-template-columns: 1fr; }
+    .vw-funnel article, .business-flow article { min-height: 0; border-right: 0; border-bottom: 1px solid var(--line); }
+    .vw-funnel article:last-child, .business-flow article:last-child { border-bottom: 0; }
+    .vw-funnel article::after, .business-flow article::after, .business-flow article:nth-last-child(-n+5)::after { content: "↓"; right: 16px; top: auto; bottom: -9px; }
+    .vw-funnel strong, .business-flow strong { margin-top: 10px; }
+    .vw-funnel p { min-height: 0; }
+    .business-flow article { min-height: 96px; }
+    .vw-boundaries, .model-limits { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .xrd-dashboard { margin-top: 28px; }
+    .summary-grid article { padding: 17px; }
+    .summary-grid strong { font-size: 21px; }
+    .boundary-note { grid-template-columns: 1fr; }
+    .xrd-section { margin-top: 40px; padding-top: 23px; }
+    .xrd-section > header { grid-template-columns: 27px minmax(0, 1fr); }
+    .xrd-section h2 { font-size: 20px; }
+    .promise-summary, .source-grid { grid-template-columns: 1fr; }
+  }
+</style>
